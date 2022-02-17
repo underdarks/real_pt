@@ -1,4 +1,4 @@
-package health.real_pt.Review.domain;
+package health.real_pt.review.domain;
 
 import health.real_pt.common.BaseEntity;
 import health.real_pt.member.domain.Member;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.spi.LocaleNameProvider;
 
 @Entity
 @Getter @Setter
