@@ -1,0 +1,47 @@
+package health.real_pt.member.service;
+
+import health.real_pt.config.BeanConfig;
+import health.real_pt.member.domain.Member;
+import health.real_pt.member.repository.MemberRepository;
+import health.real_pt.member.repository.MysqlMemberRepository;
+import org.assertj.core.api.Assertions;
+import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class MeberServiceImplTest {
+
+    @Autowired EntityManager em;
+    MemberRepository memberRepository=new MysqlMemberRepository(em);
+    MemberService memberService= new MeberServiceImpl(memberRepository);
+
+
+    @Test
+    public void 회원가입_테스트(){
+        //given
+        Member member=new Member();
+        member.setUserId("id1");
+        member.setName("석재현");
+        member.setNickname("헬창퀀트");
+        member.setEmail("rkdrl45617@gmail.com");
+
+        //when
+//        memberService.join(member);
+//
+//        Optional<Member> findMember = memberRepository.findById(1L);
+//
+//        //then
+//        Assertions.assertThat(findMember.get().getId()).isEqualTo(member.getId());
+
+
+    }
+
+
+}

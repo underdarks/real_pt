@@ -7,9 +7,5 @@ import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
-@Entity
-@Getter @Setter
 public class Address {
-
-
 }

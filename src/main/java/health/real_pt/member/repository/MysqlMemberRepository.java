@@ -34,4 +34,7 @@ public class MysqlMemberRepository implements MemberRepository {
     public void delete(Member member) {
         em.remove(member);
     }
+
+
+
 }
