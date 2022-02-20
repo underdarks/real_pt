@@ -18,7 +18,7 @@ public interface MemberRepository {
 
     Optional<Member> findById(Long memberId);
 
-    Optional<Member> findByNameAndEmail();
+    Optional<Member> findByNameAndEmail(Member member);
 
     void delete(Member member);
 

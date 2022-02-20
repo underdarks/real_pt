@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,8 +27,13 @@ public class MysqlMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByNameAndEmail() {
-        return Optional.empty();
+    public Optional<Member> findByNameAndEmail(Member member) {
+        Member findMember = (Member) em.createQuery("select m from Member m where m.name =: name and m.email =:email").
+                setParameter("name", member.getName()).
+                setParameter("email", member.getEmail()).getResultList().findMember;get(0);
+
+
+        return Optional.ofNullable(findMember);
     }
 
     @Override

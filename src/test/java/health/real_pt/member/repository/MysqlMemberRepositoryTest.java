@@ -56,4 +56,6 @@ class MysqlMemberRepositoryTest {
         Assertions.assertThat(findMember.get().getId()).isEqualTo(member.getId());
     }
 
+
+
 }

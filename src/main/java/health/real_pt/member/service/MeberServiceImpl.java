@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional  //JPA는 트랜잭션 안에서 실행됨
@@ -29,7 +31,9 @@ public class MeberServiceImpl implements MemberService{
      *
      */
     private void validateDuplicateMember(Member member){
-        memberRepository.findById(member.getId()).ifPresent(m -> {
+//        System.out.println("member = " + member.getId());
+        Optional<Member> findMember = memberRepository.findByNameAndEmail(member);
+        findMember.ifPresent(m -> {
             throw new IllegalStateException("이미 존재하는 회원입니다!");
         });
     }

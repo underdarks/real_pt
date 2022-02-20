@@ -26,7 +26,7 @@ public class Member extends BaseEntity {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL",unique = true)
     private String email;
 
     @Column(name = "PHONE")
@@ -43,10 +43,5 @@ public class Member extends BaseEntity {
 
     @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
     private String recommandedCode;
-
-
-
-
-
 
 }
