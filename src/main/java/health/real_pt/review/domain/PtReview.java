@@ -20,9 +20,6 @@ public class PtReview extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @Column(name = "TITLE")
-    private String title;
-
     @Column(name = "COMMENT")
     private String comment;
 

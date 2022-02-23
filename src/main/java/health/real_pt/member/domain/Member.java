@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -32,7 +33,8 @@ public class Member extends BaseEntity {
     @Column(name = "PHONE")
     private String phone;
 
-    @Column(name = "BIRTHDAY")
+    @Column(name = "BIRTHDAY",nullable = false)
+//    @NotNull
     private LocalDate birthDay;
 
     @Column(name = "NICKNAME", unique = true)
@@ -43,5 +45,6 @@ public class Member extends BaseEntity {
 
     @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
     private String recommandedCode;
+
 
 }

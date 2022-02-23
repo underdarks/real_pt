@@ -30,7 +30,7 @@ public class MysqlMemberRepository implements MemberRepository {
     public Optional<Member> findByNameAndEmail(Member member) {
         Member findMember = (Member) em.createQuery("select m from Member m where m.name =: name and m.email =:email").
                 setParameter("name", member.getName()).
-                setParameter("email", member.getEmail()).getResultList().findMember;get(0);
+                setParameter("email", member.getEmail()).getResultList();
 
 
         return Optional.ofNullable(findMember);
