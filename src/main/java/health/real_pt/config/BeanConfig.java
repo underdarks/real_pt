@@ -1,5 +1,10 @@
 package health.real_pt.config;
 
+import health.real_pt.gym.domain.Gym;
+import health.real_pt.gym.repository.GymRepository;
+import health.real_pt.gym.repository.MysqlGymRepository;
+import health.real_pt.gym.service.GymService;
+import health.real_pt.gym.service.GymServiceImpl;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.member.repository.MysqlMemberRepository;
 import health.real_pt.member.service.MeberServiceImpl;
@@ -32,4 +37,16 @@ public class BeanConfig {
         System.out.println("BeanConfig - MemberService 빈 의존성 주입");
         return new MeberServiceImpl(memberRepository());
     }
+
+    @Bean
+    public GymRepository gymRepository(){
+        return new MysqlGymRepository(em);
+    }
+
+    @Bean
+    public GymService gymService(){
+        return new GymServiceImpl()
+    }
+
+
 }

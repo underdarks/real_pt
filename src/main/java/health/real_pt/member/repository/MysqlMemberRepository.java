@@ -9,15 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MysqlMemberRepository implements MemberRepository {
 
     private final EntityManager em;
 
+    public MysqlMemberRepository(EntityManager em) {
+        this.em = em;
+    }
+
     @Override
-    public Member save(Member member) {
+    public Long save(Member member) {
         em.persist(member);
-        return member;
+        return member.getId();
     }
 
     @Override
