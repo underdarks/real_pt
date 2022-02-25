@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.sql.Clob;
 
 @MappedSuperclass
 @Getter
@@ -21,5 +22,8 @@ public abstract class BaseEntity {
 
     @Column(name = "MOD_MEMBER_ID")
     private String mod_member; //수정자
+
+    @Column(name = "REMARKS")
+    private Clob remarks;       //비고
 
 }
