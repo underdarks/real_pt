@@ -24,5 +24,24 @@ class testTest {
         System.out.println("localDateTime = " + localDateTime);
     }
 
+    public class Book{
+        private Long id;
+
+        private String name;
+        private String author;
+    }
+
+    @Test
+    public void Book_객체생성(){
+        //given
+        Book book=new Book();
+
+
+        //when
+
+
+        //then
+    }
+
 
 }

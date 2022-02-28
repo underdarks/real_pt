@@ -31,4 +31,10 @@ public interface MemberService {
      *
      */
 
+
+    /**
+     * 회원 탈퇴
+     * @param id
+     */
+    void quit(Long id);
 }

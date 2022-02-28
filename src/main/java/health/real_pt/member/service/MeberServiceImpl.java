@@ -9,11 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Transactional  //JPA는 트랜잭션 안에서 실행됨
 public class MeberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+
+    public MeberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public void join(Member member) {
@@ -47,6 +51,11 @@ public class MeberServiceImpl implements MemberService{
     @Override
     public void findPW() {
 
+    }
+
+    @Override
+    public void quit(Long id) {
+        memberRepository.findById(id);
     }
 
 

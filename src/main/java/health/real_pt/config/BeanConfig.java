@@ -45,7 +45,7 @@ public class BeanConfig {
 
     @Bean
     public GymService gymService(){
-        return new GymServiceImpl()
+        return new GymServiceImpl(gymRepository())
     }
 
 

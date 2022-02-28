@@ -25,10 +25,4 @@ public interface GymRepository {
     //삭제
     void delete(Gym gym);
 
-
-
-
-
-
-
 }

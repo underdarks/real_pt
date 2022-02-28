@@ -1,6 +1,8 @@
 package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
+import health.real_pt.common.CommonBuilder;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -9,7 +11,7 @@ import java.sql.Clob;
 @Entity
 @Getter
 @Table(name = "GYM")
-public class Gym extends BaseEntity {
+public class Gym extends BaseEntity implements CommonBuilder {
 
     @Id @GeneratedValue
     @Column(name = "GYM_ID")
@@ -19,7 +21,7 @@ public class Gym extends BaseEntity {
     private String name;    //헬스장 이름
 
     @Column(name = "INFO")
-    private Clob Info;      //헬스장 정보
+    private Clob info;      //헬스장 정보
 
     @Column(name = "OPEN_TIME")
     private Clob openTime;    //영업 시간
@@ -34,6 +36,15 @@ public class Gym extends BaseEntity {
     private Clob extraService;  //부가서비스
 
     @Column(name = "FACILITIES")
-    private Clob Facilites;     //편의시설
+    private Clob facilites;     //편의시설
+
+    @Override
+    public Object build() {
+        return null;
+    }
+
+    @Builder
+    public static
+
 
 }

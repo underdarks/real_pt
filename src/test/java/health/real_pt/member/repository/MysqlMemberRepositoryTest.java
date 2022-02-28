@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-@Transactional
+@Transactional  //테스트 코드에 @Transactional이 있으면 자동으로 RollBack 해버리는데 @Commit이 있으면 롤백이 안됨
 class MysqlMemberRepositoryTest {
 
     @Autowired EntityManager em;
@@ -31,8 +31,6 @@ class MysqlMemberRepositoryTest {
     public void beforeEach(){
         memberRepository=new MysqlMemberRepository(em);
     }
-
-
 
     @DisplayName("DB Insert 테스트")
     @Test
