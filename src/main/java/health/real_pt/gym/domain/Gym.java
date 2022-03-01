@@ -2,16 +2,16 @@ package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.CommonBuilder;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Clob;
 
-@Entity
+@Entity @Table(name = "GYM")
 @Getter
-@Table(name = "GYM")
-public class Gym extends BaseEntity implements CommonBuilder {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
+@ToString(exclude = "")
+public class Gym extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "GYM_ID")
@@ -38,13 +38,15 @@ public class Gym extends BaseEntity implements CommonBuilder {
     @Column(name = "FACILITIES")
     private Clob facilites;     //편의시설
 
-    @Override
-    public Object build() {
-        return null;
-    }
-
     @Builder
-    public static
-
+    public Gym(String name, Clob info, Clob openTime, Clob program, String location, Clob extraService, Clob facilites){
+        this.name=name;
+        this.info=info;
+        this.openTime=openTime;
+        this.program=program;
+        this.location=location;
+        this.extraService=extraService;
+        this.facilites=facilites;
+    }
 
 }

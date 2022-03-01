@@ -42,11 +42,10 @@ class MeberServiceImplTest {
     @Test
     public void 회원가입_테스트(){
         //given
-        Member member=new Member();
-        member.setUserId("id10");
-        member.setName("김회원");
-        member.setNickname("닉네임1");
-        member.setEmail("rkdrl45617@gmail.com");
+        Member member = Member.builder()
+                .name("test")
+                .email("test12")
+                .build();
 
         //when
         memberService.join(member);

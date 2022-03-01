@@ -14,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,19 +37,15 @@ class MysqlMemberRepositoryTest {
     @Test
     @Commit
     public void 회원저장_테스트() {
-
-//        if(em == null)
-//            System.out.println("em 이 널이다!!");
-//
-//        if(memberRepository == null)
-//            System.out.println("memberRepository 이 널이다!!");
-
         //given
-        Member member = new Member();
-        member.setUserId("id1");
-        member.setName("석재현");
-        member.setNickname("헬창퀀트");
-        member.setEmail("rkdrl45617@gmail.com");
+        Member member = Member.builder()
+                .userId("1234")
+                .name("test")
+                .password("12314")
+                .email("test12")
+                .birthDay(LocalDate.now())
+                .build();
+
 
         //when
         memberRepository.save(member);
@@ -58,12 +55,25 @@ class MysqlMemberRepositoryTest {
         Assertions.assertThat(findMember.get().getId()).isEqualTo(member.getId());
     }
 
+    @Test
+    public void 회원수정_테스트(){
+        //given
+        Member findMember = memberRepository.findById(1L).get();
+
+
+        //when
+
+
+        //then
+    }
+
     public Member getMember(){
-        Member member = new Member();
-        member.setUserId("id1");
-        member.setName("test");
-        member.setNickname("testName");
-        member.setEmail("test@gmail.com");
+        Member member = Member.builder()
+                .name("test")
+                .email("test12")
+                .build();
+
+
 //        member.setBirthDay(LocalDate.now());
 
         return member;
