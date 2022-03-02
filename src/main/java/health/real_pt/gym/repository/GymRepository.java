@@ -7,10 +7,13 @@ import java.util.Optional;
 
 public interface GymRepository {
     /**
+     *              Notice
      *     - 인터페이스 규칙 -
      *     public abstract 메서드
      *     public static final 변수
      *     생략 가능
+     *
+     *     구현체 => MysqlGymRepository.java
      */
 
     //등록, 수정

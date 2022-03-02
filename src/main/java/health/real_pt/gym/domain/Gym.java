@@ -1,7 +1,7 @@
 package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
-import health.real_pt.common.CommonBuilder;
+import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.dto.GymDto;
 import lombok.*;
 
@@ -12,7 +12,7 @@ import java.sql.Clob;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Gym extends BaseEntity {
+public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
 
     @Id @GeneratedValue
     @Column(name = "GYM_ID")
@@ -72,7 +72,7 @@ public class Gym extends BaseEntity {
     }
 
 
-    /// ============================== ///
+    /* ============================================================================================================== */
 
     @Builder
     public Gym(String name, Clob info, Clob openTime, Clob program, String location, Clob extraService, Clob facilites){
@@ -85,6 +85,7 @@ public class Gym extends BaseEntity {
         this.facilites=facilites;
     }
 
+    //Dto -> Entity로 변환(객체 생성)
     public static Gym toEntity(GymDto gymDto){
         return Gym.builder()
                 .name(gymDto.getName())
@@ -98,5 +99,16 @@ public class Gym extends BaseEntity {
 
     }
 
+    //Entity 수정을 위한 공통 메서드
+    @Override
+    public void updateEntity(GymDto gymDto) {
+        changeName(gymDto.getName());
+        changeInfo(gymDto.getInfo());
+        changeOpenTime(gymDto.getOpenTime());
+        changeProgram(gymDto.getProgram());
+        changeLocation(gymDto.getLocation());
+        changeExtraService(gymDto.getExtraService());
+        changeFacilites(gymDto.getFacilites());
+    }
 
 }

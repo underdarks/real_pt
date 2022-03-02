@@ -1,6 +1,6 @@
 package health.real_pt.review.domain;
 
-import health.real_pt.common.BaseEntity;
+import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.member.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @Table(name = "PT_REVIEW")
-public class PtReview extends BaseEntity {
+public class PtReview extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PT_REVIEW_ID")

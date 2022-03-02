@@ -9,6 +9,12 @@ import java.util.Optional;
 public interface GymService {
 
     /**
+     *              Notice
+     *
+     * 구현체 => GymServiceImpl.java
+     */
+
+    /**
      * 헬스장 정보 등록
      */
     void saveGym(GymDto gymDto);
@@ -38,7 +44,7 @@ public interface GymService {
      * 헬스장 정보 삭제
      * @param id
      */
-    void deleteGym(Long id);
+    void deleteGym(GymDto gymDto);
 
 
 

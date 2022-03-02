@@ -1,6 +1,7 @@
 package health.real_pt.member.domain;
 
 import health.real_pt.common.BaseEntity;
+import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.member.dto.MemberDto;
 import lombok.*;
@@ -8,13 +9,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity @Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Member extends BaseEntity {
+public class Member extends BaseTimeEntity implements BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
@@ -56,6 +56,15 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
 
+    /**
+     *  setter 대신 도메인 객체 변경하는 메서드들
+     */
+
+    public void
+
+
+
+    /* ============================================================================================================== */
 
     //객체 생성 빌더 패턴
     @Builder
@@ -87,5 +96,9 @@ public class Member extends BaseEntity {
 
     }
 
+    @Override
+    public void updateEntity(Object o) {
+
+    }
 }
 

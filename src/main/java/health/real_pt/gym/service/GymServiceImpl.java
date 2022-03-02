@@ -27,9 +27,8 @@ public class GymServiceImpl implements GymService{
 
     @Override
     public void updateGym(GymDto gymDto) {
-        Gym updateGym = gymRepository.findById(gymDto.getId()).get();
-
-
+        Gym gym = gymRepository.findById(gymDto.getId()).get();
+        gym.updateEntity(gymDto);
     }
 
     @Override
@@ -43,8 +42,8 @@ public class GymServiceImpl implements GymService{
     }
 
     @Override
-    public void deleteGym(Long id) {
-        Gym gym = gymRepository.findById(id).get();
+    public void deleteGym(GymDto gymDto) {
+        Gym gym = gymRepository.findById(gymDto.getId()).get();
         gymRepository.delete(gym);
     }
 }
