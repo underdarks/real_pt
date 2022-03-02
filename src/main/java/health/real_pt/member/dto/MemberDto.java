@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class UserDto {
+public class MemberDto {
 
     private Long id;
     private String userId;
@@ -17,7 +17,7 @@ public class UserDto {
     private String phone;
     private LocalDate birthDay;
     private String nickname;
-    private String recommandCode;
-    private String recommandedCode;
+    private String recommandCode;       //추천인 코드(내가 상대방 추천인코드 적을 때)
+    private String recommandedCode;     //추천인 코드(상대방이 내추천인코드 적을 때)
 
 }

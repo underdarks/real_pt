@@ -1,7 +1,7 @@
 package health.real_pt.gym.service;
 
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.UpdateGymDto;
+import health.real_pt.gym.dto.GymDto;
 import health.real_pt.gym.repository.GymRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +20,15 @@ public class GymServiceImpl implements GymService{
     }
 
     @Override
-    public void saveGym(Gym gym) {
+    public void saveGym(GymDto gymDto) {
+        Gym gym = Gym.toEntity(gymDto);
         gymRepository.save(gym);
     }
 
     @Override
-    public void updateGym(UpdateGymDto updateGymDto) {
-        Gym updateGym = gymRepository.findById(updateGymDto.getId()).get();
+    public void updateGym(GymDto gymDto) {
+        Gym updateGym = gymRepository.findById(gymDto.getId()).get();
+
 
     }
 

@@ -1,6 +1,7 @@
 package health.real_pt.member.service;
 
 import health.real_pt.member.domain.Member;
+import health.real_pt.member.dto.MemberDto;
 import health.real_pt.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,10 @@ public class MeberServiceImpl implements MemberService{
     }
 
     @Override
-    public void join(Member member) {
+    public void join(MemberDto memberDto) {
         try {
+            Member member = Member.toEntity(memberDto);
+
             validateDuplicateMember(member);
             memberRepository.save(member);
         }

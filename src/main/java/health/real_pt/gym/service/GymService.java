@@ -1,7 +1,7 @@
 package health.real_pt.gym.service;
 
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.UpdateGymDto;
+import health.real_pt.gym.dto.GymDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,12 +11,12 @@ public interface GymService {
     /**
      * 헬스장 정보 등록
      */
-    void saveGym(Gym gym);
+    void saveGym(GymDto gymDto);
 
     /**
      * 헬스장 정보 수정
      */
-    void updateGym(UpdateGymDto updateGymDto);
+    void updateGym(GymDto GymDto);
 
 
     /**

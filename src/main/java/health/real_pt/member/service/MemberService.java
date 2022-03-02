@@ -1,6 +1,7 @@
 package health.real_pt.member.service;
 
 import health.real_pt.member.domain.Member;
+import health.real_pt.member.dto.MemberDto;
 import health.real_pt.member.repository.MemberRepository;
 
 public interface MemberService {
@@ -9,7 +10,7 @@ public interface MemberService {
      * 회원가입
      * @param member
      */
-    void join(Member member);
+    void join(MemberDto memberDto);
 
 
     /**

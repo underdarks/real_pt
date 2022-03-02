@@ -2,6 +2,7 @@ package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.CommonBuilder;
+import health.real_pt.gym.dto.GymDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,6 +39,41 @@ public class Gym extends BaseEntity {
     @Column(name = "FACILITIES")
     private Clob facilites;     //편의시설
 
+    /**
+     *  setter 대신 도메인 객체 변경하는 메서드들
+     */
+
+    public void changeName(String name){
+        this.name=name;
+    }
+
+    public void changeInfo(Clob info){
+        this.info=info;
+    }
+
+    public void changeOpenTime(Clob openTime){
+        this.openTime=openTime;
+    }
+
+    public void changeProgram(Clob program){
+        this.program=program;
+    }
+
+    public void changeLocation(String location){
+        this.location=location;
+    }
+
+    public void changeExtraService(Clob extraService){
+        this.extraService=extraService;
+    }
+
+    public void changeFacilites(Clob facilites){
+        this.facilites=facilites;
+    }
+
+
+    /// ============================== ///
+
     @Builder
     public Gym(String name, Clob info, Clob openTime, Clob program, String location, Clob extraService, Clob facilites){
         this.name=name;
@@ -48,5 +84,19 @@ public class Gym extends BaseEntity {
         this.extraService=extraService;
         this.facilites=facilites;
     }
+
+    public static Gym toEntity(GymDto gymDto){
+        return Gym.builder()
+                .name(gymDto.getName())
+                .info(gymDto.getInfo())
+                .openTime(gymDto.getOpenTime())
+                .program(gymDto.getProgram())
+                .location(gymDto.getLocation())
+                .extraService(gymDto.getExtraService())
+                .facilites(gymDto.getFacilites())
+                .build();
+
+    }
+
 
 }

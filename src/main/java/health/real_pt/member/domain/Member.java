@@ -1,6 +1,8 @@
 package health.real_pt.member.domain;
 
 import health.real_pt.common.BaseEntity;
+import health.real_pt.gym.domain.Gym;
+import health.real_pt.member.dto.MemberDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -50,7 +52,12 @@ public class Member extends BaseEntity {
     @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
     private String recommandedCode;
 
-    //변수 값을 통한 객체 생성 빌더 패턴
+    @OneToOne
+    @JoinColumn(name = "GYM_ID")
+    private Gym gym;
+
+
+    //객체 생성 빌더 패턴
     @Builder
     public Member(String userId, String password, String name, String email, String phone, LocalDate birthDay, String nickname, String recommandCode, String recommandedCode) {
         this.userId = userId;
@@ -64,18 +71,19 @@ public class Member extends BaseEntity {
         this.recommandedCode = recommandedCode;
     }
 
-    //클래스 빌더를 통한 객체 생성
-    public Member(health.real_pt.member.domain.MemberBuilder memberBuilder){
-        this.id = memberBuilder.getId();
-        this.userId = memberBuilder.getUserId();
-        this.password = memberBuilder.getPassword();
-        this.name = memberBuilder.getName();
-        this.email = memberBuilder.getEmail();
-        this.phone = memberBuilder.getPhone();
-        this.birthDay = memberBuilder.getBirthDay();
-        this.nickname = memberBuilder.getNickname();
-        this.recommandCode = memberBuilder.getRecommandCode();
-        this.recommandedCode = memberBuilder.getRecommandedCode();
+    //DTO -> Entity로 변환
+    public static Member toEntity(MemberDto memberDto){
+        return Member.builder()
+                .userId(memberDto.getUserId())
+                .password(memberDto.getPassword())
+                .name(memberDto.getName())
+                .email(memberDto.getEmail())
+                .phone(memberDto.getPhone())
+                .birthDay(memberDto.getBirthDay())
+                .nickname(memberDto.getNickname())
+                .recommandCode(memberDto.getRecommandCode())
+                .recommandedCode(memberDto.getRecommandedCode())
+                .build();
 
     }
 
