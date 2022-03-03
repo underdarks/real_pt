@@ -1,14 +1,17 @@
 package health.real_pt.config;
 
-import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.repository.GymRepository;
-import health.real_pt.gym.repository.MysqlGymRepository;
+import health.real_pt.gym.repository.MySqlGymRepository;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.gym.service.GymServiceImpl;
 import health.real_pt.member.repository.MemberRepository;
-import health.real_pt.member.repository.MysqlMemberRepository;
+import health.real_pt.member.repository.MySqlMemberRepository;
 import health.real_pt.member.service.MeberServiceImpl;
 import health.real_pt.member.service.MemberService;
+import health.real_pt.price.repository.GymPriceRepository;
+import health.real_pt.price.repository.MySqlGymPriceRepository;
+import health.real_pt.price.repository.MySqlPtPriceRepository;
+import health.real_pt.price.repository.PtPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,7 @@ import javax.persistence.EntityManager;
 @Configuration
 public class BeanConfig {
 
+    //싱글톤 ?
     EntityManager em;
 
     @Autowired
@@ -28,7 +32,7 @@ public class BeanConfig {
     @Bean
     public MemberRepository memberRepository(){
         System.out.println("BeanConfig - MysqlMemberRepository 빈 의존성 주입");
-        return new MysqlMemberRepository(em);
+        return new MySqlMemberRepository(em);
     }
 
 
@@ -40,12 +44,23 @@ public class BeanConfig {
 
     @Bean
     public GymRepository gymRepository(){
-        return new MysqlGymRepository(em);
+        return new MySqlGymRepository(em);
     }
 
     @Bean
     public GymService gymService(){
         return new GymServiceImpl(gymRepository());
+    }
+
+    @Bean
+    public GymPriceRepository gymPriceRepository(){
+        return new MySqlGymPriceRepository(em);
+    }
+
+    @Bean
+    public PtPriceRepository ptPriceRepository(){
+        return new MySqlPtPriceRepository(em);
+
     }
 
 

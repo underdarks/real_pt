@@ -1,5 +1,6 @@
 package health.real_pt.member.dto;
 
+import health.real_pt.gym.domain.Gym;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,5 +20,5 @@ public class MemberDto {
     private String nickname;
     private String recommandCode;       //추천인 코드(내가 상대방 추천인코드 적을 때)
     private String recommandedCode;     //추천인 코드(상대방이 내추천인코드 적을 때)
-
+    private Gym gym;    //헬스장 ID
 }

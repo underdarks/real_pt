@@ -39,8 +39,12 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
     @Column(name = "FACILITIES")
     private Clob facilites;     //편의시설
 
+    //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
+    @Enumerated(EnumType.STRING)
+    private GymStatus gymStatus;    //헬스장 영업 상태
+
     /**
-     *  setter 대신 도메인 객체 변경하는 메서드들
+     *  setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */
 
     public void changeName(String name){

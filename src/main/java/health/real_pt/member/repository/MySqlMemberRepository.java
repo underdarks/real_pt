@@ -1,20 +1,18 @@
 package health.real_pt.member.repository;
 
 import health.real_pt.member.domain.Member;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
 //@RequiredArgsConstructor
-public class MysqlMemberRepository implements MemberRepository {
+public class MySqlMemberRepository implements MemberRepository {
 
     private final EntityManager em;
 
-    public MysqlMemberRepository(EntityManager em) {
+    public MySqlMemberRepository(EntityManager em) {
         this.em = em;
     }
 

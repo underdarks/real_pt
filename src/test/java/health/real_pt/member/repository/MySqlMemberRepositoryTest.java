@@ -11,26 +11,21 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 
 @SpringBootTest
 @Transactional  //테스트 코드에 @Transactional이 있으면 자동으로 RollBack 해버리는데 @Commit이 있으면 롤백이 안됨
-class MysqlMemberRepositoryTest {
+class MySqlMemberRepositoryTest {
 
     @Autowired EntityManager em;
     MemberRepository memberRepository;
 
     @BeforeEach
     public void beforeEach(){
-        memberRepository=new MysqlMemberRepository(em);
+        memberRepository=new MySqlMemberRepository(em);
     }
 
     @DisplayName("DB Insert 테스트")

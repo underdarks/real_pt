@@ -12,6 +12,8 @@ public interface MemberRepository {
      *     public abstract 메서드
      *     public static final 변수
      *     생략 가능
+     *
+     *     구현체 => MysqlMemberRepository.java
      */
 
     //등록, 수정

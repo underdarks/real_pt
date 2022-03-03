@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Member extends BaseTimeEntity implements BaseEntity {
+public class Member extends BaseTimeEntity implements BaseEntity<Member,MemberDto>{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -57,12 +57,36 @@ public class Member extends BaseTimeEntity implements BaseEntity {
     private Gym gym;
 
     /**
-     *  setter 대신 도메인 객체 변경하는 메서드들
+     *  setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */
 
-    public void
+    public void changePW(String password){
+        this.password=password;
+    }
 
+    public void changeEmail(String email){
+        this.email=email;
+    }
 
+    public void changePhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changeRecommandCode(String recommandCode) {
+        this.recommandCode = recommandCode;
+    }
+
+    public void changeRecommandedCode(String recommandedCode) {
+        this.recommandedCode = recommandedCode;
+    }
+
+    public void changeGym(Gym gym) {
+        this.gym = gym;
+    }
 
     /* ============================================================================================================== */
 
@@ -97,7 +121,12 @@ public class Member extends BaseTimeEntity implements BaseEntity {
     }
 
     @Override
-    public void updateEntity(Object o) {
+    public void updateEntity(MemberDto memberDto) {
+        changeGym(memberDto.getGym());
+        changeEmail(memberDto.getEmail());
+        changeNickname(memberDto.getNickname());
+        changePW(memberDto.getPassword());
+        changePhone(memberDto.getPhone());
 
     }
 }

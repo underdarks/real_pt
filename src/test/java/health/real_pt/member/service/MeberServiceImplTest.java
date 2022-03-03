@@ -1,26 +1,16 @@
 package health.real_pt.member.service;
 
-import health.real_pt.config.BeanConfig;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.repository.MemberRepository;
-import health.real_pt.member.repository.MysqlMemberRepository;
+import health.real_pt.member.repository.MySqlMemberRepository;
 import org.assertj.core.api.Assertions;
-import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -34,7 +24,7 @@ class MeberServiceImplTest {
 
     @BeforeEach
     public void beforeEach(){
-        memberRepository=new MysqlMemberRepository(em);
+        memberRepository=new MySqlMemberRepository(em);
         memberService=new MeberServiceImpl(memberRepository);
     }
 

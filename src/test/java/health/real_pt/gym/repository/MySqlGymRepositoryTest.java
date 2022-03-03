@@ -7,7 +7,7 @@ import java.sql.Clob;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MysqlGymRepositoryTest {
+class MySqlGymRepositoryTest {
 
     @Test
     public void Gym객채생성_테스트(){
