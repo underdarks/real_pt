@@ -37,7 +37,6 @@ public class MySqlPtPriceRepository implements PtPriceRepository{
     @Override
     public void delete(PtPrice ptPrice) {
         em.remove(ptPrice);
-        HttpEntity
     }
 
 }

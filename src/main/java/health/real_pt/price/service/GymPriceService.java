@@ -1,6 +1,10 @@
 package health.real_pt.price.service;
 
-public interface GymPriceService  {
+import health.real_pt.gym.domain.Gym;
+import health.real_pt.member.domain.Member;
+import health.real_pt.price.dto.GymPriceDto;
+
+public interface GymPriceService {
 
     /**
      *              Notice
@@ -8,5 +12,10 @@ public interface GymPriceService  {
      * 구현체 => GymPriceServiceImpl.java
      */
 
-    public 
+    Long saveGymPrice(GymPriceDto gymPriceDto, Long memberId, Long gymId);
+
+    void
+
+
+
 }
