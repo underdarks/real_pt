@@ -1,11 +1,14 @@
 package health.real_pt.common;
 
+import health.real_pt.member.domain.Member;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import java.sql.Clob;
 import java.time.LocalDateTime;
 
@@ -21,11 +24,15 @@ public abstract class BaseTimeEntity {
     @Column(name = "MOD_DATE")
     private LocalDateTime modDate; //수정시간
 
+    @OneToOne
+    @JoinColumn(name = "MEMBER_ID")
     @Column(name = "REG_MEMBER_ID")
-    private String reg_member; //등록자
+    private Member reg_member; //등록자
 
+    @OneToOne
+    @JoinColumn(name = "MEMBER_ID")
     @Column(name = "MOD_MEMBER_ID")
-    private String mod_member; //수정자
+    private Member mod_member; //수정자
 
     @Column(name = "REMARKS")
     private Clob remarks;       //비고

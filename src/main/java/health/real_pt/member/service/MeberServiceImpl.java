@@ -21,6 +21,7 @@ public class MeberServiceImpl implements MemberService{
     }
 
     @Override
+    @Transactional
     public void join(MemberDto memberDto) {
         try {
             Member member = Member.toEntity(memberDto);

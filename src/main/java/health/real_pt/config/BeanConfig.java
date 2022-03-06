@@ -12,6 +12,10 @@ import health.real_pt.price.repository.GymPriceRepository;
 import health.real_pt.price.repository.MySqlGymPriceRepository;
 import health.real_pt.price.repository.MySqlPtPriceRepository;
 import health.real_pt.price.repository.PtPriceRepository;
+import health.real_pt.price.service.GymPriceService;
+import health.real_pt.price.service.GymPriceServiceImpl;
+import health.real_pt.price.service.PtPriceService;
+import health.real_pt.price.service.PtPriceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,9 +62,19 @@ public class BeanConfig {
     }
 
     @Bean
+    public GymPriceService gymPriceService(){
+        return new GymPriceServiceImpl(gymPriceRepository(), gymRepository());
+    }
+
+    @Bean
     public PtPriceRepository ptPriceRepository(){
         return new MySqlPtPriceRepository(em);
 
+    }
+
+    @Bean
+    public PtPriceService ptPriceService(){
+        return new PtPriceServiceImpl(ptPriceRepository());
     }
 
 

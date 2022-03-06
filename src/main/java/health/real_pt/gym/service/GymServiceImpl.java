@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional  //JPA는 트랜잭션 안에서 실행됨
+@Transactional(readOnly = true)  //JPA는 트랜잭션 안에서 실행됨, readonly = true로 설정하면 DB에 커밋이 되지 않아(영속성 컨텍스트 플러시가 안됨) 등록, 수정 ,삭제 등이 발생하지 않음
 public class GymServiceImpl implements GymService{
 
     private final GymRepository gymRepository;
@@ -20,12 +20,14 @@ public class GymServiceImpl implements GymService{
     }
 
     @Override
+    @Transactional
     public void saveGym(GymDto gymDto) {
         Gym gym = Gym.toEntity(gymDto);
         gymRepository.save(gym);
     }
 
     @Override
+    @Transactional
     public void updateGym(GymDto gymDto) {
         Gym gym = gymRepository.findById(gymDto.getId()).get();
         gym.updateEntity(gymDto);

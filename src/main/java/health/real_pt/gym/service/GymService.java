@@ -42,7 +42,7 @@ public interface GymService {
 
     /**
      * 헬스장 정보 삭제
-     * @param id
+     * @param
      */
     void deleteGym(GymDto gymDto);
 
