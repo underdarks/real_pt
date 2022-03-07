@@ -42,26 +42,28 @@ public class GymPriceServiceImpl implements GymPriceService {
     @Transactional
     @Override
     public void updateGymPrice(GymPriceDto gymPriceDto) {
-
+        Optional<GymPrice> gpOptional = gymPriceRepository.findById(gymPriceDto.getId());
+        gpOptional.ifPresent(gymPrice ->
+                gymPrice.updateEntity(gymPriceDto)
+                );
     }
 
     @Transactional
     @Override
     public void deleteGymPrice(GymPriceDto gymPriceDto) {
-        Optional<GymPrice> gymPriceOptional = gymPriceRepository.findById(gymPriceDto.getId());
-        gymPriceOptional.ifPresent(gymPrice->
+        Optional<GymPrice> gpOptional = gymPriceRepository.findById(gymPriceDto.getId());
+        gpOptional.ifPresent(gymPrice->
                 gymPriceRepository.delete(gymPrice)
                 );
-
     }
 
     @Override
     public Optional<GymPrice> findOnePrice(Long gymPriceId) {
-        return Optional.empty();
+        Optional<GymPrice> gpOptional = gymPriceRepository.findById(gymPriceId);
     }
 
     @Override
     public List<GymPrice> findAllPrice() {
-        return null;
+        return gymPriceRepository.findAll();
     }
 }
