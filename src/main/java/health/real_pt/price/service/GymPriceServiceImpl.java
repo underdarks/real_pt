@@ -60,6 +60,7 @@ public class GymPriceServiceImpl implements GymPriceService {
     @Override
     public Optional<GymPrice> findOnePrice(Long gymPriceId) {
         Optional<GymPrice> gpOptional = gymPriceRepository.findById(gymPriceId);
+        return gpOptional;
     }
 
     @Override

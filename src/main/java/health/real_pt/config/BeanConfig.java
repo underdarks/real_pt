@@ -74,7 +74,7 @@ public class BeanConfig {
 
     @Bean
     public PtPriceService ptPriceService(){
-        return new PtPriceServiceImpl(ptPriceRepository());
+        return new PtPriceServiceImpl(memberRepository(),ptPriceRepository());
     }
 
 
