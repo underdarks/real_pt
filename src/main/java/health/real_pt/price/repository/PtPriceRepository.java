@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PtPriceRepository {
     /**
      *
-     * 구현체 => MySqlGymPriceRepository.java
+     * 구현체 => MySqlPtPriceRepository.java
      */
 
     Long save(PtPrice ptPrice);
