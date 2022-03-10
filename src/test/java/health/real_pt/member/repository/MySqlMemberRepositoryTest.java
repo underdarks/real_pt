@@ -41,9 +41,6 @@ class MySqlMemberRepositoryTest {
                 .birthDay(LocalDate.now())
                 .build();
 
-
-
-
         //when
         memberRepository.save(member);
         Optional<Member> findMember = memberRepository.findById(1L);

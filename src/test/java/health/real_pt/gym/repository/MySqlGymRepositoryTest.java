@@ -5,6 +5,7 @@ import com.mysql.cj.exceptions.ExceptionInterceptorChain;
 import com.mysql.cj.jdbc.Clob;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.domain.GymStatus;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-//@SpringBootTest
+@SpringBootTest
 @Transactional
 class MySqlGymRepositoryTest {
 
@@ -24,7 +29,8 @@ class MySqlGymRepositoryTest {
     GymRepository gymRepository;
 
     @Test
-    public void Gym_객채생성_테스트(){
+    @Commit
+    public void Gym_객체생성(){
         //given
         Gym gym = Gym.builder()
                 .name("B 헬스장")
@@ -43,7 +49,36 @@ class MySqlGymRepositoryTest {
         //then
         System.out.println("saveId = " + saveId);
 
+    }
+
+    @Test
+    public void Gym_객체찾기_성공(){
+        //given
+        Optional<Gym> gymOptional = gymRepository.findById(1L);
+
+
+        //when
+        gymOptional.ifPresent(
+                //then
+                gym -> assertThat(gym).isNotNull()
+        );
 
     }
+
+    @Test
+    public void Gym_객체찾기_실패(){
+        //given
+        Optional<Gym> gymOptional = gymRepository.findById(3L);
+
+
+        //when
+        gymOptional.ifPresent(
+                //then
+                gym -> assertThat(gym).isNotNull()
+        );
+
+    }
+
+
 
 }
