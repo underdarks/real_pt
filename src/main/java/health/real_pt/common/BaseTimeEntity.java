@@ -24,12 +24,13 @@ public abstract class BaseTimeEntity {
     private LocalDateTime modDate; //수정시간
 
     @Column(name = "REG_MEMBER_ID", updatable = false)
-    private Member reg_member; //등록자
+    private Long reg_member; //등록자
 
     @Column(name = "MOD_MEMBER_ID")
-    private Member mod_member; //수정자
+    private Long mod_member; //수정자
 
+    @Lob
     @Column(name = "REMARKS")
-    private Clob remarks;       //비고
+    private String  remarks;       //비고
 
 }

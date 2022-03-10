@@ -6,7 +6,7 @@ import health.real_pt.gym.dto.GymDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Clob;
+import javax.validation.constraints.NotNull;
 
 @Entity @Table(name = "GYM")
 @Getter
@@ -18,26 +18,33 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
     @Column(name = "GYM_ID")
     private Long id;
 
+    @NotNull
     @Column(name = "NAME")
     private String name;    //헬스장 이름
 
+    @Lob
     @Column(name = "INFO")
-    private Clob info;      //헬스장 정보
+    private String info;      //헬스장 정보
 
+    @Lob
     @Column(name = "OPEN_TIME")
-    private Clob openTime;    //영업 시간
+    private String openTime;    //영업 시간
 
+    @Lob
     @Column(name = "PROGRAM")
-    private Clob program;      //운영 프로그램
+    private String program;      //운영 프로그램
 
+    @NotNull
     @Column(name = "LOCATION")
     private String location;    //위치 주소
 
+    @Lob
     @Column(name = "EXTRA_SERVICE")
-    private Clob extraService;  //부가서비스
+    private String extraService;  //부가서비스
 
+    @Lob
     @Column(name = "FACILITIES")
-    private Clob facilites;     //편의시설
+    private String facilites;     //편의시설
 
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
     @Enumerated(EnumType.STRING)
@@ -51,15 +58,15 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
         this.name=name;
     }
 
-    public void changeInfo(Clob info){
+    public void changeInfo(String info){
         this.info=info;
     }
 
-    public void changeOpenTime(Clob openTime){
+    public void changeOpenTime(String openTime){
         this.openTime=openTime;
     }
 
-    public void changeProgram(Clob program){
+    public void changeProgram(String program){
         this.program=program;
     }
 
@@ -67,19 +74,18 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
         this.location=location;
     }
 
-    public void changeExtraService(Clob extraService){
+    public void changeExtraService(String extraService){
         this.extraService=extraService;
     }
 
-    public void changeFacilites(Clob facilites){
+    public void changeFacilites(String facilites){
         this.facilites=facilites;
     }
-
 
     /* ============================================================================================================== */
 
     @Builder
-    public Gym(String name, Clob info, Clob openTime, Clob program, String location, Clob extraService, Clob facilites){
+    public Gym(String name, String info, String openTime, String program, String location, String extraService, String facilites,GymStatus gymStatus){
         this.name=name;
         this.info=info;
         this.openTime=openTime;
@@ -87,6 +93,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
         this.location=location;
         this.extraService=extraService;
         this.facilites=facilites;
+        this.gymStatus=gymStatus;
     }
 
     //Dto -> Entity로 변환(객체 생성)

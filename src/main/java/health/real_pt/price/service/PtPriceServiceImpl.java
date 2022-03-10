@@ -42,7 +42,6 @@ public class PtPriceServiceImpl implements  PtPriceService{
         ptPriceOptional.ifPresent(ptPrice ->
                         ptPrice.updateEntity(ptPriceDto)
                 );
-
     }
 
     @Override
