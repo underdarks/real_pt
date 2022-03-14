@@ -56,7 +56,6 @@ class MySqlGymRepositoryTest {
         //given
         Optional<Gym> gymOptional = gymRepository.findById(1L);
 
-
         //when
         gymOptional.ifPresent(
                 //then
@@ -70,12 +69,42 @@ class MySqlGymRepositoryTest {
         //given
         Optional<Gym> gymOptional = gymRepository.findById(3L);
 
-
         //when
-        gymOptional.ifPresent(
-                //then
-                gym -> assertThat(gym).isNotNull()
+
+        //then
+        assertThat(gymOptional).isEmpty();
+    }
+
+
+    @Test
+    @Commit
+    public void Gym_객체수정_성공(){
+        Optional<Gym> gymOptional = gymRepository.findById(1L);
+
+        System.out.println("before gymOptional.toString() = " + gymOptional.toString());
+
+        //Dirty-Check
+        gymOptional.ifPresent(gym ->
+                gym.changeName("헬스장 이름 바꿈")
         );
+
+        System.out.println("after gymOptional.toString() = " + gymOptional.toString());
+    }
+
+    @Test
+    @Commit
+    public void Gym_객체삭제_성공(){
+        //given
+        Optional<Gym> gymOptional = gymRepository.findById(5L);
+        System.out.println("gymOptional = " + gymOptional);
+        //when
+        gymOptional.ifPresent(gym ->
+                gymRepository.delete(gym)
+                );
+
+        //then
+        Optional<Gym> gymOptional2 = gymRepository.findById(5L);
+        System.out.println("gymOptional2 = " + gymOptional2);
 
     }
 
