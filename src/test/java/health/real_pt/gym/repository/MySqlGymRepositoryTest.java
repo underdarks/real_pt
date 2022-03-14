@@ -33,7 +33,7 @@ class MySqlGymRepositoryTest {
     public void Gym_객체생성(){
         //given
         Gym gym = Gym.builder()
-                .name("B 헬스장")
+                .name("C 헬스장")
                 .info("우리 헬스장은 샬라샬라~~~~~~~~~~~~~~~~~~~~~~~~ ")
                 .openTime("06:00 ~ 24:00")
                 .program("")
@@ -56,6 +56,8 @@ class MySqlGymRepositoryTest {
         //given
         Optional<Gym> gymOptional = gymRepository.findById(1L);
 
+
+        gymOptional.orE
         //when
         gymOptional.ifPresent(
                 //then

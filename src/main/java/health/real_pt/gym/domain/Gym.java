@@ -19,8 +19,8 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
     private Long id;
 
     @NotNull
-    @Column(name = "NAME")
-    private String name;    //헬스장 이름
+    @Column(name = "NAME", unique = true)
+    private String name;    //헬스장 이름(중복 불가, 대신 체인점은 끝에 xx점 붙이기 ex. 스포애니 - 신림사거리 1호점)
 
     @Lob
     @Column(name = "INFO")
@@ -48,6 +48,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
 
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
     @Enumerated(EnumType.STRING)
+
     private GymStatus gymStatus;    //헬스장 영업 상태
 
     /**

@@ -9,6 +9,7 @@ import health.real_pt.price.dto.GymPriceDto;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity @Table(name = "GYM_PRICE")
@@ -21,8 +22,9 @@ public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPrice,GymP
     @Column(name = "GYM_PRICE_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)  //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
+    @ManyToOne  //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
     @JoinColumn(name = "GYM_ID")
+    @NotNull
     private Gym gym;    //GYM PK
 
     @Column(name = "REGULAR_PRICE")

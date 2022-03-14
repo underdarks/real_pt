@@ -21,9 +21,9 @@ public class GymServiceImpl implements GymService{
 
     @Override
     @Transactional
-    public void saveGym(GymDto gymDto) {
+    public Long saveGym(GymDto gymDto) {
         Gym gym = Gym.toEntity(gymDto);
-        gymRepository.save(gym);
+        return gymRepository.save(gym);
     }
 
     @Override
@@ -48,4 +48,5 @@ public class GymServiceImpl implements GymService{
         Gym gym = gymRepository.findById(gymDto.getId()).get();
         gymRepository.delete(gym);
     }
+
 }

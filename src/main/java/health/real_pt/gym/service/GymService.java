@@ -17,7 +17,7 @@ public interface GymService {
     /**
      * 헬스장 정보 등록
      */
-    void saveGym(GymDto gymDto);
+    Long saveGym(GymDto gymDto);
 
     /**
      * 헬스장 정보 수정
