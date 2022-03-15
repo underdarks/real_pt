@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -54,15 +55,19 @@ class MySqlGymRepositoryTest {
     @Test
     public void Gym_객체찾기_성공(){
         //given
-        Optional<Gym> gymOptional = gymRepository.findById(1L);
+        Optional<Gym> gymOptional = gymRepository.findById(6L);
 
 
-        gymOptional.orE
         //when
-        gymOptional.ifPresent(
-                //then
-                gym -> assertThat(gym).isNotNull()
-        );
+        Gym gym = gymOptional.orElseThrow(() -> new NoSuchElementException("Gym 객체가 없습니다!"));
+
+        assertThat(gym).isNotNull();
+
+
+//        gymOptional.ifPresent(
+//                //then
+//                gym -> assertThat(gym).isNotNull()
+//        );
 
     }
 
@@ -72,23 +77,24 @@ class MySqlGymRepositoryTest {
         Optional<Gym> gymOptional = gymRepository.findById(3L);
 
         //when
+        Gym gym = gymOptional.orElse(null);
 
         //then
-        assertThat(gymOptional).isEmpty();
+        assertThat(gym).isNull();
     }
 
 
     @Test
     @Commit
     public void Gym_객체수정_성공(){
-        Optional<Gym> gymOptional = gymRepository.findById(1L);
+        Optional<Gym> gymOptional = gymRepository.findById(6L);
 
         System.out.println("before gymOptional.toString() = " + gymOptional.toString());
 
+
         //Dirty-Check
-        gymOptional.ifPresent(gym ->
-                gym.changeName("헬스장 이름 바꿈")
-        );
+        Gym gym = gymOptional.orElseThrow(() -> new NoSuchElementException("Gym 객체가 없습니다!"));
+        gym.changeName("헬스장 이름 바꿈");
 
         System.out.println("after gymOptional.toString() = " + gymOptional.toString());
     }
@@ -97,12 +103,12 @@ class MySqlGymRepositoryTest {
     @Commit
     public void Gym_객체삭제_성공(){
         //given
-        Optional<Gym> gymOptional = gymRepository.findById(5L);
+        Optional<Gym> gymOptional = gymRepository.findById(7L);
         System.out.println("gymOptional = " + gymOptional);
+
         //when
-        gymOptional.ifPresent(gym ->
-                gymRepository.delete(gym)
-                );
+        Gym gym = gymOptional.orElseThrow(() -> new NoSuchElementException("Gym 객체가 없습니다!"));
+        gymRepository.delete(gym);
 
         //then
         Optional<Gym> gymOptional2 = gymRepository.findById(5L);

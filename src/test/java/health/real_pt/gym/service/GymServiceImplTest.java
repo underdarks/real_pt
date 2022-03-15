@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -57,10 +58,12 @@ class GymServiceImplTest {
         //given
         Optional<Gym> optional = gymService.findOne(9L);
 
+
+        Gym gym = optional.orElseThrow(() -> new NoSuchElementException("Gym 객체를 조회하지 못했습니당!"));
+
         //when
-        optional.ifPresent(gym ->
-                        System.out.println("gym = " + gym)
-                );
+
+        System.out.println("gym = " + gym);
 
         //then
 
