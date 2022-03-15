@@ -64,7 +64,7 @@ public class GymPriceServiceImpl implements GymPriceService {
     }
 
     @Override
-    public List<GymPrice> findAllPrice() {
-        return gymPriceRepository.findAll();
+    public List<GymPrice> findAllPrice(Long gymId) {
+        return gymPriceRepository.findByGymId(gymId);
     }
 }

@@ -42,7 +42,7 @@ public interface GymPriceService {
     /**
      *  가격 전체 조회
      */
-    List<GymPrice> findAllPrice();
+    List<GymPrice> findAllPrice(Long gymId);
 
 
 

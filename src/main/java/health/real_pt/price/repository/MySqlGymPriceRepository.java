@@ -1,9 +1,11 @@
 package health.real_pt.price.repository;
 
+import health.real_pt.gym.domain.Gym;
 import health.real_pt.price.domain.GymPrice;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +25,24 @@ public class MySqlGymPriceRepository implements GymPriceRepository{
     }
 
     @Override
-    public List<GymPrice> findAll() {
-        return em.createQuery("select gp from GymPrice gp", GymPrice.class).getResultList();    //결과를 컬렉션으로 반환. 결과가 없으면 빈 컬렉션 반환
-    }
-
-    @Override
     public Optional<GymPrice> findById(Long id) {
         GymPrice gymPrice = em.find(GymPrice.class, id);
         return Optional.ofNullable(gymPrice);
+    }
+
+    @Override
+    public List<GymPrice> findByGymId(Long gymId) {
+//        List resultList = em.createQuery("select gp from GymPrice gp join gp.gym g" +
+//                        " where g.id =:gym_id",GymPrice.class)
+//                        .setParameter("gym_id", gymId)
+//                        .getResultList();
+
+        List resultList = em.createQuery("select gp from GymPrice gp gp.gym" +
+                        " where g.id =:gym_id",GymPrice.class)
+                .setParameter("gym_id", gymId)
+                .getResultList();
+
+        return resultList == null ? Collections.emptyList(): resultList;
     }
 
     @Override

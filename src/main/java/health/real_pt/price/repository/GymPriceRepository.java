@@ -14,9 +14,9 @@ public interface GymPriceRepository {
 
     Long save(GymPrice gymPrice);
 
-    List<GymPrice> findAll();
-
     Optional<GymPrice> findById(Long id);
+
+    List<GymPrice> findByGymId(Long gymId);
 
     void delete(GymPrice gymPrice);
 }
