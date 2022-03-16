@@ -25,7 +25,7 @@ public interface GymPriceService {
     /**
      *  가격 수정
      */
-    void updateGymPrice(GymPriceDto gymPriceDto);
+    Long updateGymPrice(GymPriceDto gymPriceDto);
 
 
     /**

@@ -115,7 +115,4 @@ class MySqlGymPriceRepositoryTest {
         //then
     }
 
-    @Test
-    void delete() {
-    }
 }
