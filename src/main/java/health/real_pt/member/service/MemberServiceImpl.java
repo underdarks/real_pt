@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -61,6 +62,19 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
+    }
+
+    @Override
+    public Optional<Member> findMember(Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    @Override
+    public void updateMember(Long memberId, MemberDto memberDto) {
+        Optional<Member> memberOptional = memberRepository.findById(memberId);
+        Member member = memberOptional.orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다."));
+
+        member.updateEntity(memberDto);
     }
 
     @Override

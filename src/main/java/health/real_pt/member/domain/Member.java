@@ -32,6 +32,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "NAME")
     private String name;
 
+    @NotNull(message = "메일은 Null이 될 수 없습니다!")
     @Column(name = "EMAIL",unique = true)
     private String email;
 
@@ -43,6 +44,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "BIRTHDAY")
     private LocalDate birthDay;
 
+    @NotNull(message = "닉네임은 Null이 될 수 없습니다!")
     @Column(name = "NICKNAME", unique = true)
     private String nickname;
 
@@ -61,11 +63,13 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
      */
 
     public void changePW(String password){
-        this.password=password;
+        if(password != null && !password.isEmpty())
+            this.password=password;
     }
 
     public void changeEmail(String email){
-        this.email=email;
+        if(email != null && !email.isEmpty())
+            this.email=email;
     }
 
     public void changePhone(String phone) {
@@ -73,7 +77,8 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     }
 
     public void changeNickname(String nickname) {
-        this.nickname = nickname;
+        if(nickname != null && !nickname.isEmpty())
+            this.nickname = nickname;
     }
 
     public void changeRecommandCode(String recommandCode) {
@@ -127,7 +132,6 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
         changeNickname(memberDto.getNickname());
         changePW(memberDto.getPassword());
         changePhone(memberDto.getPhone());
-
     }
 }
 

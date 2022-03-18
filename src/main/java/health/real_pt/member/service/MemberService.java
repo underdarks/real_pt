@@ -5,6 +5,7 @@ import health.real_pt.member.dto.MemberDto;
 import health.real_pt.member.repository.MemberRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberService {
 
@@ -33,6 +34,17 @@ public interface MemberService {
      *
      */
     List<Member> findAllMembers();
+
+    /**
+     * 단일 회원 찾기
+     *
+     */
+    Optional<Member> findMember(Long memberId);
+
+    /**
+     * 회원 수정
+     */
+    void updateMember(Long memberId,MemberDto memberDto);
 
 
     /**
