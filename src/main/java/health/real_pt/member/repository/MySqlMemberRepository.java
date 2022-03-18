@@ -4,6 +4,7 @@ import health.real_pt.member.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,13 +30,18 @@ public class MySqlMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByNameAndEmail(Member member) {
-        Member findMember = (Member) em.createQuery("select m from Member m where m.name =: name and m.email =:email").
+    public List<Member> findByNameAndEmail(Member member) {
+        List resultList = em.createQuery("select m from Member m where m.name =: name and m.email =:email").
                 setParameter("name", member.getName()).
                 setParameter("email", member.getEmail()).getResultList();
 
 
-        return Optional.ofNullable(findMember);
+        return resultList;
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return em.createQuery("select m from Member m").getResultList();
     }
 
     @Override

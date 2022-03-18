@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
+public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
 
     @Id @GeneratedValue
     @Column(name = "GYM_ID")
@@ -48,7 +48,6 @@ public class Gym extends BaseTimeEntity implements BaseEntity<Gym,GymDto> {
 
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
     @Enumerated(EnumType.STRING)
-
     private GymStatus gymStatus;    //헬스장 영업 상태
 
     /**

@@ -3,31 +3,31 @@ package health.real_pt.member.service;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberDto;
 import health.real_pt.member.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 //@RequiredArgsConstructor
 @Transactional  //JPA는 트랜잭션 안에서 실행됨
-public class MeberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
-    public MeberServiceImpl(MemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
     @Override
     @Transactional
-    public void join(MemberDto memberDto) {
+    public Long join(MemberDto memberDto) {
         try {
             Member member = Member.toEntity(memberDto);
 
             validateDuplicateMember(member);
-            memberRepository.save(member);
+            return  memberRepository.save(member);
         }
         finally {
 
@@ -40,10 +40,11 @@ public class MeberServiceImpl implements MemberService{
      */
     private void validateDuplicateMember(Member member){
 //        System.out.println("member = " + member.getId());
-        Optional<Member> findMember = memberRepository.findByNameAndEmail(member);
-        findMember.ifPresent(m -> {
+        List<Member> memberList = memberRepository.findByNameAndEmail(member);
+
+        if(!memberList.isEmpty()){  //동일한 멤버가 있다면
             throw new IllegalStateException("이미 존재하는 회원입니다!");
-        });
+        }
     }
 
     //
@@ -55,6 +56,11 @@ public class MeberServiceImpl implements MemberService{
     @Override
     public void findPW() {
 
+    }
+
+    @Override
+    public List<Member> findAllMembers() {
+        return memberRepository.findAll();
     }
 
     @Override

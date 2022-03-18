@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPrice,GymPriceDto> {
+public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceDto> {
 
     @Id @GeneratedValue
     @Column(name = "GYM_PRICE_ID")

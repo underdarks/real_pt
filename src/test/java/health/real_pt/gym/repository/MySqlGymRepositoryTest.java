@@ -57,7 +57,6 @@ class MySqlGymRepositoryTest {
         //given
         Optional<Gym> gymOptional = gymRepository.findById(6L);
 
-
         //when
         Gym gym = gymOptional.orElseThrow(() -> new NoSuchElementException("Gym 객체가 없습니다!"));
 

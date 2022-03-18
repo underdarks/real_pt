@@ -6,7 +6,7 @@ import health.real_pt.gym.service.GymService;
 import health.real_pt.gym.service.GymServiceImpl;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.member.repository.MySqlMemberRepository;
-import health.real_pt.member.service.MeberServiceImpl;
+import health.real_pt.member.service.MemberServiceImpl;
 import health.real_pt.member.service.MemberService;
 import health.real_pt.price.repository.GymPriceRepository;
 import health.real_pt.price.repository.MySqlGymPriceRepository;
@@ -43,7 +43,7 @@ public class BeanConfig {
     @Bean
     public MemberService memberService(){
         System.out.println("BeanConfig - MemberService 빈 의존성 주입");
-        return new MeberServiceImpl(memberRepository());
+        return new MemberServiceImpl(memberRepository());
     }
 
     @Bean

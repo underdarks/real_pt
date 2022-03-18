@@ -35,7 +35,7 @@ class MySqlMemberRepositoryTest {
         //given
         Member member = Member.builder()
                 .userId("1234")
-                .name("test")
+//                .name("test")
                 .password("12314")
                 .email("test12")
                 .birthDay(LocalDate.now())

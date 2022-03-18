@@ -1,7 +1,7 @@
 package health.real_pt.common;
 
 
-public interface BaseEntity<Entity,Dto> {
+public interface BaseEntity<Dto> {
     /**
      * Notice
      * <p>

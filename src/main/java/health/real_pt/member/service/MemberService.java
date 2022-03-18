@@ -4,13 +4,15 @@ import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberDto;
 import health.real_pt.member.repository.MemberRepository;
 
+import java.util.List;
+
 public interface MemberService {
 
     /**
      * 회원가입
-     * @param member
+     * @param
      */
-    void join(MemberDto memberDto);
+    Long join(MemberDto memberDto);
 
 
     /**
@@ -25,6 +27,12 @@ public interface MemberService {
      *
      */
     void findPW();
+
+    /**
+     * 모든 회원 찾기
+     *
+     */
+    List<Member> findAllMembers();
 
 
     /**
