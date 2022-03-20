@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("v1/api/member")
 public class MemberApiController {
 
     private final MemberService memberService;
