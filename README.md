@@ -12,11 +12,12 @@
 
 <h2>서비스 기능 설명</h2>
 
+- BackeEnd 영역은 Rest API를 제공하여 앱과 통신 할 예정입니다.
 - 
 
 
 
-<
+<br>
 
 <h2>개발 환경</h2>
 
@@ -29,7 +30,5 @@
 
 ![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
 
-API 통신 테스트(POSTMAN , API Swagger)
+<h2>API 통신 테스트(POSTMAN , API Swagger)</h2>
 
-
-﻿
