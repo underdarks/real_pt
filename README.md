@@ -1,5 +1,7 @@
+# 프로젝트 명 : Gym꾼
+ <br>
 
-<h2>프로젝트 시작 계기</h2>
+<h2>프로젝트 개요</h2>
 
  저는 운동하는 것을 좋아합니다. 그중 헬스를 즐겨 하는데 헬스장을 가보면 운동을 처음 시작하시는 분들(=헬린이)이 처음 운동을 시작하려고 헬스에 오면 뭐부터 할지 막막하고 운동을 해도 본인이 정확하게 운동을 하고 있는지도 의문이 들고 막막합니다.
 
@@ -12,11 +14,59 @@
 
 <h2>서비스 기능 설명</h2>
 
-- BackeEnd 영역은 Rest API를 제공하여 앱과 통신 할 예정입니다.
-- 
+- <Strong>Rest API를 제공하여 API 통신 기능 제공</Strong>
+- <Strong>회원 관리 API 제공</Strong>
+  - 회원가입
+  - 아이디 찾기 
+  - 비밀번호 찾기
+  - 회원 수정 
+  - 회원 조회
+  - 회원 탈퇴
+ 
+- <Strong>헬스장(Gym) 관리 API 제공</Strong>
+  - Gym 등록
+  - Gym 수정
+  - Gym 조회
+  - Gym 삭제
+  
+- <Strong>헬스장 가격(GymPrice) 관리 API 제공</Strong>
+  - 가격 등록(월단위 ex. 1개월, 3개월, 6개월..)
+  - 가격 조회
+  - 가격 수정
+  - 가격 삭제
 
+- <Strong>헬스장 리뷰 (GymReview) 관리 API 제공</Strong>
+  - 리뷰 등록(별점, 리뷰 내용, 사진 업로드, 리뷰 댓글 기능 제공) 
+  - 리뷰 조회
+  - 리뷰 수정
+  - 리뷰 삭제
 
+- <Strong>Personal Training(PT) 관리 API 제공</Strong>
+  - PT 등록
+  - PT 수정
+  - PT 조회
+  - PT 삭제
+  
+- <Strong>PT 가격(PtPrice) 관리 API 제공</Strong>
+  - 가격 등록(횟수 단위 ex.10회 20회 30회.... )
+  - 가격 조회
+  - 가격 수정
+  - 가격 삭제
 
+- <Strong>PT 리뷰 (PtReview) 관리 API 제공</Strong>
+  - 리뷰 등록(별점, 리뷰 내용, 사진 업로드, 리뷰 댓글 기능 제공) 
+  - 리뷰 조회
+  - 리뷰 수정
+  - 리뷰 삭제
+
+<br>
+<h2>개발 진행 중인 Tasks</h2>
+
+- <Strong>헬스 커뮤니티(글쓰기, 답변달기, 글 수정, 글 삭제 ...)</Strong>
+- <Strong>1:1 대화 기능</Strong>
+- <Strong>SNS 로그인 연동(KaKaoTalk, FaceBook 등..)</Strong>
+  
+  
 <br>
 
 <h2>개발 환경</h2>
@@ -30,5 +80,24 @@
 
 ![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
 
-<h2>API 통신 테스트(POSTMAN , API Swagger)</h2>
+<br>
+<h2>API 테스트 및 관리 </h2>
+ PostMan을 사용하여 테스트를 진행하고 있으며 Swagger를 사용하여 API 문서 관리를 하고 있습니다.
+
+<br>
+<Strong>PostMan</Strong>
+<br>
+-회원 등록 Test
+![image](https://user-images.githubusercontent.com/41244406/159205634-fbc924b3-d1cf-4037-bbf1-15fb2b400faa.png)
+
+<br>
+-회원 조회 Test
+![image](https://user-images.githubusercontent.com/41244406/159205690-523f74b7-2cc4-492c-8e97-358b7f815ce9.png)
+
+
+<br>
+<Strong>Swagger</Strong>
+![image](https://user-images.githubusercontent.com/41244406/159205571-ac7ba537-429b-435d-b052-1a79d43fc5ea.png)
+
+
 
