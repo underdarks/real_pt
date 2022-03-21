@@ -1,4 +1,4 @@
-# 프로젝트 명 : Gym꾼
+# Gym꾼(
  <br>
 
 <h2>프로젝트 개요</h2>
@@ -88,16 +88,18 @@
 <Strong>PostMan</Strong>
 <br>
 -회원 등록 Test
-![image](https://user-images.githubusercontent.com/41244406/159205634-fbc924b3-d1cf-4037-bbf1-15fb2b400faa.png)
+
 
 <br>
--회원 조회 Test
-![image](https://user-images.githubusercontent.com/41244406/159205690-523f74b7-2cc4-492c-8e97-358b7f815ce9.png)
+회원 조회 Test
+
+![memberSearch](https://user-images.githubusercontent.com/41244406/159206823-9e3b9220-b8a5-421c-a00a-73f8e72b69b3.png)
+
 
 
 <br>
 <Strong>Swagger</Strong>
-![image](https://user-images.githubusercontent.com/41244406/159205571-ac7ba537-429b-435d-b052-1a79d43fc5ea.png)
+![1](https://user-images.githubusercontent.com/41244406/159205571-ac7ba537-429b-435d-b052-1a79d43fc5ea.png)
 
 
 
