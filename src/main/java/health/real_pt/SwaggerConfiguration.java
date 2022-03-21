@@ -32,8 +32,8 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("API 타이틀")
-                .description("API 상세소개 및 사용법 등..")
+                .title("API 메뉴얼")
+                .description("API 상세소개 및 사용법 소개")
                 .version("1.0")
                 .build();
     }
