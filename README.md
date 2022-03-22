@@ -1,4 +1,4 @@
-# Gym꾼(
+# Gym꾼
  <br>
 
 <h2>프로젝트 개요</h2>
@@ -89,6 +89,7 @@
 <br>
 -회원 등록 Test
 
+![memberEnroll](https://user-images.githubusercontent.com/41244406/159385045-1e475c34-d16b-4f7d-8c2d-54f7e4b7c99f.PNG)
 
 <br>
 회원 조회 Test
@@ -99,7 +100,8 @@
 
 <br>
 <Strong>Swagger</Strong>
-![1](https://user-images.githubusercontent.com/41244406/159205571-ac7ba537-429b-435d-b052-1a79d43fc5ea.png)
+
+![api swagger(member)](https://user-images.githubusercontent.com/41244406/159385122-eb54c82b-4cb9-40c9-81e3-3c99af7a3e6c.PNG)
 
 
 
