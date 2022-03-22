@@ -4,6 +4,7 @@ package health.real_pt.member.api;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberDto;
 import health.real_pt.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,26 +15,21 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("v1/api/member")
+@RequiredArgsConstructor
 public class MemberApiController {
 
     private final MemberService memberService;
 
-    public MemberApiController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
     /**
-     * 회원 등록 API
-     *
+     * 회원 등록
      */
     @PostMapping("")
-    public MemberDto saveMember(@RequestBody @Valid MemberDto reqMemberDto){
-        memberService.join(reqMemberDto);
-        return reqMemberDto;
+    public Long saveMember(@RequestBody @Valid MemberDto reqMemberDto){
+        return memberService.join(reqMemberDto);
     }
 
     /**
-     * 모든 회원 조회 API
+     * 모든 회원 조회
      */
     @GetMapping("/members")
     public MemberResultVo findAllMembers(){
@@ -47,7 +43,7 @@ public class MemberApiController {
     }
 
     /**
-     * 단일 회원 조회 API
+     * 단일 회원 조회
      */
     @GetMapping("/{id}")
     public MemberDto findMember(@PathVariable("id") Long id){
@@ -61,13 +57,23 @@ public class MemberApiController {
      * 회원 수정
      */
     @PatchMapping("/{id}")
-    public MemberDto updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberDto udpMemberDto){
-        memberService.updateMember(id,udpMemberDto);
+    public MemberDto updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberDto updMemberDto){
+        memberService.updateMember(id, updMemberDto);
         Optional<Member> memberOptional = memberService.findMember(id);
 
         Member member = memberOptional.orElseThrow();
 
         return new MemberDto().entityToDto(member);
+    }
+
+    /**
+     * 회원 삭제
+     */
+    @DeleteMapping("/{id}")
+    public String deleteMember(@PathVariable("id") Long id){
+        memberService.quit(id);
+
+        return "success";
     }
 
 

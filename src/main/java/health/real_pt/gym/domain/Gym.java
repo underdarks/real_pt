@@ -55,31 +55,38 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
      */
 
     public void changeName(String name){
-        this.name=name;
+        if(name != null && !name.isEmpty())
+            this.name=name;
     }
 
     public void changeInfo(String info){
-        this.info=info;
+        if(info != null && !info.isEmpty())
+            this.info=info;
     }
 
     public void changeOpenTime(String openTime){
-        this.openTime=openTime;
+        if(info != null && !info.isEmpty())
+            this.openTime=openTime;
     }
 
     public void changeProgram(String program){
-        this.program=program;
+        if(program != null && !program.isEmpty())
+            this.program=program;
     }
 
     public void changeLocation(String location){
-        this.location=location;
+        if(location != null && !location.isEmpty())
+            this.location=location;
     }
 
     public void changeExtraService(String extraService){
-        this.extraService=extraService;
+        if(extraService != null && !extraService.isEmpty())
+            this.extraService=extraService;
     }
 
     public void changeFacilites(String facilites){
-        this.facilites=facilites;
+        if(facilites != null && !facilites.isEmpty())
+            this.facilites=facilites;
     }
 
     /* ============================================================================================================== */

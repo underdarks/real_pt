@@ -32,6 +32,7 @@ public class MemberDto extends BaseTimeEntity implements BaseDto<Member,MemberDt
     @Override
     public MemberDto entityToDto(Member member) {
         MemberDto memberDto = new MemberDto();
+
         memberDto.setId(member.getId());
         memberDto.setUserId(member.getUserId());
         memberDto.setPassword("********");

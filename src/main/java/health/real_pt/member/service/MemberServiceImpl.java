@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 //@RequiredArgsConstructor
-@Transactional  //JPA는 트랜잭션 안에서 실행됨
+@Transactional(readOnly = true)  //JPA는 트랜잭션 안에서 실행됨
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
@@ -69,6 +69,7 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.findById(memberId);
     }
 
+    @Transactional
     @Override
     public void updateMember(Long memberId, MemberDto memberDto) {
         Optional<Member> memberOptional = memberRepository.findById(memberId);
@@ -77,9 +78,14 @@ public class MemberServiceImpl implements MemberService{
         member.updateEntity(memberDto);
     }
 
+    @Transactional
     @Override
     public void quit(Long id) {
-        memberRepository.findById(id);
+        Optional<Member> memberOptional = memberRepository.findById(id);
+
+        Member deleteMember = memberOptional.orElseThrow(() -> new NoSuchElementException("meber 객체를 찾을 수 없습니다!"));
+        memberRepository.delete(deleteMember);
+
     }
 
 
