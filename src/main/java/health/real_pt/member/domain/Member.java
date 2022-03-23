@@ -7,6 +7,7 @@ import health.real_pt.member.dto.MemberDto;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -22,19 +23,19 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    @NotNull(message = "ID는 Null이 될 수 없습니다!")
+    @NotNull(message = "ID는 필수 값입니다!")
     @Column(name = "USER_ID",unique = true)
     private String userId;
 
-    @NotNull(message = "비밀번호는 Null이 될 수 없습니다!")
+    @NotNull(message = "비밀번호는 필수 값입니다!")
     @Column(name = "PASSWORD")
     private String password;
 
-    @NotNull(message = "이름은 Null이 될 수 없습니다!")
+    @NotNull(message = "이름은 필수 값입니다!")
     @Column(name = "NAME")
     private String name;
 
-    @NotNull(message = "메일은 Null이 될 수 없습니다!")
+    @Email
     @Column(name = "EMAIL",unique = true)
     private String email;
 
@@ -46,7 +47,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "BIRTHDAY")
     private LocalDate birthDay;
 
-    @NotNull(message = "닉네임은 Null이 될 수 없습니다!")
+    @NotNull(message = "닉네임은 필수 값입니다!")
     @Column(name = "NICKNAME", unique = true)
     private String nickname;
 

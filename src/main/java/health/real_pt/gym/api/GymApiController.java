@@ -29,6 +29,7 @@ public class GymApiController {
         return gymService.saveGym(reqGymDto);
     }
 
+
     /**
      * 헬스장 정보 수정
      * @param id        : 수정할 ID(PK)
