@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MemberResultVo<T> {
+public class MemberResultDto<T> {
     private int count;
     private T data;
 }

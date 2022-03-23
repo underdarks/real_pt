@@ -24,7 +24,7 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/v1/api/**"))
+                .paths(PathSelectors.ant("/api/v1/**"))
                 .build()
                 .apiInfo(apiInfo())
                 .enable(true);

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 
 @Data
-public class MemberDto extends BaseTimeEntity implements BaseDto<Member,MemberDto> {
+public class MemberDto implements BaseDto<Member,MemberDto> {
 
     private Long id;
     private String userId;
@@ -44,6 +44,7 @@ public class MemberDto extends BaseTimeEntity implements BaseDto<Member,MemberDt
         memberDto.setRecommandCode(member.getRecommandCode());
         memberDto.setRecommandedCode(member.getRecommandedCode());
         memberDto.setGym(member.getGym());
+
 
         return memberDto;
     }

@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("v1/api/gym")
+@RequestMapping("api/v1/gym")
 @RequiredArgsConstructor
 public class GymApiController {
 
@@ -27,7 +29,6 @@ public class GymApiController {
         return gymService.saveGym(reqGymDto);
     }
 
-
     /**
      * 헬스장 정보 수정
      * @param id        : 수정할 ID(PK)
@@ -37,23 +38,46 @@ public class GymApiController {
     @PatchMapping("/{id}")
     public GymDto updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymDto updGymDto){
         gymService.updateGym(updGymDto);
-
-        Optional<Gym> gymOptional = gymService.findOne(id);
-        Gym gym = gymOptional.orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
+        Gym gym = gymService.findOne(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
 
         return new GymDto().entityToDto(gym);
     }
 
+    /**
+     * 특정 헬스장 조회
+     * @param id : 헬스장 ID(PK)
+     * @return   : GymDTO
+     */
+    @GetMapping("/{id}")
+    public GymDto findGym(@PathVariable("id") Long id){
+        Gym gym = gymService.findOne(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
 
-//    @GetMapping("/{id}")
-//    public GymDto findGym(@PathVariable("id") Long id){
-//
-//    }
-//
-//    @GetMapping("")
-//    public GymDto findAllGym(){
-//
-//    }
+        return new GymDto().entityToDto(gym);
+    }
+
+    /**
+     * 모든 헬스장 조회
+     * @return :GymResultDTO
+     */
+    @GetMapping("")
+    public GymResultDto findAllGym(){
+        List<Gym> findGyms = gymService.findGyms();
+
+        List<GymDto> gymDtoList = findGyms.stream()
+                .map(gym -> new GymDto().entityToDto(gym))
+                .collect(Collectors.toList());
+
+
+        return new GymResultDto(gymDtoList.size(),gymDtoList);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public String deleteGym(@PathVariable("id") Long id){
+        gymService.deleteGym(id);
+
+        return "success";
+    }
 
 
 }

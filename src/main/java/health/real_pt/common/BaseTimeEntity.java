@@ -2,6 +2,7 @@ package health.real_pt.common;
 
 import health.real_pt.member.domain.Member;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
+@Setter
 @EntityListeners({AuditingEntityListener.class})    //BaseTimeEntity에 Auditing(이벤트) 기능을 포함
 public abstract class BaseTimeEntity {
 

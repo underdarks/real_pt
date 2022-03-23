@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -44,8 +45,8 @@ public class GymServiceImpl implements GymService{
     }
 
     @Override
-    public void deleteGym(GymDto gymDto) {
-        Gym gym = gymRepository.findById(gymDto.getId()).get();
+    public void deleteGym(Long id) {
+        Gym gym = gymRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
         gymRepository.delete(gym);
     }
 

@@ -10,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+import static javax.persistence.FetchType.*;
+
 @Entity @Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
@@ -54,7 +56,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
     private String recommandedCode;
 
-    @OneToOne
+    @OneToOne(fetch= LAZY)
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
 
