@@ -24,16 +24,16 @@ public class MemberApiController {
      * 회원 등록
      */
     @PostMapping("")
-    public Long saveMember(@RequestBody @Valid MemberDto reqMemberDto){
-        return memberService.join(reqMemberDto);
+    public Long saveMember(@RequestBody @Valid MemberDto requestDto){
+        return memberService.join(requestDto);
     }
 
     /**
      * 회원 수정
      */
     @PatchMapping("/{id}")
-    public MemberDto updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberDto updMemberDto){
-        memberService.updateMember(id, updMemberDto);
+    public MemberDto updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberDto requestDto){
+        memberService.updateMember(id, requestDto);
         Optional<Member> memberOptional = memberService.findMember(id);
 
         Member member = memberOptional.orElseThrow();

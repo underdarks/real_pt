@@ -5,9 +5,11 @@ import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.member.dto.MemberDto;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -17,21 +19,22 @@ import static javax.persistence.FetchType.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
+//@DynamicUpdate
 public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    @NotNull(message = "ID는 필수 값입니다!")
+    @NotBlank(message = "ID는 필수 값입니다!")
     @Column(name = "USER_ID",unique = true)
     private String userId;
 
-    @NotNull(message = "비밀번호는 필수 값입니다!")
+    @NotBlank(message = "비밀번호는 필수 값입니다!")
     @Column(name = "PASSWORD")
     private String password;
 
-    @NotNull(message = "이름은 필수 값입니다!")
+    @NotBlank(message = "이름은 필수 값입니다!")
     @Column(name = "NAME")
     private String name;
 
@@ -47,7 +50,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "BIRTHDAY")
     private LocalDate birthDay;
 
-    @NotNull(message = "닉네임은 필수 값입니다!")
+    @NotBlank(message = "닉네임은 필수 값입니다!")
     @Column(name = "NICKNAME", unique = true)
     private String nickname;
 

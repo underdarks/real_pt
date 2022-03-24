@@ -1,5 +1,6 @@
 package health.real_pt.member.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import health.real_pt.common.BaseDto;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
@@ -21,6 +22,8 @@ public class MemberDto implements BaseDto<Member,MemberDto> {
     private String password;
     private String name;
     private String email;
+
+    @JsonIgnore //Josn형식으로 변환할때 제외해서 응답한다
     private String phone;
     private LocalDate birthDay;
     private String nickname;

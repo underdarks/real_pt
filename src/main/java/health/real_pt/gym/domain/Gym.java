@@ -6,7 +6,7 @@ import health.real_pt.gym.dto.GymDto;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity @Table(name = "GYM")
@@ -19,6 +19,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
     @Column(name = "GYM_ID")
     private Long id;
 
+    @NotBlank
     @Column(name = "NAME", unique = true)
     private String name;    //헬스장 이름(중복 불가, 대신 체인점은 끝에 xx점 붙이기 ex. 스포애니 - 신림사거리 1호점)
 
@@ -34,7 +35,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
     @Column(name = "PROGRAM")
     private String program;      //운영 프로그램
 
-    @NotNull
+    @NotBlank
     @Column(name = "LOCATION")
     private String location;    //위치 주소
 
@@ -65,7 +66,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
     }
 
     public void changeOpenTime(String openTime){
-        if(info != null && !info.isEmpty())
+        if(openTime != null && !openTime.isEmpty())
             this.openTime=openTime;
     }
 
