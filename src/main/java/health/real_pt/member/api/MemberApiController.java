@@ -45,14 +45,14 @@ public class MemberApiController {
      * 모든 회원 조회
      */
     @GetMapping("/members")
-    public MemberResultDto findAllMembers(){
+    public MemberListDto findAllMembers(){
         List<Member> findMembers = memberService.findAllMembers();
 
         List<MemberDto> memberDtoList = findMembers.stream()
                 .map(m -> new MemberDto().entityToDto(m))
                 .collect(Collectors.toList());
 
-        return new MemberResultDto(memberDtoList.size(),memberDtoList);
+        return new MemberListDto(memberDtoList.size(),memberDtoList);
     }
 
     /**

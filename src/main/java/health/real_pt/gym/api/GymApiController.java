@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -61,7 +60,7 @@ public class GymApiController {
      * @return :GymResultDTO
      */
     @GetMapping("")
-    public GymResultDto findAllGym(){
+    public GymListDto findAllGym(){
         List<Gym> findGyms = gymService.findGyms();
 
         List<GymDto> gymDtoList = findGyms.stream()
@@ -69,7 +68,7 @@ public class GymApiController {
                 .collect(Collectors.toList());
 
 
-        return new GymResultDto(gymDtoList.size(),gymDtoList);
+        return new GymListDto(gymDtoList.size(),gymDtoList);
     }
 
 

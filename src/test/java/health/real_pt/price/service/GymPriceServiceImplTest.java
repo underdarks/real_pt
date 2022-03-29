@@ -45,7 +45,7 @@ class GymPriceServiceImplTest {
 
 
         //when
-        Long saveId = gymPriceService.saveGymPrice(gymPriceDto, 1L, gym.getId());
+        Long saveId = gymPriceService.saveGymPrice(gymPriceDto,1L, gym.getId());
 
         //then
         assertThat(saveId).isGreaterThan(0);

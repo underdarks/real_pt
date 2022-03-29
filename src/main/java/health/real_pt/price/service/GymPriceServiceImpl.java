@@ -27,7 +27,7 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public Long saveGymPrice(GymPriceDto gymPriceDto, Long memberId, Long gymId) {
+    public Long saveGymPrice(GymPriceDto gymPriceDto,Long memberId,Long gymId) {
         //헬스장 엔티티 찾기
         Optional<Gym> gymOptional = gymRepository.findById(gymId);
 
