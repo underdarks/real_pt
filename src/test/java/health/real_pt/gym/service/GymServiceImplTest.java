@@ -98,7 +98,7 @@ class GymServiceImplTest {
         GymDto gymDto = makeGymDto();
 
         //when
-        gymService.updateGym(gymDto);
+        gymService.updateGym(gymDto.getId(),gymDto);
 
         //then
     }

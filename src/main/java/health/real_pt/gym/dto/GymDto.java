@@ -11,7 +11,6 @@ public class GymDto implements BaseDto<Gym,GymDto> {
 
     private Long id;
 
-    @NotBlank
     private String name;    //헬스장 이름
 
     private String info;      //헬스장 정보
@@ -20,7 +19,6 @@ public class GymDto implements BaseDto<Gym,GymDto> {
 
     private String program;      //운영 프로그램
 
-    @NotBlank
     private String location;    //위치 주소
 
     private String extraService;  //부가서비스

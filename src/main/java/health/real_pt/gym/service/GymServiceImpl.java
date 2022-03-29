@@ -29,8 +29,8 @@ public class GymServiceImpl implements GymService{
 
     @Override
     @Transactional
-    public void updateGym(GymDto gymDto) {
-        Gym gym = gymRepository.findById(gymDto.getId()).get();
+    public void updateGym(Long gymId, GymDto gymDto) {
+        Gym gym = gymRepository.findById(gymId).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
         gym.updateEntity(gymDto);
     }
 
@@ -44,6 +44,7 @@ public class GymServiceImpl implements GymService{
         return gymRepository.findById(id);
     }
 
+    @Transactional
     @Override
     public void deleteGym(Long id) {
         Gym gym = gymRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));

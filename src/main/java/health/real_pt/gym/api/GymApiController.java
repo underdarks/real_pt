@@ -38,14 +38,14 @@ public class GymApiController {
      */
     @PatchMapping("/{id}")
     public GymDto updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymDto updGymDto){
-        gymService.updateGym(updGymDto);
+        gymService.updateGym(id,updGymDto);
         Gym gym = gymService.findOne(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
 
         return new GymDto().entityToDto(gym);
     }
 
     /**
-     * 특정 헬스장 조회
+     * 단일 헬스장 조회
      * @param id : 헬스장 ID(PK)
      * @return   : GymDTO
      */

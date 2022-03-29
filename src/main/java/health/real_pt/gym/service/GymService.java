@@ -22,7 +22,7 @@ public interface GymService {
     /**
      * 헬스장 정보 수정
      */
-    void updateGym(GymDto GymDto);
+    void updateGym(Long gymId,GymDto GymDto);
 
 
     /**
