@@ -9,6 +9,9 @@
 
 ![memberEnroll](https://user-images.githubusercontent.com/41244406/159385045-1e475c34-d16b-4f7d-8c2d-54f7e4b7c99f.PNG)
 
+
+<br>
+<br>
 <br>
 회원 조회 Test
 
@@ -16,6 +19,8 @@
 
 
 
+<br>
+<br>
 <br>
 <Strong>Swagger</Strong>
 
