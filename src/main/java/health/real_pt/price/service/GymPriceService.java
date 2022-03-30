@@ -20,7 +20,7 @@ public interface GymPriceService {
     /**
      *  가격 저장
      */
-    Long saveGymPrice(GymPriceDto gymPriceDto, Long memberId, Long gymId);
+    Long saveGymPrice(GymPriceDto gymPriceDto, Long gymId);
 
     /**
      *  가격 수정
