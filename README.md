@@ -73,10 +73,10 @@
 
 - Spring Boot 2.6.3
 - JPA (Hibernate)
-- Java 11
-- Gradle
+- Java 11.0.13
+- Gradle 
 - Lombok
-- Mysql (DB)
+- Mysql 8.0.27
 
 ![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
 
