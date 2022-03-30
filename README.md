@@ -14,15 +14,12 @@
 
 <h2>서비스 기능 설명</h2>
 
-- <Strong>Rest API를 제공하여 API 통신 기능 제공</Strong>
-- <Strong>회원 관리 API 제공</Strong>
-  - 회원가입
-  - 아이디 찾기 
-  - 비밀번호 찾기
-  - 회원 수정 
-  - 회원 조회
-  - 회원 탈퇴
- 
+- <Strong>Rest API 통신 기능 제공</Strong>
+- [회원 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [헬스장 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [가격 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+
 - <Strong>헬스장(Gym) 관리 API 제공</Strong>
   - Gym 등록
   - Gym 수정
