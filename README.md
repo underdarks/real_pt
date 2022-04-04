@@ -14,15 +14,12 @@
 
 <h2>서비스 기능 설명</h2>
 
-- <Strong>Rest API를 제공하여 API 통신 기능 제공</Strong>
-- <Strong>회원 관리 API 제공</Strong>
-  - 회원가입
-  - 아이디 찾기 
-  - 비밀번호 찾기
-  - 회원 수정 
-  - 회원 조회
-  - 회원 탈퇴
- 
+- <Strong>Rest API 통신 기능 제공</Strong>
+- [회원 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [헬스장 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [가격 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+
 - <Strong>헬스장(Gym) 관리 API 제공</Strong>
   - Gym 등록
   - Gym 수정
@@ -73,10 +70,10 @@
 
 - Spring Boot 2.6.3
 - JPA (Hibernate)
-- Java 11
-- Gradle
+- Java 11.0.13
+- Gradle 
 - Lombok
-- Mysql (DB)
+- Mysql 8.0.27
 
 ![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
 
