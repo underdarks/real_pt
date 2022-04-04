@@ -3,14 +3,14 @@ package health.real_pt.price.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.MemberDto;
-import health.real_pt.price.dto.GymPriceDto;
+import health.real_pt.price.dto.GymPrice.GymPriceDto;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import static javax.persistence.FetchType.*;
 
 @Entity @Table(name = "GYM_PRICE")
 @Getter
@@ -18,12 +18,12 @@ import java.time.LocalDate;
 @ToString(exclude = "")
 public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceDto> {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GYM_PRICE_ID")
     private Long id;
 
-    @NotNull
-    @ManyToOne  //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
+    @NotEmpty
+    @ManyToOne(fetch = LAZY)  //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
     @JoinColumn(name = "GYM_ID")
     private Gym gym;    //GYM PK
 
@@ -42,25 +42,26 @@ public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceDto> 
      */
 
     public void changeGym(Gym gym){
-        this.gym=gym;
+        if(gym != null)
+            this.gym=gym;
     }
 
     public void changeRegularPrice(Long regularPrice){
-        this.regularPrice=regularPrice;
+        if(regularPrice != null)
+            this.regularPrice=regularPrice;
     }
 
     public void changeDiscountPrice(Long discountPrice){
-        this.discountPrice=discountPrice;
+        if(discountPrice != null)
+            this.discountPrice=discountPrice;
     }
 
     public void changeMonth(Integer months){
-        this.months=months;
+        if(months != null)
+            this.months=months;
     }
 
-
-
     /* ============================================================================================================== */
-
 
 
     //객체 생성(빌더 패턴)

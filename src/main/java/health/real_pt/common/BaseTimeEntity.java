@@ -36,13 +36,13 @@ public abstract class BaseTimeEntity {
     @LastModifiedBy
     @Column(name = "REG_MEMBER_ID", updatable = false)
     private String reg_member; //등록자
-    @UpdateTimestamp
+
     @CreatedBy
     @Column(name = "MOD_MEMBER_ID")
     private String mod_member; //수정자
 
     @Lob
     @Column(name = "REMARKS")
-    private String  remarks;       //비고
+    private String remarks;       //비고
 
 }

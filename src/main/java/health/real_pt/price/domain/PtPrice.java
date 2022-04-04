@@ -3,7 +3,7 @@ package health.real_pt.price.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.member.domain.Member;
-import health.real_pt.price.dto.PtPriceDto;
+import health.real_pt.price.dto.PtPrice.PtPriceDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString(exclude = "")
 public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceDto> {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PT_PRICE_ID")
     private Long id;
 

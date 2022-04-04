@@ -1,9 +1,9 @@
-package health.real_pt.price.service;
+package health.real_pt.price.service.GymPrice;
 
-import health.real_pt.gym.domain.Gym;
-import health.real_pt.member.domain.Member;
+import health.real_pt.price.api.GymPrice.GymPriceListDto;
+import health.real_pt.price.api.GymPrice.GymPriceResDto;
 import health.real_pt.price.domain.GymPrice;
-import health.real_pt.price.dto.GymPriceDto;
+import health.real_pt.price.dto.GymPrice.GymPriceDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,24 +25,24 @@ public interface GymPriceService {
     /**
      *  가격 수정
      */
-    Long updateGymPrice(GymPriceDto gymPriceDto);
+    GymPriceResDto updateGymPrice(GymPriceDto gymPriceDto);
 
 
     /**
      *  가격 삭제
      */
-    void deleteGymPrice(GymPriceDto gymPriceDto);
+    void deleteGymPrice(Long id);
 
 
     /**
      *  가격 단일 조회
      */
-    Optional<GymPrice> findOnePrice(Long gymPriceId);
+    GymPriceResDto findOnePrice(Long gymPriceId);
 
     /**
      *  가격 전체 조회
      */
-    List<GymPrice> findAllPrice(Long gymId);
+    GymPriceListDto findAllPrice(Long gymId);
 
 
 

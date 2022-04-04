@@ -1,9 +1,9 @@
-package health.real_pt.price.service;
+package health.real_pt.price.service.PtPrice;
 
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.price.domain.PtPrice;
-import health.real_pt.price.dto.PtPriceDto;
+import health.real_pt.price.dto.PtPrice.PtPriceDto;
 import health.real_pt.price.repository.PtPriceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,7 @@
-package health.real_pt.price.service;
+package health.real_pt.price.service.PtPrice;
 
-import health.real_pt.price.domain.GymPrice;
 import health.real_pt.price.domain.PtPrice;
-import health.real_pt.price.dto.PtPriceDto;
+import health.real_pt.price.dto.PtPrice.PtPriceDto;
 
 import java.util.List;
 import java.util.Optional;

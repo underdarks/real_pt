@@ -22,7 +22,7 @@ import static javax.persistence.FetchType.*;
 //@DynamicUpdate
 public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
     private Long id;
 

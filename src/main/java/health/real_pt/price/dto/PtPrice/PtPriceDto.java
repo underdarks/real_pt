@@ -1,4 +1,4 @@
-package health.real_pt.price.dto;
+package health.real_pt.price.dto.PtPrice;
 
 import health.real_pt.member.domain.Member;
 import lombok.Getter;

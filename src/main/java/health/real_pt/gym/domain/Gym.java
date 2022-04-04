@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @ToString(exclude = "")
 public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GYM_ID")
     private Long id;
 
