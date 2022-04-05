@@ -46,7 +46,36 @@ public class PtPriceApiController {
         return ptPriceService.updatePtPrice(reqDto);
     }
 
+    /**
+     * 단일 가격 조회
+     * @return
+     */
+    @ApiOperation(value = "PT 가격 조회", notes = "id를 받아 가격 정보를 조회합니다.")
+    @GetMapping("{id}")
+    public PtPriceResDto findPtPrice(@PathVariable(value = "id") Long id){
+        return ptPriceService.findOnePrice(id);
+    }
 
+    /**
+     * 모든 가격 조회
+     * @return
+     */
+    @ApiOperation(value = "PT 가격 전체 조회", notes = "모든 가격 정보를 조회합니다.")
+    @GetMapping()
+    public PtPriceResDto findAllPtPrice(@PathVariable(value = "id") Long id){
+        return ptPriceService.findOnePrice(id);
+    }
+
+    /**
+     * 가격 삭제
+     * @return
+     */
+    @ApiOperation(value = "PT 가격 삭제", notes = "id를 받아 가격 정보를 삭제합니다.")
+    @DeleteMapping("{id}")
+    public String deletePtPrice(@PathVariable(value = "id") Long id){
+        ptPriceService.deletePtPrice(id);
+        return "sucess";
+    }
 
 
 }
