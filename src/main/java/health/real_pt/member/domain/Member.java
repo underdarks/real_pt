@@ -3,31 +3,31 @@ package health.real_pt.member.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.member.dto.MemberDto;
+import health.real_pt.member.dto.MemberReqDto;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 import static javax.persistence.FetchType.*;
 
-@Entity @Table(name = "MEMBER")
+@Entity
+@Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
 //@DynamicUpdate
-public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
+public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
     private Long id;
 
     @NotBlank(message = "ID는 필수 값입니다!")
-    @Column(name = "USER_ID",unique = true)
+    @Column(name = "USER_ID", unique = true)
     private String userId;
 
     @NotBlank(message = "비밀번호는 필수 값입니다!")
@@ -39,7 +39,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     private String name;
 
     @Email
-    @Column(name = "EMAIL",unique = true)
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Column(name = "PHONE")
@@ -60,22 +60,20 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
     private String recommandedCode;
 
-    @OneToOne(fetch= LAZY)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
 
     /**
-     *  setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
+     * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */
 
-    public void changePW(String password){
-        if(password != null && !password.isEmpty())
-            this.password=password;
+    public void changePW(String password) {
+        this.password = password;
     }
 
-    public void changeEmail(String email){
-        if(email != null && !email.isEmpty())
-            this.email=email;
+    public void changeEmail(String email) {
+        this.email = email;
     }
 
     public void changePhone(String phone) {
@@ -83,8 +81,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
     }
 
     public void changeNickname(String nickname) {
-        if(nickname != null && !nickname.isEmpty())
-            this.nickname = nickname;
+        this.nickname = nickname;
     }
 
     public void changeRecommandCode(String recommandCode) {
@@ -103,7 +100,12 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
 
     //객체 생성 빌더 패턴
     @Builder
-    public Member(String userId, String password, String name, String email, String phone, LocalDate birthDay, String nickname, String recommandCode, String recommandedCode) {
+    public Member(String userId, String password,
+                  String name, String email,
+                  String phone, LocalDate birthDay,
+                  String nickname, String recommandCode,
+                  String recommandedCode,Gym gym) {
+
         this.userId = userId;
         this.password = password;
         this.name = name;
@@ -113,31 +115,42 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberDto>{
         this.nickname = nickname;
         this.recommandCode = recommandCode;
         this.recommandedCode = recommandedCode;
+        this.gym=gym;
     }
 
     //DTO -> Entity로 변환
-    public static Member toEntity(MemberDto memberDto){
+    public static Member toEntity(MemberReqDto memberReqDto) {
         return Member.builder()
-                .userId(memberDto.getUserId())
-                .password(memberDto.getPassword())
-                .name(memberDto.getName())
-                .email(memberDto.getEmail())
-                .phone(memberDto.getPhone())
-                .birthDay(memberDto.getBirthDay())
-                .nickname(memberDto.getNickname())
-                .recommandCode(memberDto.getRecommandCode())
-                .recommandedCode(memberDto.getRecommandedCode())
+                .userId(memberReqDto.getUserId())
+                .password(memberReqDto.getPassword())
+                .name(memberReqDto.getName())
+                .email(memberReqDto.getEmail())
+                .phone(memberReqDto.getPhone())
+                .birthDay(memberReqDto.getBirthDay())
+                .nickname(memberReqDto.getNickname())
+                .recommandCode(memberReqDto.getRecommandCode())
+                .recommandedCode(memberReqDto.getRecommandedCode())
+                .gym(memberReqDto.getGym())
                 .build();
 
     }
 
     @Override
-    public void updateEntity(MemberDto memberDto) {
-        changeGym(memberDto.getGym());
-        changeEmail(memberDto.getEmail());
-        changeNickname(memberDto.getNickname());
-        changePW(memberDto.getPassword());
-        changePhone(memberDto.getPhone());
+    public void updateEntity(MemberReqDto memberReqDto) {
+        if (memberReqDto.getGym() != null)
+            changeGym(memberReqDto.getGym());
+
+        if (memberReqDto.getEmail() != null)
+            changeEmail(memberReqDto.getEmail());
+
+        if (memberReqDto.getNickname() != null)
+            changeNickname(memberReqDto.getNickname());
+
+        if (memberReqDto.getPassword() != null)
+            changePW(memberReqDto.getPassword());
+
+        if (memberReqDto.getPhone() != null)
+            changePhone(memberReqDto.getPhone());
     }
 }
 

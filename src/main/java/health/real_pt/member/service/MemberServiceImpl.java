@@ -1,7 +1,8 @@
 package health.real_pt.member.service;
 
+import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.MemberDto;
+import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 //@RequiredArgsConstructor
@@ -23,9 +25,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public Long join(MemberDto memberDto) {
+    public Long join(MemberReqDto memberReqDto) {
         try {
-            Member member = Member.toEntity(memberDto);
+            Member member = Member.toEntity(memberReqDto);
 
             validateDuplicateMember(member);
             return  memberRepository.save(member);
@@ -37,7 +39,6 @@ public class MemberServiceImpl implements MemberService{
 
     /**
      * 중복 회원 검증(Id로 찾기)
-     *
      */
     private void validateDuplicateMember(Member member){
 //        System.out.println("member = " + member.getId());
@@ -48,34 +49,29 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
-    //
     @Override
-    public void findID() {
+    public List<MemberResDto> findAllMembers() {
+        List<Member> memberList = memberRepository.findAll();
 
+        return memberList.stream()
+                .map(m -> new MemberResDto().entityToDto(m))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void findPW() {
-
-    }
-
-    @Override
-    public List<Member> findAllMembers() {
-        return memberRepository.findAll();
-    }
-
-    @Override
-    public Optional<Member> findMember(Long memberId) {
-        return memberRepository.findById(memberId);
+    public MemberResDto findMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다."));
+        return new MemberResDto().entityToDto(member);
     }
 
     @Transactional
     @Override
-    public void updateMember(Long memberId, MemberDto memberDto) {
-        Optional<Member> memberOptional = memberRepository.findById(memberId);
-        Member member = memberOptional.orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다."));
+    public MemberResDto updateMember(Long memberId, MemberReqDto memberReqDto) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다."));
+        //더티 체킹(엔티티 수정)
+        member.updateEntity(memberReqDto);
 
-        member.updateEntity(memberDto);
+        return new MemberResDto().entityToDto(member);
     }
 
     @Transactional
@@ -85,7 +81,15 @@ public class MemberServiceImpl implements MemberService{
 
         Member deleteMember = memberOptional.orElseThrow(() -> new NoSuchElementException("meber 객체를 찾을 수 없습니다!"));
         memberRepository.delete(deleteMember);
+    }
+
+    @Override
+    public void findID() {
 
     }
 
+    @Override
+    public void findPW() {
+
+    }
 }

@@ -54,8 +54,7 @@ class GymServiceImplTest {
     @Test
     public void Gym_단일조회_성공(){
         //given
-        Optional<Gym> optional = gymService.findOne(9L);
-        Gym gym = optional.orElseThrow(() -> new NoSuchElementException("Gym 객체를 조회하지 못했습니당!"));
+        Gym gym = gymService.findOne(9L);
 
         //when
 
@@ -63,18 +62,18 @@ class GymServiceImplTest {
 
         //then
 
-        assertThat(optional).isNotEmpty();
+        assertThat(gym).isNotNull();
     }
 
     @Test
     public void Gym_단일조회_실패(){
         //given
-        Optional<Gym> optional = gymService.findOne(12341L);
+        Gym gym = gymService.findOne(12341L);
 
         //when
 
         //then
-        assertThat(optional).isEmpty();
+        assertThat(gym).isNull();
     }
 
     @Test

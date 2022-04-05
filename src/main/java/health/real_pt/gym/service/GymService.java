@@ -37,7 +37,7 @@ public interface GymService {
      * @param id -> PK
      * @return -> Gym Entity
      */
-    Optional<Gym> findOne(Long id);
+    Gym findOne(Long id);
 
 
     /**

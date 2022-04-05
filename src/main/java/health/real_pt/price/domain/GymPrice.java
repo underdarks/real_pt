@@ -3,12 +3,11 @@ package health.real_pt.price.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.price.dto.GymPrice.GymPriceDto;
+import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.FetchType.*;
 
@@ -16,13 +15,13 @@ import static javax.persistence.FetchType.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceDto> {
+public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceReqDto> {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GYM_PRICE_ID")
     private Long id;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne(fetch = LAZY)  //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
     @JoinColumn(name = "GYM_ID")
     private Gym gym;    //GYM PK
@@ -74,20 +73,20 @@ public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceDto> 
     }
 
     //DTO -> Entity로 변환
-    public static GymPrice toEntity(GymPriceDto gymPriceDto){
+    public static GymPrice toEntity(GymPriceReqDto gymPriceReqDto){
         return GymPrice.builder()
-                .gym(gymPriceDto.getGym())
-                .regularPrice(gymPriceDto.getRegularPrice())
-                .discountPrice(gymPriceDto.getDiscountPrice())
-                .months(gymPriceDto.getMonths())
+                .gym(gymPriceReqDto.getGym())
+                .regularPrice(gymPriceReqDto.getRegularPrice())
+                .discountPrice(gymPriceReqDto.getDiscountPrice())
+                .months(gymPriceReqDto.getMonths())
                 .build();
     }
 
     @Override
-    public void updateEntity(GymPriceDto gymPriceDto) {
-        changeGym(gymPriceDto.getGym());
-        changeRegularPrice(gymPriceDto.getRegularPrice());
-        changeDiscountPrice(gymPriceDto.getDiscountPrice());
-        changeMonth(gymPriceDto.getMonths());
+    public void updateEntity(GymPriceReqDto gymPriceReqDto) {
+        changeGym(gymPriceReqDto.getGym());
+        changeRegularPrice(gymPriceReqDto.getRegularPrice());
+        changeDiscountPrice(gymPriceReqDto.getDiscountPrice());
+        changeMonth(gymPriceReqDto.getMonths());
     }
 }

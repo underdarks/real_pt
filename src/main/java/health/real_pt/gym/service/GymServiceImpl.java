@@ -40,8 +40,8 @@ public class GymServiceImpl implements GymService{
     }
 
     @Override
-    public Optional<Gym> findOne(Long id) {
-        return gymRepository.findById(id);
+    public Gym findOne(Long id) {
+        return gymRepository.findById(id).orElseThrow(() -> new NoSuchElementException("id = " + id + "인 Gym 객체를 찾을 수 없습니다."));
     }
 
     @Transactional

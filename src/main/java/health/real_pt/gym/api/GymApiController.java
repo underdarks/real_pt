@@ -2,6 +2,7 @@ package health.real_pt.gym.api;
 
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.dto.GymDto;
+import health.real_pt.gym.dto.GymResDto;
 import health.real_pt.gym.service.GymService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class GymApiController {
     @PatchMapping("/{id}")
     public GymDto updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymDto updGymDto){
         gymService.updateGym(id,updGymDto);
-        Gym gym = gymService.findOne(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
+        Gym gym = gymService.findOne(id);
 
         return new GymDto().entityToDto(gym);
     }
@@ -54,7 +55,7 @@ public class GymApiController {
     @ApiOperation(value = "단일 헬스장 조회", notes = "id를 받아 헬스장 정보를 조회합니다.")
     @GetMapping("/{id}")
     public GymDto findGym(@PathVariable("id") Long id){
-        Gym gym = gymService.findOne(id).orElseThrow(() -> new NoSuchElementException("Gym 객체를 찾을 수 없습니다!"));
+        Gym gym = gymService.findOne(id);
 
         return new GymDto().entityToDto(gym);
     }

@@ -1,10 +1,10 @@
-package health.real_pt.price.service.PtPrice;
+package health.real_pt.price.service.ptPrice;
 
 import health.real_pt.price.domain.PtPrice;
-import health.real_pt.price.dto.PtPrice.PtPriceDto;
+import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
+import health.real_pt.price.dto.ptPrice.PtPriceResDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PtPriceService {
     /**
@@ -17,24 +17,25 @@ public interface PtPriceService {
     /**
      *  가격 저장
      */
-    Long savePtPrice(PtPriceDto ptPriceDto, Long memberId);
+    Long savePtPrice(PtPriceReqDto ptPriceReqDto, Long memberId);
 
     /**
      *  가격 수정
      */
-    void updatePtPrice(PtPriceDto ptPriceDto);
+    PtPriceResDto updatePtPrice(PtPriceReqDto updDto);
 
 
     /**
      *  가격 삭제
      */
-    void deletePtPrice(PtPriceDto ptPriceDto);
+    void deletePtPrice(Long Id);
 
 
     /**
      *  가격 단일 조회
+     * @return
      */
-    Optional<PtPrice> findOnePrice(Long ptPriceId);
+    PtPriceResDto findOnePrice(Long ptPriceId);
 
     /**
      *  가격 전체 조회

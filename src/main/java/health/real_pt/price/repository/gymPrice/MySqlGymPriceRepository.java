@@ -1,6 +1,5 @@
-package health.real_pt.price.repository;
+package health.real_pt.price.repository.gymPrice;
 
-import health.real_pt.gym.domain.Gym;
 import health.real_pt.price.domain.GymPrice;
 import org.springframework.stereotype.Repository;
 

@@ -1,18 +1,16 @@
-package health.real_pt.price.service.GymPrice;
+package health.real_pt.price.service.gymPrice;
 
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.repository.GymRepository;
-import health.real_pt.price.api.GymPrice.GymPriceListDto;
-import health.real_pt.price.api.GymPrice.GymPriceResDto;
+import health.real_pt.price.dto.gymPrice.GymPriceResDto;
 import health.real_pt.price.domain.GymPrice;
-import health.real_pt.price.dto.GymPrice.GymPriceDto;
-import health.real_pt.price.repository.GymPriceRepository;
+import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
+import health.real_pt.price.repository.gymPrice.GymPriceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,23 +28,23 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public Long saveGymPrice(GymPriceDto gymPriceDto,Long gymId) {
+    public Long saveGymPrice(GymPriceReqDto gymPriceReqDto, Long gymId) {
         //헬스장 엔티티 찾기
         Gym gym  = gymRepository.findById(gymId).orElseThrow(() -> new NoSuchElementException("gymId= " + gymId + "인 Gym 객체를 찾을 수 없습니다"));;
 
-        gymPriceDto.setGym(gym);
-        GymPrice gymPrice = GymPrice.toEntity(gymPriceDto);//Dto -> Entiiy
+        gymPriceReqDto.setGym(gym);
+        GymPrice gymPrice = GymPrice.toEntity(gymPriceReqDto);//Dto -> Entiiy
 
         return gymPriceRepository.save(gymPrice);
     }
 
     @Transactional
     @Override
-    public GymPriceResDto updateGymPrice(GymPriceDto gymPriceDto) {
-        GymPrice gymPrice = gymPriceRepository.findById(gymPriceDto.getId()).orElseThrow(() ->
-                new NoSuchElementException("gymId= " + gymPriceDto.getGym().getId() + "인 GymPrice 객체를 찾을 수 없습니다"));;
+    public GymPriceResDto updateGymPrice(GymPriceReqDto gymPriceReqDto) {
+        GymPrice gymPrice = gymPriceRepository.findById(gymPriceReqDto.getId()).orElseThrow(() ->
+                new NoSuchElementException("gymId= " + gymPriceReqDto.getGym().getId() + "인 GymPrice 객체를 찾을 수 없습니다"));;
 
-        gymPrice.updateEntity(gymPriceDto);
+        gymPrice.updateEntity(gymPriceReqDto);
         return new GymPriceResDto().entityToDto(gymPrice);
     }
 
@@ -68,15 +66,13 @@ public class GymPriceServiceImpl implements GymPriceService {
     }
 
     @Override
-    public GymPriceListDto findAllPrice(Long gymId) {
+    public List<GymPriceResDto> findAllPrice(Long gymId) {
         List<GymPrice> gymPriceList = gymPriceRepository.findByGymId(gymId);
 
         //Entity List -> Dto List
-        List<GymPriceResDto> priceDtoList = gymPriceList.stream()
+        return   gymPriceList.stream()
                 .map(gymPrice -> new GymPriceResDto().entityToDto(gymPrice))
                 .collect(Collectors.toList());
-
-        return new GymPriceListDto(priceDtoList.size(),priceDtoList);
     }
 
 }

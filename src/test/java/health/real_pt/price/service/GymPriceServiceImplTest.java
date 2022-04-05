@@ -2,16 +2,13 @@ package health.real_pt.price.service;
 
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
-import health.real_pt.price.api.GymPrice.GymPriceListDto;
-import health.real_pt.price.api.GymPrice.GymPriceResDto;
-import health.real_pt.price.domain.GymPrice;
-import health.real_pt.price.dto.GymPrice.GymPriceDto;
-import health.real_pt.price.service.GymPrice.GymPriceService;
+import health.real_pt.price.dto.gymPrice.GymPriceResDto;
+import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
+import health.real_pt.price.service.gymPrice.GymPriceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -32,20 +29,19 @@ class GymPriceServiceImplTest {
     public void 가격등록_성공(){
         //given
         //1. Gym 찾기
-        Optional<Gym> gymOptional = gymService.findOne(10L);
-        Gym gym = gymOptional.orElseThrow(() -> new NoSuchElementException("Gym 객체가 없습니다!"));
+        Gym gym = gymService.findOne(10L);
 
         //2. Dto 생성
-        GymPriceDto gymPriceDto=new GymPriceDto();
-        gymPriceDto.setGym(gym);
-        gymPriceDto.setId(1L);
-        gymPriceDto.setRegularPrice(100000L);
-        gymPriceDto.setDiscountPrice(90000L);
-        gymPriceDto.setMonths(1);
+        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        gymPriceReqDto.setGym(gym);
+        gymPriceReqDto.setId(1L);
+        gymPriceReqDto.setRegularPrice(100000L);
+        gymPriceReqDto.setDiscountPrice(90000L);
+        gymPriceReqDto.setMonths(1);
 
 
         //when
-        Long saveId = gymPriceService.saveGymPrice(gymPriceDto, gym.getId());
+        Long saveId = gymPriceService.saveGymPrice(gymPriceReqDto, gym.getId());
 
         //then
         assertThat(saveId).isGreaterThan(0);
@@ -56,13 +52,13 @@ class GymPriceServiceImplTest {
     public void 가격등록_실패(){
         //given
         //1. DTO 생성
-        GymPriceDto gymPriceDto=new GymPriceDto();
-        gymPriceDto.setRegularPrice(100000L);
-        gymPriceDto.setDiscountPrice(90000L);
-        gymPriceDto.setMonths(1);
+        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        gymPriceReqDto.setRegularPrice(100000L);
+        gymPriceReqDto.setDiscountPrice(90000L);
+        gymPriceReqDto.setMonths(1);
 
         //when
-        Long saveId = gymPriceService.saveGymPrice(gymPriceDto, 100L);
+        Long saveId = gymPriceService.saveGymPrice(gymPriceReqDto, 100L);
 
         //then
         assertThat(saveId).isGreaterThan(0);
@@ -73,37 +69,35 @@ class GymPriceServiceImplTest {
         //given
         //1. DTO 생성
         Long gymId=10L;
-        Optional<Gym> gymOptional = gymService.findOne(gymId);
-        Gym gym = gymOptional.orElseThrow();
+        Gym gym = gymService.findOne(gymId);
 
-
-        GymPriceDto gymPriceDto=new GymPriceDto();
-        gymPriceDto.setId(15L);
-        gymPriceDto.setGym(gym);
-        gymPriceDto.setRegularPrice(250000L);
-        gymPriceDto.setDiscountPrice(240000L);
-        gymPriceDto.setMonths(1);
+        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        gymPriceReqDto.setId(15L);
+        gymPriceReqDto.setGym(gym);
+        gymPriceReqDto.setRegularPrice(250000L);
+        gymPriceReqDto.setDiscountPrice(240000L);
+        gymPriceReqDto.setMonths(1);
 
 
         //when
-        GymPriceResDto gymPriceResDto = gymPriceService.updateGymPrice(gymPriceDto);
+        GymPriceResDto gymPriceResDto = gymPriceService.updateGymPrice(gymPriceReqDto);
 
         //then
-        assertThat(gymPriceResDto.getId()).isEqualTo(gymPriceDto.getId());    //isEqualTo는 값 자체의 비교
+        assertThat(gymPriceResDto.getId()).isEqualTo(gymPriceReqDto.getId());    //isEqualTo는 값 자체의 비교
     }
 
     @Test
     public void 가격삭제_성공(){
         //given
-        GymPriceDto gymPriceDto=new GymPriceDto();
-        gymPriceDto.setId(15L);
-        gymPriceDto.setRegularPrice(250000L);
-        gymPriceDto.setDiscountPrice(240000L);
-        gymPriceDto.setMonths(1);
+        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        gymPriceReqDto.setId(15L);
+        gymPriceReqDto.setRegularPrice(250000L);
+        gymPriceReqDto.setDiscountPrice(240000L);
+        gymPriceReqDto.setMonths(1);
 
 
         //when
-        gymPriceService.deleteGymPrice(gymPriceDto.getId());
+        gymPriceService.deleteGymPrice(gymPriceReqDto.getId());
 
 
         //then

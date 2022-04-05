@@ -1,7 +1,6 @@
-package health.real_pt.price.repository;
+package health.real_pt.price.repository.ptPrice;
 
 import health.real_pt.price.domain.PtPrice;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

@@ -1,4 +1,4 @@
-package health.real_pt.price.repository;
+package health.real_pt.price.repository.ptPrice;
 
 import health.real_pt.price.domain.PtPrice;
 

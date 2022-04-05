@@ -1,8 +1,12 @@
 package health.real_pt.member.api;
 
 
+import health.real_pt.gym.domain.Gym;
+import health.real_pt.gym.service.GymService;
 import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.MemberDto;
+import health.real_pt.member.dto.MemberReqDto;
+import health.real_pt.member.dto.MemberListDto;
+import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,13 +22,17 @@ import java.util.stream.Collectors;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final GymService gymService;
 
     /**
      * 회원 등록
      */
     @ApiOperation(value = "회원 등록", notes = "신규 회원을 생성합니다.")
     @PostMapping("")
-    public Long saveMember(@RequestBody @Valid MemberDto requestDto){
+    public Long saveMember(@RequestHeader(value = "gym-id") Long gymId,@RequestBody @Valid MemberReqDto requestDto){
+        Gym gym = gymService.findOne(gymId);
+        requestDto.setGym(gym);
+
         return memberService.join(requestDto);
     }
 
@@ -35,28 +41,18 @@ public class MemberApiController {
      */
     @ApiOperation(value = "회원 수정", notes = "id를 받아 회원 정보를 수정합니다.")
     @PatchMapping("/{id}")
-    public MemberDto updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberDto requestDto){
-        memberService.updateMember(id, requestDto);
-        Optional<Member> memberOptional = memberService.findMember(id);
-
-        Member member = memberOptional.orElseThrow();
-
-        return new MemberDto().entityToDto(member);
+    public MemberResDto updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberReqDto requestDto){
+        return memberService.updateMember(id, requestDto);
     }
 
     /**
      * 모든 회원 조회
      */
     @ApiOperation(value = "모든 회원 조회", notes = "모든 회원을 조회합니다.")
-    @GetMapping("/members")
-    public MemberResDto findAllMembers(){
-        List<Member> findMembers = memberService.findAllMembers();
-
-        List<MemberDto> memberDtoList = findMembers.stream()
-                .map(m -> new MemberDto().entityToDto(m))
-                .collect(Collectors.toList());
-
-        return new MemberResDto(memberDtoList.size(),memberDtoList);
+    @GetMapping("")
+    public MemberListDto findAllMembers(){
+        List<MemberResDto> resDtoList = memberService.findAllMembers();
+        return new MemberListDto(resDtoList.size(),resDtoList);
     }
 
     /**
@@ -64,11 +60,8 @@ public class MemberApiController {
      */
     @ApiOperation(value = "단일 회원 조회", notes = "id를 받아 회원을 조회합니다." )
     @GetMapping("/{id}")
-    public MemberDto findMember(@PathVariable("id") Long id){
-        Optional<Member> findMember = memberService.findMember(id);
-        Member member = findMember.orElseThrow(() -> new NoSuchElementException("회원을 찾을 수 없습니다!"));
-
-        return new MemberDto().entityToDto(member);
+    public MemberResDto findMember(@PathVariable("id") Long id){
+        return memberService.findMember(id);
     }
 
     /**

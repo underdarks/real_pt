@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Table(name = "PT_REVIEW")
 public class PtReview extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PT_REVIEW_ID")
     private Long id;
 
-    @ManyToOne  //PT_REIVEW가 FK를 가지게 됨(연관관계 주인)
+    @ManyToOne  //PT_REVIEW가 FK를 가지게 됨(연관관계 주인)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

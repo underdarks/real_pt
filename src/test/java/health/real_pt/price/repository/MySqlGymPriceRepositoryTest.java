@@ -3,7 +3,7 @@ package health.real_pt.price.repository;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.repository.GymRepository;
 import health.real_pt.price.domain.GymPrice;
-import org.assertj.core.api.Assertions;
+import health.real_pt.price.repository.gymPrice.GymPriceRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

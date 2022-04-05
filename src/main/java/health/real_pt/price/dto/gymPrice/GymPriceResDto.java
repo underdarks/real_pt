@@ -1,8 +1,7 @@
-package health.real_pt.price.api.GymPrice;
+package health.real_pt.price.dto.gymPrice;
 
 import health.real_pt.common.BaseDto;
 import health.real_pt.price.domain.GymPrice;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
