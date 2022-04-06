@@ -123,7 +123,7 @@ Response값은 PK값을 반환한다.<br><br>
 ![회원등록](https://user-images.githubusercontent.com/41244406/161994318-47335e27-4228-4686-a80b-2117edcb339a.PNG)
 
 
-<h3>회원 등록 API Controller</h3>
+<h3>회원 등록 코드</h3>
 
 ~~~java
 
