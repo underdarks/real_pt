@@ -20,49 +20,22 @@
 - [가격 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
 - [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
 
-- <Strong>헬스장(Gym) 관리 API 제공</Strong>
-  - Gym 등록
-  - Gym 수정
-  - Gym 조회
-  - Gym 삭제
-  
-- <Strong>헬스장 가격(GymPrice) 관리 API 제공</Strong>
-  - 가격 등록(월단위 ex. 1개월, 3개월, 6개월..)
-  - 가격 조회
-  - 가격 수정
-  - 가격 삭제
-
-- <Strong>헬스장 리뷰 (GymReview) 관리 API 제공</Strong>
-  - 리뷰 등록(별점, 리뷰 내용, 사진 업로드, 리뷰 댓글 기능 제공) 
-  - 리뷰 조회
-  - 리뷰 수정
-  - 리뷰 삭제
-
-- <Strong>Personal Training(PT) 관리 API 제공</Strong>
-  - PT 등록
-  - PT 수정
-  - PT 조회
-  - PT 삭제
-  
-- <Strong>PT 가격(PtPrice) 관리 API 제공</Strong>
-  - 가격 등록(횟수 단위 ex.10회 20회 30회.... )
-  - 가격 조회
-  - 가격 수정
-  - 가격 삭제
-
-- <Strong>PT 리뷰 (PtReview) 관리 API 제공</Strong>
-  - 리뷰 등록(별점, 리뷰 내용, 사진 업로드, 리뷰 댓글 기능 제공) 
-  - 리뷰 조회
-  - 리뷰 수정
-  - 리뷰 삭제
 
 <br>
-<h2>개발 진행 중인 Tasks</h2>
+<h2>개발 진행 중 업무</h2>
 
 - <Strong>헬스 커뮤니티(글쓰기, 답변달기, 글 수정, 글 삭제 ...)</Strong>
 - <Strong>1:1 대화 기능</Strong>
 - <Strong>SNS 로그인 연동(KaKaoTalk, FaceBook 등..)</Strong>
-  
+
+
+
+<br>
+<h2>추후 개발 사항</h2>
+
+- <Strong>코틀린을 활용하여 안드로이드 어플 개발</Strong>
+- <Strong>어플 <-> API 서버 통신</Strong>
+
   
 <br>
 
@@ -78,9 +51,11 @@
 ![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
 
 <br>
+
 <h2>API 테스트 및 문서 관리 </h2>
- - <Strong>API 테스트 : Postman</Strong><br>
- - <Strong>문서 관리 : Swaager</Strong><br>
+
+- <Strong>API 테스트 : Postman</Strong>
+- <Strong>문서 관리 : Swaager</Strong>
 
 
 
