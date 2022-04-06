@@ -13,14 +13,10 @@ import java.time.LocalDate;
 
 import static javax.persistence.FetchType.*;
 
-@Entity
-@Table(name = "MEMBER")
-@Getter
+@Entity @Table(name = "MEMBER") @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-//@DynamicUpdate
 public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
@@ -45,8 +41,6 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @Column(name = "PHONE")
     private String phone;
 
-    //    @Column(name = "BIRTHDAY",nullable = false)
-//    @NotNull(message = "생일은 Null이 될 수 없습니다!")
     @Column(name = "BIRTHDAY")
     private LocalDate birthDay;
 
