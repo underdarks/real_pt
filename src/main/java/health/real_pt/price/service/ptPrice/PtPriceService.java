@@ -40,6 +40,6 @@ public interface PtPriceService {
     /**
      *  가격 전체 조회
      */
-    List<PtPrice> findAllPrice();
+    List<PtPriceResDto> findAllPrice(Long gymId,Long ptId);
 
 }

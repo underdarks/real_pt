@@ -13,7 +13,7 @@ public interface PtPriceRepository {
 
     Long save(PtPrice ptPrice);
 
-    List<PtPrice> findAll();
+    List<PtPrice> findAll(Long gymId, Long ptId);
 
     Optional<PtPrice> findById(Long id);
 

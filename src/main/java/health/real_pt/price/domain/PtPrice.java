@@ -22,9 +22,9 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
     @Column(name = "PT_PRICE_ID")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)  //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
+    @ManyToOne(fetch = LAZY)    //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
     @JoinColumn(name = "MEMBER_ID")     //Member PK
-    private Member trainer;    //트레이너
+    private Member pt;          //Personal Trainer(개인 트레이너)
 
     @Column(name = "REGULAR_PRICE")
     private Long regularPrice;  //정상가
@@ -41,7 +41,7 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
      */
 
     public void changeTrainer(Member trainer) {
-        this.trainer = trainer;
+        this.pt = trainer;
     }
 
     public void changeRegularPrice(Long regularPrice) {
@@ -59,8 +59,8 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
     /* ============================================================================================================== */
 
     @Builder    //객체 생성(빌더 패턴)
-    public PtPrice(Member trainer, Long regularPrice, Long discountPrice, Integer times) {
-        this.trainer = trainer;
+    public PtPrice(Member pt, Long regularPrice, Long discountPrice, Integer times) {
+        this.pt = pt;
         this.regularPrice = regularPrice;
         this.discountPrice = discountPrice;
         this.times = times;
@@ -68,7 +68,7 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
 
     public static PtPrice toEntity(PtPriceReqDto ptPriceReqDto) {
         return PtPrice.builder()
-                .trainer(ptPriceReqDto.getTrainer())
+                .pt(ptPriceReqDto.getPt())
                 .regularPrice(ptPriceReqDto.getRegularPrice())
                 .discountPrice(ptPriceReqDto.getDiscountPrice())
                 .times(ptPriceReqDto.getTimes())
@@ -77,8 +77,8 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
 
     @Override
     public void updateEntity(PtPriceReqDto ptPriceReqDto) {
-        if (ptPriceReqDto.getTrainer() != null)
-            changeTrainer(ptPriceReqDto.getTrainer());
+        if (ptPriceReqDto.getPt() != null)
+            changeTrainer(ptPriceReqDto.getPt());
 
         if (ptPriceReqDto.getDiscountPrice() != null)
             changeDiscountPrice(ptPriceReqDto.getDiscountPrice());

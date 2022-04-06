@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MySqlGymPriceRepository implements GymPriceRepository{
+public class MySqlGymPriceRepository implements GymPriceRepository {
 
     private final EntityManager em;
 
@@ -31,17 +31,19 @@ public class MySqlGymPriceRepository implements GymPriceRepository{
 
     @Override
     public List<GymPrice> findByGymId(Long gymId) {
-        List resultList = em.createQuery("select gp from GymPrice gp join gp.gym g" +
-                        " where g.id =:gym_id",GymPrice.class)
-                        .setParameter("gym_id", gymId)
-                        .getResultList();
+        List resultList = em.createQuery(
+                        "select gp from GymPrice gp join gp.gym g" +
+                                " where g.id =:gym_id" +
+                                " order by gp.months", GymPrice.class)
+                .setParameter("gym_id", gymId)
+                .getResultList();
 
 //        List resultList = em.createQuery("select gp from GymPrice gp gp.gym" +
 //                        " where g.id =:gym_id",GymPrice.class)
 //                .setParameter("gym_id", gymId)
 //                .getResultList();
 
-        return resultList == null ? Collections.emptyList(): resultList;
+        return resultList == null ? Collections.emptyList() : resultList;
     }
 
     @Override

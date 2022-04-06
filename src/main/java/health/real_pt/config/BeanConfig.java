@@ -35,14 +35,14 @@ public class BeanConfig {
 
     @Bean
     public MemberRepository memberRepository(){
-        System.out.println("BeanConfig - MysqlMemberRepository 빈 의존성 주입");
+//        System.out.println("BeanConfig - MysqlMemberRepository 빈 의존성 주입");
         return new MySqlMemberRepository(em);
     }
 
 
     @Bean
     public MemberService memberService(){
-        System.out.println("BeanConfig - MemberService 빈 의존성 주입");
+//        System.out.println("BeanConfig - MemberService 빈 의존성 주입");
         return new MemberServiceImpl(memberRepository());
     }
 

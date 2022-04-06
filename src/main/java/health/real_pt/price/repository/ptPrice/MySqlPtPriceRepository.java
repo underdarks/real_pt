@@ -1,5 +1,6 @@
 package health.real_pt.price.repository.ptPrice;
 
+import health.real_pt.price.domain.GymPrice;
 import health.real_pt.price.domain.PtPrice;
 import org.springframework.stereotype.Repository;
 
@@ -23,8 +24,16 @@ public class MySqlPtPriceRepository implements PtPriceRepository{
     }
 
     @Override
-    public List<PtPrice> findAll() {
-        return em.createQuery("select pp from PtPrice pp",PtPrice.class).getResultList();
+    public List<PtPrice> findAll(Long gymId, Long ptId) {
+        return em.createQuery(
+                "select pp from PtPrice pp " +
+                        "join pp.pt m " +
+                        "join m.gym g"+
+                        " where g.id =:gym_id and m.id =: pt_id"+
+                        " order by pp.times",PtPrice.class)
+                .setParameter("gym_id",gymId)
+                .setParameter("pt_id",ptId)
+                .getResultList();
     }
 
     @Override

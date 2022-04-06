@@ -18,16 +18,19 @@ public class PtReview extends BaseTimeEntity {
 
     @ManyToOne  //PT_REVIEW가 FK를 가지게 됨(연관관계 주인)
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;
+    private Member pt;      //PT 트레이너
+
+    @Column(name = "TOTAL")     //총점(별 5개중 별 몇개인지...)
+    private Long total;
 
     @Column(name = "COMMENT")
-    private String comment;
+    private String comment;     //리뷰 내용
 
     @Column(name = "GOOD")
-    private Long good;
+    private Long good;          //도움이돼요 개수
 
     @Column(name = "BAD")
-    private Long bad;
+    private Long bad;           //도움 안되요 개수
 
 
 

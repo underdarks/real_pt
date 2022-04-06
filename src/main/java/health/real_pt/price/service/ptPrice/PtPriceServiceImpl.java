@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
-public class PtPriceServiceImpl implements  PtPriceService{
+public class PtPriceServiceImpl implements PtPriceService {
 
     private final MemberRepository memberRepository;
     private final PtPriceRepository ptPriceRepository;
@@ -24,18 +25,20 @@ public class PtPriceServiceImpl implements  PtPriceService{
         this.ptPriceRepository = ptPriceRepository;
     }
 
+    @Transactional
     @Override
     public Long savePtPrice(PtPriceReqDto ptPriceReqDto, Long memberId) {
         //멤버 찾기
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("PtPrice 객체를 찾을 수 없습니다!"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다!"));
+        ptPriceReqDto.setPt(member);
 
         //dto -> entity
         PtPrice ptPrice = PtPrice.toEntity(ptPriceReqDto);
-        ptPrice.changeTrainer(member);
 
         return ptPriceRepository.save(ptPrice);
     }
 
+    @Transactional
     @Override
     public PtPriceResDto updatePtPrice(PtPriceReqDto updDto) {
         PtPrice ptPrice = ptPriceRepository.findById(updDto.getId()).orElseThrow(() -> new NoSuchElementException("PtPrice 객체를 찾을 수 없습니다."));
@@ -44,6 +47,7 @@ public class PtPriceServiceImpl implements  PtPriceService{
         return new PtPriceResDto().entityToDto(ptPrice);
     }
 
+    @Transactional
     @Override
     public void deletePtPrice(Long id) {
         PtPrice ptPrice = ptPriceRepository.findById(id).orElseThrow(() -> new NoSuchElementException("PtPrice 객체를 찾을 수 없습니다."));
@@ -57,7 +61,11 @@ public class PtPriceServiceImpl implements  PtPriceService{
     }
 
     @Override
-    public List<PtPrice> findAllPrice() {
-        return ptPriceRepository.findAll();
+    public List<PtPriceResDto> findAllPrice(Long gymId, Long ptId) {
+        List<PtPrice> ptPriceList = ptPriceRepository.findAll(gymId, ptId);
+
+        return ptPriceList.stream()
+                .map(ptPrice -> new PtPriceResDto().entityToDto(ptPrice))
+                .collect(Collectors.toList());
     }
 }
