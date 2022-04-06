@@ -78,27 +78,9 @@
 ![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
 
 <br>
-<h2>API 테스트 및 관리 </h2>
- PostMan을 사용하여 테스트를 진행하고 있으며 Swagger를 사용하여 API 문서 관리를 하고 있습니다.
-
-<br>
-<Strong>PostMan</Strong>
-<br>
--회원 등록 Test
-
-![memberEnroll](https://user-images.githubusercontent.com/41244406/159385045-1e475c34-d16b-4f7d-8c2d-54f7e4b7c99f.PNG)
-
-<br>
-회원 조회 Test
-
-![memberSearch](https://user-images.githubusercontent.com/41244406/159206823-9e3b9220-b8a5-421c-a00a-73f8e72b69b3.png)
-
-
-
-<br>
-<Strong>Swagger</Strong>
-
-![api swagger(member)](https://user-images.githubusercontent.com/41244406/159385122-eb54c82b-4cb9-40c9-81e3-3c99af7a3e6c.PNG)
+<h2>API 테스트 및 문서 관리 </h2>
+ - <Strong>API 테스트 : Postman</Strong><br>
+ - <Strong>문서 관리 : Swaager</Strong><br>
 
 
 
