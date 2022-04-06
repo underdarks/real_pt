@@ -22,17 +22,11 @@
 
 
 <br>
-<h2>개발 진행 중 업무</h2>
+<h2>추후 개발 사항</h2>
 
 - <Strong>헬스 커뮤니티(글쓰기, 답변달기, 글 수정, 글 삭제 ...)</Strong>
 - <Strong>1:1 대화 기능</Strong>
 - <Strong>SNS 로그인 연동(KaKaoTalk, FaceBook 등..)</Strong>
-
-
-
-<br>
-<h2>추후 개발 사항</h2>
-
 - <Strong>코틀린을 활용하여 안드로이드 어플 개발</Strong>
 - <Strong>어플 <-> API 서버 통신</Strong>
 
