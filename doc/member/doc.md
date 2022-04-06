@@ -1,36 +1,27 @@
-<h2>회원 관리 API 기능</h2>
+## 회원 관리
+<Strong>헬스 트레이너, 헬스장 회원, 헬스장 대표 등 헬스장 관련된 전반적인 회원들을 관리합니다.</Strong>
+<br>
+<br>
+
+<h2>회원 엔티티 </h2>
+아래 이미지는 회원 엔티티이다. <br>
+다른 필드는 크게 설명할것은 없어보인다. 맨 마지막에 있는 Gym 필드는 Gym엔티티의 PK로 1:1 관계를 가진다.(@OneToOne)<br><br>
+
+![entity](https://user-images.githubusercontent.com/41244406/161987466-106ffc5e-924a-49ff-8a42-1dbd32db9dab.PNG)
+
+
+<h2>API 기능</h2>
 
 - #### 회원 가입
 - #### 아이디 찾기    (Email을 활용한 아이디 찾기)
 - #### 비밀번호 찾기  (아이디 + Email을 활용한 비밀번호 찾기)
 - #### 회원 수정 
-- #### 회원 조회
+- #### 회원 조회     
 - #### 회원 탈퇴
 
 <br>
-<h2>Postman을 활용한 API 테스트 </h2>
+<h2>API 상세 설명 및 테스트 </h2>
  
-#### 회원 가입 Test
+<h3>회원 가입</h3>
 
 
-
-
-
-<br>
-<br>
-<br>
-회원 조회 Test
-
-
-<h2>Swagger를 활용한 API 문서 관리</h2>
-
-
-
-
-
-<br>
-<br>
-<br>
-<Strong>Swagger</Strong>
-
-![api swagger(member)](https://user-images.githubusercontent.com/41244406/159385122-eb54c82b-4cb9-40c9-81e3-3c99af7a3e6c.PNG)
