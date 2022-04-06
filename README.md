@@ -16,9 +16,9 @@
 
 - <Strong>Rest API 통신 기능 제공</Strong>
 - [회원 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
-- [헬스장 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
-- [가격 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
-- [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
+- [헬스장 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/gym/doc.md)
+- [가격 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/price/doc.md)
+- [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/review/doc.md)
 
 
 <h2>ERD 설계도</h2>
