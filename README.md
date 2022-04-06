@@ -21,6 +21,9 @@
 - [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
 
 
+<h2>ERD 설계도</h2>
+
+
 <br>
 <h2>추후 개발 사항</h2>
 
