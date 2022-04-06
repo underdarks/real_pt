@@ -123,35 +123,6 @@ Response값은 PK값을 반환한다.<br><br>
 ![회원등록](https://user-images.githubusercontent.com/41244406/161994318-47335e27-4228-4686-a80b-2117edcb339a.PNG)
 
 
-<h4>회원 등록 코드</h4>
-
-~~~java
-
-@RestController
-@RequestMapping("api/v1/member")
-@RequiredArgsConstructor
-public class MemberApiController {
-
-    private final MemberService memberService;
-    private final GymService gymService;
-
-    /**
-     * 회원 등록
-     */
-    @ApiOperation(value = "회원 등록", notes = "신규 회원을 생성합니다.")
-    @PostMapping("")
-    public Long saveMember(@RequestHeader(value = "gym-id") Long gymId,@RequestBody @Valid MemberReqDto requestDto){
-        Gym gym = gymService.findOne(gymId);
-        requestDto.setGym(gym);
-
-        return memberService.join(requestDto);
-    }
-
-}
-
-
-~~~
-
 ----------------------------------
 
 <h3>회원 조회</h3>
@@ -167,61 +138,6 @@ Get 방식으로(http://localhost:8080/api/v1/member/id) uri에 id(pk)를 같이
 
 ![단일 회원 조회](https://user-images.githubusercontent.com/41244406/162016767-1fb7a4b3-185d-42b4-bd1c-3eafb2f95446.PNG)
 
-
-<h4>회원 조회 코드</h4>
-
-~~~java
-package health.real_pt.member.api;
-
-
-import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.service.GymService;
-import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.MemberReqDto;
-import health.real_pt.member.dto.MemberListDto;
-import health.real_pt.member.dto.MemberResDto;
-import health.real_pt.member.service.MemberService;
-import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
-
-@RestController
-@RequestMapping("api/v1/member")
-@RequiredArgsConstructor
-public class MemberApiController {
-
-    private final MemberService memberService;
-    private final GymService gymService;
-
-    /**
-     * 모든 회원 조회
-     */
-    @ApiOperation(value = "모든 회원 조회", notes = "모든 회원을 조회합니다.")
-    @GetMapping("")
-    public MemberListDto findAllMembers(){
-        List<MemberResDto> resDtoList = memberService.findAllMembers();
-        return new MemberListDto(resDtoList.size(),resDtoList);
-    }
-
-    /**
-     * 단일 회원 조회
-     */
-    @ApiOperation(value = "단일 회원 조회", notes = "id를 받아 회원을 조회합니다." )
-    @GetMapping("/{id}")
-    public MemberResDto findMember(@PathVariable("id") Long id){
-        return memberService.findMember(id);
-    }
-
-   
-
-
-}
-
-~~~
 
 ----------------------------------
 
