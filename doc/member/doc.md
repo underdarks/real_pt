@@ -297,14 +297,17 @@ Get 방식으로(http://localhost:8080/api/v1/member/id) uri에 id(pk)를 같이
 ----------------------------------
 
 <h3>회원 수정</h3>
-PATCH 방식으로(http://localhost:8080/api/v1/member/id) uri에 id(pk)와 HttpBody에 수정할 내용을 넘겨 회원 정보를 수정한다.<br>
+PATCH 방식으로 요청하여(http://localhost:8080/api/v1/member/id) uri에 id(pk)와 HttpBody에 수정할 내용을 넘겨 회원 정보를 수정한다.<br>
 Response는 수정된 정보가 반한된다<br><br>
 
 ![회원 수정](https://user-images.githubusercontent.com/41244406/162107477-37e722bd-9784-4156-b73e-031a9e70ba73.PNG)
 
 
 ----------------------------------
-<h3>회원 삭제</h3>
+<h3>회원 탈퇴</h3>
+DELETE 방식으로 요청하여(http://localhost:8080/api/v1/member/id) uri에 id를 넘겨 회원 탈퇴를 한다.<br><br>
+
+![회원 삭제](https://user-images.githubusercontent.com/41244406/162109122-93fb24c4-7dac-41f1-a6be-4ead7aff6091.PNG)
 
 
 <br>
