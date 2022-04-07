@@ -5,7 +5,7 @@
 
 <h2>헬스장 엔티티 </h2>
 아래 코드는 헬스장 엔티티이다. <br>
-회원 엔티티(Member)랑 양방향 관계(mappedBy)를 설정하려 했으나 회원 테이블이 연관 관계 주인인 단방향 매핑을 하였다.<br><br>
+회원 엔티티(Member)랑 양방향 관계(mappedBy)를 설정하려 했으나 회원 테이블이 연관 관계 주인인 단방향 매핑을 하였.<br><br>
 
 ~~~java
 package health.real_pt.gym.domain;
