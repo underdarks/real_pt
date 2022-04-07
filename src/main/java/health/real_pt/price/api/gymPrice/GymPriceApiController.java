@@ -31,7 +31,7 @@ public class GymPriceApiController {
     @ApiOperation(value = "헬스장 가격 등록", notes = "가격을 등록합니다." )
     @PostMapping("")
     public Long saveGymPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid GymPriceReqDto gymPriceReqDto) {
-        return gymPriceService.saveGymPrice(gymPriceReqDto,gymId);
+        return gymPriceService.savePrice(gymPriceReqDto,gymId);
     }
 
     /**
@@ -68,7 +68,7 @@ public class GymPriceApiController {
     @PatchMapping("/{id}")
     public GymPriceResDto updateGymPrice(@PathVariable("id") Long id, @RequestBody @Valid GymPriceReqDto gymPriceReqDto){
         gymPriceReqDto.setId(id);
-        return gymPriceService.updateGymPrice(gymPriceReqDto);
+        return gymPriceService.updatePrice(gymPriceReqDto);
     }
 
     /**
@@ -78,7 +78,7 @@ public class GymPriceApiController {
     @ApiOperation(value = "헬스장 가격 삭제",notes = "id를 받아 헬스장 가격을 삭제합니다.")
     @DeleteMapping("/{id}")
     public String deleteGymPrice(@PathVariable("id") Long id){
-        gymPriceService.deleteGymPrice(id);
+        gymPriceService.deletePrice(id);
         return "success";
     }
 

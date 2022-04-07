@@ -17,18 +17,18 @@ public interface GymPriceService {
     /**
      *  가격 저장
      */
-    Long saveGymPrice(GymPriceReqDto gymPriceReqDto, Long gymId);
+    Long savePrice(GymPriceReqDto gymPriceReqDto, Long gymId);
 
     /**
      *  가격 수정
      */
-    GymPriceResDto updateGymPrice(GymPriceReqDto gymPriceReqDto);
+    GymPriceResDto updatePrice(GymPriceReqDto gymPriceReqDto);
 
 
     /**
      *  가격 삭제
      */
-    void deleteGymPrice(Long id);
+    void deletePrice(Long id);
 
 
     /**

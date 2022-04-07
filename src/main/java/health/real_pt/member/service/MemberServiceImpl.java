@@ -77,9 +77,8 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     @Override
     public void quit(Long id) {
-        Optional<Member> memberOptional = memberRepository.findById(id);
+        Member deleteMember = memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다!"));;
 
-        Member deleteMember = memberOptional.orElseThrow(() -> new NoSuchElementException("meber 객체를 찾을 수 없습니다!"));
         memberRepository.delete(deleteMember);
     }
 

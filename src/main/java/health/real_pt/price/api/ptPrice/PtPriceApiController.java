@@ -31,7 +31,7 @@ public class PtPriceApiController {
     @ApiOperation(value = "PT 가격 등록", notes = "PT 가격 정보를 등록합니다.")
     @PostMapping("")
     public Long savePtPrice(@RequestHeader(value = "pt-id") Long ptId, @RequestBody @Valid PtPriceReqDto reqDto) {
-        return ptPriceService.savePtPrice(reqDto, ptId);
+        return ptPriceService.savePrice(reqDto, ptId);
     }
 
 
@@ -45,7 +45,7 @@ public class PtPriceApiController {
     @PatchMapping("{id}")
     public PtPriceResDto updatePtPrice(@PathVariable(value = "id") Long id, @RequestBody @Valid PtPriceReqDto reqDto){
         reqDto.setId(id);
-        return ptPriceService.updatePtPrice(reqDto);
+        return ptPriceService.updatePrice(reqDto);
     }
 
     /**
@@ -76,7 +76,7 @@ public class PtPriceApiController {
     @ApiOperation(value = "PT 가격 삭제", notes = "id를 받아 가격 정보를 삭제합니다.")
     @DeleteMapping("{id}")
     public String deletePtPrice(@PathVariable(value = "id") Long id){
-        ptPriceService.deletePtPrice(id);
+        ptPriceService.deletePrice(id);
         return "success";
     }
 

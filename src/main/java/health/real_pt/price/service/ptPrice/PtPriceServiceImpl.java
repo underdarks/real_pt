@@ -27,7 +27,7 @@ public class PtPriceServiceImpl implements PtPriceService {
 
     @Transactional
     @Override
-    public Long savePtPrice(PtPriceReqDto ptPriceReqDto, Long memberId) {
+    public Long savePrice(PtPriceReqDto ptPriceReqDto, Long memberId) {
         //멤버 찾기
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다!"));
         ptPriceReqDto.setPt(member);
@@ -40,7 +40,7 @@ public class PtPriceServiceImpl implements PtPriceService {
 
     @Transactional
     @Override
-    public PtPriceResDto updatePtPrice(PtPriceReqDto updDto) {
+    public PtPriceResDto updatePrice(PtPriceReqDto updDto) {
         PtPrice ptPrice = ptPriceRepository.findById(updDto.getId()).orElseThrow(() -> new NoSuchElementException("PtPrice 객체를 찾을 수 없습니다."));
         ptPrice.updateEntity(updDto);   //더티 체킹(엔티티 변경)
 
@@ -49,7 +49,7 @@ public class PtPriceServiceImpl implements PtPriceService {
 
     @Transactional
     @Override
-    public void deletePtPrice(Long id) {
+    public void deletePrice(Long id) {
         PtPrice ptPrice = ptPriceRepository.findById(id).orElseThrow(() -> new NoSuchElementException("PtPrice 객체를 찾을 수 없습니다."));
         ptPriceRepository.delete(ptPrice);
     }

@@ -28,7 +28,7 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public Long saveGymPrice(GymPriceReqDto gymPriceReqDto, Long gymId) {
+    public Long savePrice(GymPriceReqDto gymPriceReqDto, Long gymId) {
         //헬스장 엔티티 찾기
         Gym gym  = gymRepository.findById(gymId).orElseThrow(() -> new NoSuchElementException("gymId= " + gymId + "인 Gym 객체를 찾을 수 없습니다"));;
 
@@ -40,7 +40,7 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public GymPriceResDto updateGymPrice(GymPriceReqDto gymPriceReqDto) {
+    public GymPriceResDto updatePrice(GymPriceReqDto gymPriceReqDto) {
         GymPrice gymPrice = gymPriceRepository.findById(gymPriceReqDto.getId()).orElseThrow(() ->
                 new NoSuchElementException("gymId= " + gymPriceReqDto.getGym().getId() + "인 GymPrice 객체를 찾을 수 없습니다"));;
 
@@ -50,7 +50,7 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public void deleteGymPrice(Long id) {
+    public void deletePrice(Long id) {
         GymPrice gymPrice = gymPriceRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("gymId= " + id + "인 GymPrice 객체를 찾을 수 없습니다"));;
 

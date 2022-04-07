@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -41,7 +38,7 @@ class GymPriceServiceImplTest {
 
 
         //when
-        Long saveId = gymPriceService.saveGymPrice(gymPriceReqDto, gym.getId());
+        Long saveId = gymPriceService.savePrice(gymPriceReqDto, gym.getId());
 
         //then
         assertThat(saveId).isGreaterThan(0);
@@ -58,7 +55,7 @@ class GymPriceServiceImplTest {
         gymPriceReqDto.setMonths(1);
 
         //when
-        Long saveId = gymPriceService.saveGymPrice(gymPriceReqDto, 100L);
+        Long saveId = gymPriceService.savePrice(gymPriceReqDto, 100L);
 
         //then
         assertThat(saveId).isGreaterThan(0);
@@ -80,7 +77,7 @@ class GymPriceServiceImplTest {
 
 
         //when
-        GymPriceResDto gymPriceResDto = gymPriceService.updateGymPrice(gymPriceReqDto);
+        GymPriceResDto gymPriceResDto = gymPriceService.updatePrice(gymPriceReqDto);
 
         //then
         assertThat(gymPriceResDto.getId()).isEqualTo(gymPriceReqDto.getId());    //isEqualTo는 값 자체의 비교
@@ -97,7 +94,7 @@ class GymPriceServiceImplTest {
 
 
         //when
-        gymPriceService.deleteGymPrice(gymPriceReqDto.getId());
+        gymPriceService.deletePrice(gymPriceReqDto.getId());
 
 
         //then

@@ -1,6 +1,5 @@
 package health.real_pt.price.service.ptPrice;
 
-import health.real_pt.price.domain.PtPrice;
 import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
 import health.real_pt.price.dto.ptPrice.PtPriceResDto;
 
@@ -17,18 +16,18 @@ public interface PtPriceService {
     /**
      *  가격 저장
      */
-    Long savePtPrice(PtPriceReqDto ptPriceReqDto, Long memberId);
+    Long savePrice(PtPriceReqDto ptPriceReqDto, Long memberId);
 
     /**
      *  가격 수정
      */
-    PtPriceResDto updatePtPrice(PtPriceReqDto updDto);
+    PtPriceResDto updatePrice(PtPriceReqDto updDto);
 
 
     /**
      *  가격 삭제
      */
-    void deletePtPrice(Long Id);
+    void deletePrice(Long Id);
 
 
     /**
