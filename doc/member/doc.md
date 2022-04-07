@@ -140,6 +140,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
 
     }
 
+    //엔티티 수정을 위한 공통 메서드
     @Override
     public void updateEntity(MemberReqDto memberReqDto) {
         if (memberReqDto.getGym() != null)
