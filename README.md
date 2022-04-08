@@ -50,10 +50,14 @@
 
 <br>
 
-<h2>API 테스트 및 문서 관리 </h2>
+<h2>API 테스트 및 문서 관리</h2>
 
 - <Strong>API 테스트 : Postman</Strong>
 - <Strong>문서 관리 : Swaager</Strong>
 
+ 
+ <br>
+ <h2>프로젝트 일정</h2>
+ 2022.02.21 ~ Keep Going
 
 
