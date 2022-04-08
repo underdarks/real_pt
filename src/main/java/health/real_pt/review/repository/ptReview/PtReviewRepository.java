@@ -13,15 +13,21 @@ public interface PtReviewRepository {
      */
 
     /**
-     * pt 리뷰 등록
+     * 리뷰 등록
      */
     Long save(PtReview ptReview);
 
 
     /**
-     * pt 리뷰 조회( 헬스장 - 트레이너 - 리뷰)
+     * 리뷰 조회(헬스장 - 트레이너 - 리뷰)
      */
     List<PtReview> findAll(Long gymId,Long ptId,String orderType);
+
+    /**
+     * 리뷰 조회
+     * @param id : PtReview PK
+     */
+    Optional<PtReview> findById(Long id);
 
 
     /**

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MysqlPtReviewRepository implements PtReviewRepository{
@@ -23,7 +24,7 @@ public class MysqlPtReviewRepository implements PtReviewRepository{
     }
 
     @Override
-    public List<PtReview> findAll(Long gymId, Long ptId, String orderType) {
+    public List<PtReview> findAll(Long gymId, Long ptId, String orderType ) {
 
         /**
          * 좋아요 많은 순, 좋아요 적은 순, 싫어요 많은 순, 싫어요 적은 순, 최신 순, 오래된 순, 평점 높은 순
@@ -35,6 +36,11 @@ public class MysqlPtReviewRepository implements PtReviewRepository{
                 "order by " + orderType;
 
         return em.createQuery(sql).getResultList();
+    }
+
+    @Override
+    public Optional<PtReview> findById(Long id) {
+        return Optional.ofNullable(em.find(PtReview.class, id));
     }
 
     @Override

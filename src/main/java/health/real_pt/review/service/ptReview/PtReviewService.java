@@ -41,20 +41,20 @@ public interface PtReviewService {
     /**
      * 도움이 돼요(좋아요) 증가 (+1)
      */
-    Long addLike(Long id);
+    Long addGood(Long id);
 
     /**
      * 도움이 돼요(좋아요) 감소 (-1)
      */
-    Long subLike(Long id);
+    Long subGood(Long id);
 
     /**
      * 도움이 안돼요(싫아요) 증가 (+1)
      */
-    Long addHate(Long id);
+    Long addBad(Long id);
 
     /**
      * 도움이 안돼요(싫아요) 감소 (-1)
      */
-    Long subHate(Long id);
+    Long subBad(Long id);
 }

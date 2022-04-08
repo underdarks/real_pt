@@ -12,5 +12,5 @@ public class ptReviewApiController {
 
     private final PtReviewService ptReviewService;
 
-    
+
 }

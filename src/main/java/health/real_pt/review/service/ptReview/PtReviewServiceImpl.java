@@ -1,5 +1,7 @@
 package health.real_pt.review.service.ptReview;
 
+import health.real_pt.price.domain.PtPrice;
+import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
 import health.real_pt.review.repository.ptReview.PtReviewRepository;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Transactional(readOnly = true)
 @Service
@@ -20,17 +23,23 @@ public class PtReviewServiceImpl implements PtReviewService{
 
     @Override
     public Long saveReview(PtReviewReqDto reqDto) {
-        return null;
+        PtReview ptReview = PtReview.toEntity(reqDto);
+        return ptReviewRepository.save(ptReview);
     }
 
     @Override
     public PtReviewResDto updateReview(PtReviewReqDto updDto) {
-        return null;
+        PtReview ptReview = ptReviewRepository.findById(updDto.getId()).orElseThrow(() -> new NoSuchElementException("PtReview 객체를 찾을 수 없습니다!"));
+
+        //엔티티 수정
+        ptReview.updateEntity(updDto);
+
+        return new PtReviewResDto().entityToDto(ptReview);
     }
 
     @Override
     public List<PtReviewResDto> findAllReviews(Long gymId, Long ptId) {
-        return null;
+        ptReviewRepository.findAll(gymId,ptId,"")   //최근 작성일(디폴트)
     }
 
     @Override
@@ -44,22 +53,22 @@ public class PtReviewServiceImpl implements PtReviewService{
     }
 
     @Override
-    public Long addLike(Long id) {
+    public Long addGood(Long id) {
         return null;
     }
 
     @Override
-    public Long subLike(Long id) {
+    public Long subGood(Long id) {
         return null;
     }
 
     @Override
-    public Long addHate(Long id) {
+    public Long addBad(Long id) {
         return null;
     }
 
     @Override
-    public Long subHate(Long id) {
+    public Long subBad(Long id) {
         return null;
     }
 }
