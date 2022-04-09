@@ -1,5 +1,6 @@
 package health.real_pt.member.service;
 
+import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.dto.MemberReqDto;
 

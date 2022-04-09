@@ -33,7 +33,7 @@ public class MysqlPtReviewRepository implements PtReviewRepository{
                 "join pr.pt m "+
                 "join m.gym g "+
                 "where m.id =: ptId and g.id =: gymId " +
-                "order by " + orderType;
+                "order by pr." + orderType;
 
         return em.createQuery(sql).getResultList();
     }

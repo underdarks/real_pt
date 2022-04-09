@@ -15,6 +15,7 @@ public class PtReviewResDto implements BaseDto<PtReview,PtReviewResDto> {
     private Long good;          //도움이돼요 개수
     private Long bad;           //도움 안되요 개수
 
+    //entity -> dto
     @Override
     public PtReviewResDto entityToDto(PtReview ptReview) {
         PtReviewResDto resDto = new PtReviewResDto();
