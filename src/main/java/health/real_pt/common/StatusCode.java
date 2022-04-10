@@ -1,16 +1,19 @@
 package health.real_pt.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Http 응답 코드 공통 클래스
  */
 public class StatusCode {
 
     /**
-     *  2xx : 요청을 성공적으로 받았으며 인식했고 수용했음(Success)
+     * 2xx : 요청을 성공적으로 받았으며 인식했고 수용했음(Success)
      */
 
     public static final int OK = 200;           //요청을 정상적으로 처리함
-    public static final int  CREATED= 201;      //성공적으로 생성에 대한 요청을 받었으며 서버가 새 리소스를 작성함 (대개 POST, PUT일 때)
+    public static final int CREATED = 201;      //성공적으로 생성에 대한 요청을 받었으며 서버가 새 리소스를 작성함 (대개 POST, PUT일 때)
     public static final int NO_CONTENT = 204;   //요청을 성공적으로 처리했지만 제공할 컨텐츠가 없음
 
     /**

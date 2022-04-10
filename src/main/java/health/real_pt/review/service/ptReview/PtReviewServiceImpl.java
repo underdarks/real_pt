@@ -76,7 +76,6 @@ public class PtReviewServiceImpl implements PtReviewService{
         ptReviewRepository.delete(ptReview);
     }
 
-    ResponseEntity
 
     @Transactional
     @Override
