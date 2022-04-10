@@ -6,6 +6,8 @@ import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
 import health.real_pt.review.repository.ptReview.PtReviewRepository;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +75,8 @@ public class PtReviewServiceImpl implements PtReviewService{
         PtReview ptReview = ptReviewRepository.findById(id).orElseThrow(() -> new NoSuchElementException("ptReview 객체를 찾을 수 없습니다."));
         ptReviewRepository.delete(ptReview);
     }
+
+    ResponseEntity
 
     @Transactional
     @Override
