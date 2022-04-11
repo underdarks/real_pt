@@ -1,4 +1,4 @@
-package health.real_pt.common;
+package health.real_pt.common.response;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package health.real_pt.common;
+package health.real_pt.common.response;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +11,12 @@ import lombok.Data;
 public class CommonResDto<T> {
 
     private int statusCode;         //응답 코드
-    private String responseMsg;     //응답 메시지
+    private String responseMessage;     //응답 메시지
     private T data;                 //응답 data
 
-    public CommonResDto(final int statusCode, final String responseMsg) {
+    public CommonResDto(final int statusCode, final String responseMessage) {
         this.statusCode = statusCode;
-        this.responseMsg = responseMsg;
+        this.responseMessage = responseMessage;
         this.data = null;
     }
 
@@ -27,9 +27,9 @@ public class CommonResDto<T> {
 
 
     @Builder
-    public CommonResDto(final int statusCode, final String responseMsg, final T data) {
+    public CommonResDto(final int statusCode, final String responseMessage, final T data) {
         this.statusCode = statusCode;
-        this.responseMsg = responseMsg;
+        this.responseMessage = responseMessage;
         this.data = data;
     }
 

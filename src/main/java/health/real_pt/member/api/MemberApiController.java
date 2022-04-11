@@ -1,12 +1,11 @@
 package health.real_pt.member.api;
 
 
-import health.real_pt.common.CommonResDto;
-import health.real_pt.common.ResponseMessage;
-import health.real_pt.common.StatusCode;
+import health.real_pt.common.response.CommonResDto;
+import health.real_pt.common.response.ResponseMessage;
+import health.real_pt.common.response.StatusCode;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
-import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.dto.MemberListDto;
 import health.real_pt.member.dto.MemberResDto;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/member")
@@ -38,6 +36,8 @@ public class MemberApiController {
         Gym gym = gymService.findOne(gymId);
         requestDto.setGym(gym);
 
+        memberService.join(requestDto);
+
         return new ResponseEntity(
                 CommonResDto.createResponse(StatusCode.CREATED, ResponseMessage.CREATED_USER_SUCCESS),
                 HttpStatus.OK
@@ -53,7 +53,7 @@ public class MemberApiController {
         MemberResDto memberResDto = memberService.updateMember(id, requestDto);
 
         return new ResponseEntity(
-                CommonResDto.createResponse(StatusCode.CREATED,ResponseMessage.UPDATE_USER_SUCCESS),
+                CommonResDto.createResponse(StatusCode.OK,ResponseMessage.UPDATE_USER_SUCCESS,memberResDto),
                 HttpStatus.OK
         );
 
@@ -62,11 +62,16 @@ public class MemberApiController {
     /**
      * 모든 회원 조회
      */
-    @ApiOperation(value = "모든 회원 조회", notes = "모든 회원을 조회합니다.")
+    @ApiOperation(value = "전체 회원 조회", notes = "전체 회원을 조회합니다.")
     @GetMapping("")
-    public MemberListDto findAllMembers(){
+    public ResponseEntity findAllMembers(){
         List<MemberResDto> resDtoList = memberService.findAllMembers();
-        return new MemberListDto(resDtoList.size(),resDtoList);
+        MemberListDto memberListDto = new MemberListDto(resDtoList.size(), resDtoList);
+
+        return new ResponseEntity(
+                CommonResDto.createResponse(StatusCode.OK,ResponseMessage.READ_ALL_USER_SUCCESS,memberListDto),
+                HttpStatus.OK
+        );
     }
 
     /**
@@ -75,7 +80,12 @@ public class MemberApiController {
     @ApiOperation(value = "단일 회원 조회", notes = "id를 받아 회원을 조회합니다." )
     @GetMapping("/{id}")
     public ResponseEntity findMember(@PathVariable("id") Long id){
-        return memberService.findMember(id);
+        MemberResDto resDto = memberService.findMember(id);
+
+        return new ResponseEntity(
+                CommonResDto.createResponse(StatusCode.OK,ResponseMessage.READ_USER_SUCCESS,resDto),
+                HttpStatus.OK
+        );
     }
 
     /**
@@ -86,7 +96,10 @@ public class MemberApiController {
     public ResponseEntity deleteMember(@PathVariable("id") Long id){
         memberService.quit(id);
 
-        return "success";
+        return new ResponseEntity(
+                CommonResDto.createResponse(StatusCode.OK, ResponseMessage.DELETE_USER_SUCCESS),
+                HttpStatus.OK
+        );
     }
 
 

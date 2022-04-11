@@ -1,4 +1,4 @@
-package health.real_pt.common;
+package health.real_pt.common.response;
 
 
 /**
@@ -14,6 +14,9 @@ public class ResponseMessage {
 
     public static final String READ_USER_SUCCESS = "회원 조회 성공";
     public static final String READ_USER_FAIL = "회원 조회 실패";
+
+    public static final String READ_ALL_USER_SUCCESS = "전체 회원 조회 성공";
+    public static final String READ_ALL_USER_FAIL = "전체 회원 조회 실패";
 
     public static final String UPDATE_USER_SUCCESS = "회원 수정 성공";
     public static final String UPDATE_USER_FAIL = "회원 수정 실패";
