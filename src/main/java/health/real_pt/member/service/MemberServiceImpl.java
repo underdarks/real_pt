@@ -1,9 +1,13 @@
 package health.real_pt.member.service;
 
+import health.real_pt.common.exception_handler.APIException;
+import health.real_pt.common.exception_handler.ApiExceptionAdvice;
+import health.real_pt.common.exception_handler.ExceptionEnum;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.repository.MemberRepository;
+import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +15,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static health.real_pt.common.exception_handler.ExceptionEnum.RUNTIME_EXCEPTION;
 
 @Service
 //@RequiredArgsConstructor
@@ -60,7 +66,8 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberResDto findMember(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다."));
+//        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("Member 객체를 찾을 수 없습니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new InvalidConfigurationPropertyValueException("dsa","DFs","fds"));
         return new MemberResDto().entityToDto(member);
     }
 

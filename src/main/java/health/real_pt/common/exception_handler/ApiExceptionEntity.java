@@ -7,13 +7,14 @@ import lombok.ToString;
 
 /**
  * 공통 예외 엔티티(일관성 유지)
+ * 에러 응답
  */
 @Getter
 @ToString
 public class ApiExceptionEntity {
 
-    private String errorCode;
-    private String errorMessage;
+    private String errorCode;       //에러 코드
+    private String errorMessage;    //에러 메시지
 
     @Builder
     public ApiExceptionEntity(String errorCode, String errorMessage) {

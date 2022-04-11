@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class CommonResDto<T> {
 
-    private int statusCode;         //응답 코드
+    private int statusCode;             //응답 코드
     private String responseMessage;     //응답 메시지
-    private T data;                 //응답 data
+    private T data;                     //응답 data
 
     public CommonResDto(final int statusCode, final String responseMessage) {
         this.statusCode = statusCode;
@@ -36,7 +36,7 @@ public class CommonResDto<T> {
     public static<T> CommonResDto<T> createResponse(final int statusCode, final String responseMsg, final T data){
         return CommonResDto.<T>builder()
                 .statusCode(statusCode)
-                .responseMsg(responseMsg)
+                .responseMessage(responseMsg)
                 .data(data)
                 .build();
     }

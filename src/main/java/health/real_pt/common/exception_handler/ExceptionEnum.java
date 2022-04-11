@@ -10,26 +10,21 @@ import org.springframework.http.HttpStatus;
 @Getter
 @ToString
 public enum ExceptionEnum {
-    RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST,"E0001",""),
-    ACCESS_DENIED_EXCEPTION(HttpStatus.UNAUTHORIZED,)
 
-
-        
-
-
-
+    RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST,"E0001","dsd"),
+    RESOURCE_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND,"404","테스트#!@#!#@!#");
 
 
     private final HttpStatus status;
     private final String code;
     private String message;
 
-    public ExceptionEnum(HttpStatus status, String code) {
+    ExceptionEnum(HttpStatus status, String code) {
         this.status = status;
         this.code = code;
     }
 
-    public ExceptionEnum(HttpStatus status, String code, String message) {
+    ExceptionEnum(HttpStatus status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;
