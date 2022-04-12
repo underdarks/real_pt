@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import javax.persistence.EntityManager;
 
@@ -13,17 +14,8 @@ import javax.persistence.EntityManager;
 @SpringBootTest
 class MemberServiceImplTest {
 
-    @Autowired EntityManager em;
-
-    MemberRepository memberRepository;
+    @Autowired
     MemberService memberService;
-
-
-    @BeforeEach
-    public void beforeEach(){
-        memberRepository=new MySqlMemberRepository(em);
-        memberService=new MemberServiceImpl(memberRepository);
-    }
 
 
     @Test
@@ -41,4 +33,15 @@ class MemberServiceImplTest {
 //        Assertions.assertThat(findMember.get().getId()).isEqualTo(member.getId());
     }
 
+
+    @Test
+    public void 회원탈퇴_테스트(){
+        //given
+        memberService.quit(4L);
+
+        //when
+
+
+        //then
+    }
 }

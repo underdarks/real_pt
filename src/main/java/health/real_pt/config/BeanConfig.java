@@ -47,7 +47,7 @@ public class BeanConfig {
     @Bean
     public MemberService memberService(){
 //        System.out.println("BeanConfig - MemberService 빈 의존성 주입");
-        return new MemberServiceImpl(memberRepository());
+        return new MemberServiceImpl(memberRepository(),gymService());
     }
 
     @Bean

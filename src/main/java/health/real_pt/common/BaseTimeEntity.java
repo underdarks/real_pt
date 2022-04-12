@@ -18,6 +18,13 @@ import java.time.LocalDateTime;
 
 import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.*;
 
+
+/**
+ * Notice
+ *
+ * 엔티티 공통 필드를 제공하는 추상 클래스
+ */
+
 @MappedSuperclass
 @Getter
 @EntityListeners({AuditingEntityListener.class})    //BaseTimeEntity에 Auditing(이벤트) 기능을 포함

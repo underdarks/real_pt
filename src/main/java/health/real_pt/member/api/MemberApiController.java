@@ -25,7 +25,6 @@ import java.util.List;
 public class MemberApiController {
 
     private final MemberService memberService;
-    private final GymService gymService;
 
     /**
      * 회원 등록
@@ -33,10 +32,7 @@ public class MemberApiController {
     @ApiOperation(value = "회원 등록", notes = "신규 회원을 생성합니다.")
     @PostMapping("")
     public ResponseEntity saveMember(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid MemberReqDto requestDto){
-        Gym gym = gymService.findOne(gymId);
-        requestDto.setGym(gym);
-
-        memberService.join(requestDto);
+        memberService.join(requestDto,gymId);
 
         return new ResponseEntity(
                 CommonResDto.createResponse(StatusCode.CREATED, ResponseMessage.CREATED_USER_SUCCESS),

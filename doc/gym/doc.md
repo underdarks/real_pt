@@ -12,7 +12,7 @@ package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
-import health.real_pt.gym.dto.GymDto;
+import health.real_pt.gym.dto.GymReqDtoDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 @Entity @Table(name = "GYM") @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
+public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GYM_ID")
@@ -114,29 +114,29 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
     }
 
     //Dto -> Entity로 변환(객체 생성)
-    public static Gym toEntity(GymDto gymDto){
+    public static Gym toEntity(GymReqDto gymReqDto){
         return Gym.builder()
-                .name(gymDto.getName())
-                .info(gymDto.getInfo())
-                .openTime(gymDto.getOpenTime())
-                .program(gymDto.getProgram())
-                .location(gymDto.getLocation())
-                .extraService(gymDto.getExtraService())
-                .facilites(gymDto.getFacilites())
+                .name(gymReqDto.getName())
+                .info(gymReqDto.getInfo())
+                .openTime(gymReqDto.getOpenTime())
+                .program(gymReqDto.getProgram())
+                .location(gymReqDto.getLocation())
+                .extraService(gymReqDto.getExtraService())
+                .facilites(gymReqDto.getFacilites())
                 .build();
 
     }
 
     //Entity 수정을 위한 공통 메서드
     @Override
-    public void updateEntity(GymDto gymDto) {
-        changeName(gymDto.getName());
-        changeInfo(gymDto.getInfo());
-        changeOpenTime(gymDto.getOpenTime());
-        changeProgram(gymDto.getProgram());
-        changeLocation(gymDto.getLocation());
-        changeExtraService(gymDto.getExtraService());
-        changeFacilites(gymDto.getFacilites());
+    public void updateEntity(GymReqDto gymReqDto) {
+        changeName(gymReqDto.getName());
+        changeInfo(gymReqDto.getInfo());
+        changeOpenTime(gymReqDto.getOpenTime());
+        changeProgram(gymReqDto.getProgram());
+        changeLocation(gymReqDto.getLocation());
+        changeExtraService(gymReqDto.getExtraService());
+        changeFacilites(gymReqDto.getFacilites());
     }
 
 }
@@ -151,7 +151,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
 package health.real_pt.gym.api;
 
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.GymDto;
+import health.real_pt.gym.dto.GymReqDtoDto;
 import health.real_pt.gym.dto.GymResDto;
 import health.real_pt.gym.service.GymService;
 import io.swagger.annotations.ApiOperation;
@@ -172,29 +172,29 @@ public class GymApiController {
 
     /**
      * 헬스장 정보 저장
-     * @param reqGymDto : 저장할 헬스장 정보 DTO
+     * @param reqGymReqDto : 저장할 헬스장 정보 DTO
      * @return : ID(PK)값
      */
     @ApiOperation(value = "헬스장 등록", notes = "헬스장 정보를 등록합니다.")
     @PostMapping("")
-    public Long saveGym(@RequestBody @Valid GymDto reqGymDto){
-        return gymService.saveGym(reqGymDto);
+    public Long saveGym(@RequestBody @Valid GymReqDto reqGymReqDto){
+        return gymService.saveGym(reqGymReqDto);
     }
 
 
     /**
      * 헬스장 정보 수정
      * @param id        : 수정할 ID(PK)
-     * @param updGymDto : 수정할 헬스장 정보 DTO
+     * @param updGymReqDto : 수정할 헬스장 정보 DTO
      * @return          : 수정된 DTO
      */
     @ApiOperation(value = "헬스장 수정", notes = "id를 받아 헬스장 정보를 수정합니다.")
     @PatchMapping("/{id}")
-    public GymDto updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymDto updGymDto){
-        gymService.updateGym(id,updGymDto);
+    public GymReqDto updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymReqDto updGymReqDto){
+        gymService.updateGym(id,updGymReqDto);
         Gym gym = gymService.findOne(id);
 
-        return new GymDto().entityToDto(gym);
+        return new GymReqDto().entityToDto(gym);
     }
 
     /**
@@ -204,10 +204,10 @@ public class GymApiController {
      */
     @ApiOperation(value = "단일 헬스장 조회", notes = "id를 받아 헬스장 정보를 조회합니다.")
     @GetMapping("/{id}")
-    public GymDto findGym(@PathVariable("id") Long id){
+    public GymReqDto findGym(@PathVariable("id") Long id){
         Gym gym = gymService.findOne(id);
 
-        return new GymDto().entityToDto(gym);
+        return new GymReqDto().entityToDto(gym);
     }
 
     /**
@@ -220,12 +220,12 @@ public class GymApiController {
         List<Gym> findGyms = gymService.findGyms();
 
         //Entity List -> Dto List
-        List<GymDto> gymDtoList = findGyms.stream()
-                .map(gym -> new GymDto().entityToDto(gym))
+        List<GymReqDto> gymReqDtoList = findGyms.stream()
+                .map(gym -> new GymReqDto().entityToDto(gym))
                 .collect(Collectors.toList());
 
 
-        return new GymResDto(gymDtoList.size(),gymDtoList);
+        return new GymResDto(gymReqDtoList.size(),gymReqDtoList);
     }
 
 

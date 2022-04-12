@@ -5,26 +5,26 @@ import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 /**
- * 공통 오류 메시지 enum class
+ * 공통 오류 코드 타입
  */
 @Getter
 @ToString
-public enum ExceptionEnum {
+public enum ExceptionType {
 
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST,"E0001","dsd"),
-    RESOURCE_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND,"404","테스트#!@#!#@!#");
+    NO_SUCH_ELEMENT_EXCEPTION(HttpStatus.NOT_FOUND,"404","객체를 찾을 수 없습니다.");
 
 
     private final HttpStatus status;
     private final String code;
     private String message;
 
-    ExceptionEnum(HttpStatus status, String code) {
+    ExceptionType(HttpStatus status, String code) {
         this.status = status;
         this.code = code;
     }
 
-    ExceptionEnum(HttpStatus status, String code, String message) {
+    ExceptionType(HttpStatus status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;

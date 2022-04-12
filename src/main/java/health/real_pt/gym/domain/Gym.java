@@ -2,17 +2,16 @@ package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
-import health.real_pt.gym.dto.GymDto;
+import health.real_pt.gym.dto.GymReqDto;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity @Table(name = "GYM") @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
+public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GYM_ID")
@@ -104,29 +103,29 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymDto> {
     }
 
     //Dto -> Entity로 변환(객체 생성)
-    public static Gym toEntity(GymDto gymDto){
+    public static Gym toEntity(GymReqDto gymReqDto){
         return Gym.builder()
-                .name(gymDto.getName())
-                .info(gymDto.getInfo())
-                .openTime(gymDto.getOpenTime())
-                .program(gymDto.getProgram())
-                .location(gymDto.getLocation())
-                .extraService(gymDto.getExtraService())
-                .facilites(gymDto.getFacilites())
+                .name(gymReqDto.getName())
+                .info(gymReqDto.getInfo())
+                .openTime(gymReqDto.getOpenTime())
+                .program(gymReqDto.getProgram())
+                .location(gymReqDto.getLocation())
+                .extraService(gymReqDto.getExtraService())
+                .facilites(gymReqDto.getFacilites())
                 .build();
 
     }
 
     //Entity 수정을 위한 공통 메서드
     @Override
-    public void updateEntity(GymDto gymDto) {
-        changeName(gymDto.getName());
-        changeInfo(gymDto.getInfo());
-        changeOpenTime(gymDto.getOpenTime());
-        changeProgram(gymDto.getProgram());
-        changeLocation(gymDto.getLocation());
-        changeExtraService(gymDto.getExtraService());
-        changeFacilites(gymDto.getFacilites());
+    public void updateEntity(GymReqDto gymReqDto) {
+        changeName(gymReqDto.getName());
+        changeInfo(gymReqDto.getInfo());
+        changeOpenTime(gymReqDto.getOpenTime());
+        changeProgram(gymReqDto.getProgram());
+        changeLocation(gymReqDto.getLocation());
+        changeExtraService(gymReqDto.getExtraService());
+        changeFacilites(gymReqDto.getFacilites());
     }
 
 }

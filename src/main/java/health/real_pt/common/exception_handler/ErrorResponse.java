@@ -11,14 +11,16 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-public class ApiExceptionEntity {
+public class ErrorResponse {
 
     private String errorCode;       //에러 코드
     private String errorMessage;    //에러 메시지
+    private String errorTarget;     //에러 원인 대상자
 
     @Builder
-    public ApiExceptionEntity(String errorCode, String errorMessage) {
+    public ErrorResponse(String errorCode, String errorMessage, String errorTarget) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
+        this.errorTarget = errorTarget;
     }
 }
