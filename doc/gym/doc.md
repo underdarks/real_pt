@@ -152,7 +152,7 @@ package health.real_pt.gym.api;
 
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.dto.GymReqDtoDto;
-import health.real_pt.gym.dto.GymResDto;
+import health.real_pt.gym.dto.GymListDto;
 import health.real_pt.gym.service.GymService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,16 @@
 package health.real_pt.gym.api;
 
+import health.real_pt.common.response.CommonResponse;
+import health.real_pt.common.response.CommonResMessage;
+import health.real_pt.common.response.StatusCode;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.dto.GymReqDto;
+import health.real_pt.gym.dto.GymListDto;
 import health.real_pt.gym.dto.GymResDto;
 import health.real_pt.gym.service.GymService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +33,12 @@ public class GymApiController {
     @ApiOperation(value = "헬스장 등록", notes = "헬스장 정보를 등록합니다.")
     @PostMapping("")
     public ResponseEntity saveGym(@RequestBody @Valid GymReqDto reqGymReqDto){
-        return gymService.saveGym(reqGymReqDto);
+        gymService.saveGym(reqGymReqDto);
+
+        return new ResponseEntity(
+                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_GYM_SUCCESS),
+                HttpStatus.CREATED
+        );
     }
 
 
@@ -42,9 +52,12 @@ public class GymApiController {
     @PatchMapping("/{id}")
     public ResponseEntity updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymReqDto updGymReqDto){
         gymService.updateGym(id, updGymReqDto);
-        Gym gym = gymService.findOne(id);
+        GymResDto resDto = new GymResDto().entityToDto(gymService.findOne(id));
 
-        return new GymReqDto().entityToDto(gym);
+        return new ResponseEntity(
+                CommonResponse.createResponse(StatusCode.OK, CommonResMessage.UPDATE_GYM_SUCCESS,resDto),
+                        HttpStatus.OK
+        );
     }
 
     /**
@@ -55,9 +68,12 @@ public class GymApiController {
     @ApiOperation(value = "단일 헬스장 조회", notes = "id를 받아 헬스장 정보를 조회합니다.")
     @GetMapping("/{id}")
     public ResponseEntity findGym(@PathVariable("id") Long id){
-        Gym gym = gymService.findOne(id);
+        GymResDto resDto = new GymResDto().entityToDto(gymService.findOne(id));
 
-        return new GymReqDto().entityToDto(gym);
+        return new ResponseEntity(
+                CommonResponse.createResponse(StatusCode.OK,CommonResMessage.READ_GYM_SUCCESS,resDto),
+                HttpStatus.OK
+        );
     }
 
     /**
@@ -74,8 +90,13 @@ public class GymApiController {
                 .map(gym -> new GymReqDto().entityToDto(gym))
                 .collect(Collectors.toList());
 
+        GymListDto gymListDto = new GymListDto(gymReqDtoList.size(), gymReqDtoList);
 
-        return new GymResDto(gymReqDtoList.size(), gymReqDtoList);
+        return new ResponseEntity(
+                CommonResponse.createResponse(StatusCode.OK,CommonResMessage.READ_ALL_GYM_SUCCESS,gymListDto),
+                HttpStatus.OK
+        );
+
     }
 
 
@@ -89,7 +110,10 @@ public class GymApiController {
     public ResponseEntity deleteGym(@PathVariable("id") Long id){
         gymService.deleteGym(id);
 
-        return "success";
+        return new ResponseEntity(
+                CommonResponse.createResponse(StatusCode.OK, CommonResMessage.DELETE_GYM_SUCCESS),
+                HttpStatus.OK
+        );
     }
 
 

@@ -1,16 +1,18 @@
 package health.real_pt.member.service;
 
+import health.real_pt.common.exception_handler.ExceptionType;
+import health.real_pt.common.exceptions.EntityNotFoundException;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.repository.MemberRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
         List<Member> memberList = memberRepository.findByNameAndEmail(member);
 
         if (!memberList.isEmpty()) {  //동일한 멤버가 있다면
-            throw new IllegalStateException("이미 존재하는 회원입니다!");
+            throw new DuplicateKeyException("이미 존재하는 회원입니다!");
         }
     }
 
@@ -84,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public Member findEntity(Long id) {
-        return memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("member"));
+        return memberRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION,"id = " + id + "인 Member 객체를 찾을 수 없습니다."));
     }
 
     @Override

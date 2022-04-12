@@ -12,8 +12,10 @@ import org.springframework.http.HttpStatus;
 public enum ExceptionType {
 
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST,"E0001","dsd"),
-    NO_SUCH_ELEMENT_EXCEPTION(HttpStatus.NOT_FOUND,"404","객체를 찾을 수 없습니다.");
+    ENTITY_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND,"E404","엔티티를 찾을 수 없습니다."),
+    DUPLICATE_KEY_EXCEPTION(HttpStatus.BAD_REQUEST,"E401","중복된 값이 존재합니다."),
 
+    ;
 
     private final HttpStatus status;
     private final String code;

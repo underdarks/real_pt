@@ -4,7 +4,7 @@ package health.real_pt.common.response;
 /**
  * 응답 메시지 공통 클래스
  */
-public class ResponseMessage {
+public class CommonResMessage {
 
     /**
      *  회원 관련 응답 메시지
@@ -26,6 +26,23 @@ public class ResponseMessage {
 
     //===============================================================
 
+    /**
+     *  헬스장 관련 응답 메시지
+     */
+    public static final String CREATED_GYM_SUCCESS = "헬스장 정보 등록 성공";
+    public static final String CREATED_GYM_FAIL = "헬스장 정보 등록 실패";
+
+    public static final String READ_GYM_SUCCESS = "헬스장 정보 조회 성공";
+    public static final String READ_GYM_FAIL = "헬스장 정보 조회 실패";
+
+    public static final String READ_ALL_GYM_SUCCESS = "전체 핼스장 조회 성공";
+    public static final String READ_ALL_GYM_FAIL = "전체 헬스장 조회 실패";
+
+    public static final String UPDATE_GYM_SUCCESS = "헬스장 정보 수정 성공";
+    public static final String UPDATE_GYM_FAIL = "헬스장 정보 수정 실패";
+
+    public static final String DELETE_GYM_SUCCESS = "헬스장 정보 삭제 성공";
+    public static final String DELETE_GYM_FAIL = "헬스장 정보 삭제 실패";
 
 
 

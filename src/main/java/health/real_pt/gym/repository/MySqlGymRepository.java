@@ -30,6 +30,12 @@ public class MySqlGymRepository implements GymRepository{
     }
 
     @Override
+    public Optional<Gym> findByName(String name) {
+        Gym gym = em.find(Gym.class, name);
+        return Optional.ofNullable(gym);
+    }
+
+    @Override
     public List<Gym> findAll() {
         return em.createQuery("select g from Gym g", Gym.class).getResultList();    //결과를 컬렉션으로 반환. 결과가 없으면 빈 컬렉션 반환
     }

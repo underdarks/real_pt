@@ -22,8 +22,12 @@ public interface GymRepository {
     //단일 조회
     Optional<Gym> findById(Long id);
 
+    //단일 조회(이름으로 조회)
+    Optional<Gym> findByName(String name);
+
     //전체 조회
     List<Gym> findAll();
+
 
     //삭제
     void delete(Gym gym);

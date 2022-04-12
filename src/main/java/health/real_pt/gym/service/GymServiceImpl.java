@@ -1,8 +1,12 @@
 package health.real_pt.gym.service;
 
+import com.sun.jdi.request.DuplicateRequestException;
+import health.real_pt.common.exception_handler.ExceptionType;
+import health.real_pt.common.exceptions.EntityNotFoundException;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.dto.GymReqDto;
 import health.real_pt.gym.repository.GymRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +27,13 @@ public class GymServiceImpl implements GymService{
     @Transactional
     public Long saveGym(GymReqDto gymReqDto) {
         Gym gym = Gym.toEntity(gymReqDto);
+        checkDuplicateGymName(gymReqDto.getName());
         return gymRepository.save(gym);
+    }
+
+    //헬스장 이름 중복 체크
+    private void checkDuplicateGymName(String name){
+        gymRepository.findByName(name).orElseThrow(() -> new DuplicateKeyException());
     }
 
     @Override
@@ -53,6 +63,6 @@ public class GymServiceImpl implements GymService{
     @Transactional
     @Override
     public Gym findEntity(Long id) {
-        return gymRepository.findById(id).orElseThrow(() -> new NoSuchElementException("GYM"));
+        return gymRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION,"id = " + id + "인 Gym 객체를 찾을 수 없습니다."));
     }
 }
