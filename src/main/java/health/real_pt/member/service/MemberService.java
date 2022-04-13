@@ -1,17 +1,19 @@
 package health.real_pt.member.service;
 
-import health.real_pt.member.dto.MemberResResDto;
-import health.real_pt.member.dto.MemberReqResDto;
+import health.real_pt.common.BaseInterface;
+import health.real_pt.member.domain.Member;
+import health.real_pt.member.dto.MemberResDto;
+import health.real_pt.member.dto.MemberReqDto;
 
 import java.util.List;
 
-public interface MemberService{
+public interface MemberService extends BaseInterface<Member> {
 
     /**
      * 회원가입
      * @param
      */
-    Long join(MemberReqResDto memberReqDto, Long gymId);
+    Long join(MemberReqDto memberReqDto, Long gymId);
 
 
     /**
@@ -32,18 +34,18 @@ public interface MemberService{
      *
      * @return
      */
-    List<MemberResResDto> findAllMembers();
+    List<MemberResDto> findAllMembers();
 
     /**
      * 단일 회원 찾기
      *
      */
-    MemberResResDto findMember(Long id);
+    MemberResDto findMember(Long id);
 
     /**
      * 회원 수정
      */
-    MemberResResDto updateMember(Long id, MemberReqResDto memberReqDto);
+    MemberResDto updateMember(Long id, MemberReqDto memberReqDto);
 
 
     /**

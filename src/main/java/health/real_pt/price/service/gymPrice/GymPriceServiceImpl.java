@@ -4,8 +4,8 @@ import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
-import health.real_pt.price.dto.gymPrice.GymPriceReqResDto;
-import health.real_pt.price.dto.gymPrice.GymPriceResResDto;
+import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
+import health.real_pt.price.dto.gymPrice.GymPriceResDto;
 import health.real_pt.price.domain.GymPrice;
 import health.real_pt.price.repository.gymPrice.GymPriceRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public Long savePrice(GymPriceReqResDto gymPriceReqDto, Long gymId) {
+    public Long savePrice(GymPriceReqDto gymPriceReqDto, Long gymId) {
         //헬스장 엔티티 찾기
         Gym gym = gymService.findOne(gymId);
 
@@ -38,11 +38,11 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public GymPriceResResDto updatePrice(GymPriceReqResDto reqDto) {
+    public GymPriceResDto updatePrice(GymPriceReqDto reqDto) {
         GymPrice gymPrice = findEntity(reqDto.getId());
 
         gymPrice.updateEntity(reqDto);
-        return new GymPriceResResDto().entityToDto(gymPrice);
+        return new GymPriceResDto().entityToDto(gymPrice);
     }
 
     @Transactional
@@ -53,20 +53,20 @@ public class GymPriceServiceImpl implements GymPriceService {
     }
 
     @Override
-    public GymPriceResResDto findOnePrice(Long id) {
+    public GymPriceResDto findOnePrice(Long id) {
         GymPrice gymPrice = findEntity(id);
 
         //Entity --> DTO
-        return new GymPriceResResDto().entityToDto(gymPrice);
+        return new GymPriceResDto().entityToDto(gymPrice);
     }
 
     @Override
-    public List<GymPriceResResDto> findAllPrice(Long gymId) {
+    public List<GymPriceResDto> findAllPrice(Long gymId) {
         List<GymPrice> gymPriceList = gymPriceRepository.findByGymId(gymId);
 
         //Entity List -> Dto List
         return gymPriceList.stream()
-                .map(gymPrice -> new GymPriceResResDto().entityToDto(gymPrice))
+                .map(gymPrice -> new GymPriceResDto().entityToDto(gymPrice))
                 .collect(Collectors.toList());
     }
 

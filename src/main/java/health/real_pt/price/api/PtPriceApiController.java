@@ -5,7 +5,7 @@ import health.real_pt.common.response.CommonResponse;
 import health.real_pt.common.response.StatusCode;
 import health.real_pt.price.dto.ptPrice.PtPriceListDto;
 import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
-import health.real_pt.price.dto.ptPrice.PtPriceResResDto;
+import health.real_pt.price.dto.ptPrice.PtPriceResDto;
 import health.real_pt.price.service.ptPrice.PtPriceService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +55,7 @@ public class PtPriceApiController {
     @PatchMapping("{id}")
     public ResponseEntity<CommonResponse>  updatePtPrice(@PathVariable(value = "id") Long id, @RequestBody @Valid PtPriceReqDto reqDto){
         reqDto.setId(id);
-        PtPriceResResDto resDto = ptPriceService.updatePrice(reqDto);
+        PtPriceResDto resDto = ptPriceService.updatePrice(reqDto);
 
         return new ResponseEntity(
                 CommonResponse.createResponse(StatusCode.OK, CommonResMessage.UPDATE_PT_PRICE_SUCCESS,resDto),
@@ -70,7 +70,7 @@ public class PtPriceApiController {
     @ApiOperation(value = "PT 가격 조회", notes = "id를 받아 가격 정보를 조회합니다.")
     @GetMapping("{id}")
     public ResponseEntity<CommonResponse>  findPtPrice(@PathVariable(value = "id") Long id){
-        PtPriceResResDto resDto = ptPriceService.findOnePrice(id);
+        PtPriceResDto resDto = ptPriceService.findOnePrice(id);
 
         return new ResponseEntity(
                 CommonResponse.createResponse(StatusCode.OK, CommonResMessage.READ_PT_PRICE_SUCCESS,resDto),
@@ -85,7 +85,7 @@ public class PtPriceApiController {
     @ApiOperation(value = "PT 가격 전체 조회", notes = "모든 가격 정보를 조회합니다.")
     @GetMapping()
     public ResponseEntity<CommonResponse>  findAllPtPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestHeader(value = "pt-id") Long ptId){
-        List<PtPriceResResDto> resDtoList = ptPriceService.findAllPrice(gymId, ptId);
+        List<PtPriceResDto> resDtoList = ptPriceService.findAllPrice(gymId, ptId);
         PtPriceListDto listDto = new PtPriceListDto(resDtoList, resDtoList.size());
 
         return new ResponseEntity(

@@ -4,9 +4,9 @@ import health.real_pt.common.response.CommonResponse;
 import health.real_pt.common.response.CommonResMessage;
 import health.real_pt.common.response.StatusCode;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.GymReqResDto;
+import health.real_pt.gym.dto.GymReqDto;
 import health.real_pt.gym.dto.GymListDto;
-import health.real_pt.gym.dto.GymResResDto;
+import health.real_pt.gym.dto.GymResDto;
 import health.real_pt.gym.service.GymService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class GymApiController {
      */
     @ApiOperation(value = "헬스장 등록", notes = "헬스장 정보를 등록합니다.")
     @PostMapping("")
-    public ResponseEntity<CommonResponse> saveGym(@RequestBody @Valid GymReqResDto reqGymReqDto){
+    public ResponseEntity<CommonResponse> saveGym(@RequestBody @Valid GymReqDto reqGymReqDto){
         gymService.saveGym(reqGymReqDto);
 
         return new ResponseEntity(
@@ -50,9 +50,9 @@ public class GymApiController {
      */
     @ApiOperation(value = "헬스장 수정", notes = "id를 받아 헬스장 정보를 수정합니다.")
     @PatchMapping("/{id}")
-    public ResponseEntity<CommonResponse> updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymReqResDto updGymReqDto){
+    public ResponseEntity<CommonResponse> updateGym(@PathVariable("id") Long id, @RequestBody @Valid GymReqDto updGymReqDto){
         gymService.updateGym(id, updGymReqDto);
-        GymResResDto resDto = new GymResResDto().entityToDto(gymService.findOne(id));
+        GymResDto resDto = new GymResDto().entityToDto(gymService.findOne(id));
 
         return new ResponseEntity(
                 CommonResponse.createResponse(StatusCode.OK, CommonResMessage.UPDATE_GYM_SUCCESS,resDto),
@@ -68,7 +68,7 @@ public class GymApiController {
     @ApiOperation(value = "단일 헬스장 조회", notes = "id를 받아 헬스장 정보를 조회합니다.")
     @GetMapping("/{id}")
     public ResponseEntity<CommonResponse> findGym(@PathVariable("id") Long id){
-        GymResResDto resDto = new GymResResDto().entityToDto(gymService.findOne(id));
+        GymResDto resDto = new GymResDto().entityToDto(gymService.findOne(id));
 
         return new ResponseEntity(
                 CommonResponse.createResponse(StatusCode.OK,CommonResMessage.READ_GYM_SUCCESS,resDto),
@@ -86,8 +86,8 @@ public class GymApiController {
         List<Gym> findGyms = gymService.findGyms();
 
         //Entity List -> Dto List
-        List<GymReqResDto> gymReqDtoList = findGyms.stream()
-                .map(gym -> new GymReqResDto().entityToDto(gym))
+        List<GymReqDto> gymReqDtoList = findGyms.stream()
+                .map(gym -> new GymReqDto().entityToDto(gym))
                 .collect(Collectors.toList());
 
         GymListDto gymListDto = new GymListDto(gymReqDtoList.size(), gymReqDtoList);

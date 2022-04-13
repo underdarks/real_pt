@@ -1,11 +1,11 @@
 package health.real_pt.gym.dto;
 
-import health.real_pt.common.BaseResDto;
+import health.real_pt.common.BaseDto;
 import health.real_pt.gym.domain.Gym;
 import lombok.Data;
 
 @Data
-public class GymResResDto implements BaseResDto<Gym, GymResResDto> {
+public class GymReqDto implements BaseDto<Gym, GymReqDto> {
 
     private Long id;
 
@@ -24,8 +24,8 @@ public class GymResResDto implements BaseResDto<Gym, GymResResDto> {
     private String Facilites;     //편의시설
 
     @Override
-    public GymResResDto entityToDto(Gym gym) {
-        GymResResDto gymReqDto = new GymResResDto();
+    public GymReqDto entityToDto(Gym gym) {
+        GymReqDto gymReqDto = new GymReqDto();
 
         gymReqDto.setId(gym.getId());
         gymReqDto.setName(gym.getName());

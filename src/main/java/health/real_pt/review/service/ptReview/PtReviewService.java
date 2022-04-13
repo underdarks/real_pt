@@ -1,11 +1,13 @@
 package health.real_pt.review.service.ptReview;
 
+import health.real_pt.common.BaseInterface;
+import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
-import health.real_pt.review.dto.ptReview.PtReviewResResDto;
+import health.real_pt.review.dto.ptReview.PtReviewResDto;
 
 import java.util.List;
 
-public interface PtReviewService {
+public interface PtReviewService extends BaseInterface<PtReview> {
 
     /**
      *              Notice
@@ -21,17 +23,17 @@ public interface PtReviewService {
     /**
      * 리뷰 수정
      */
-    PtReviewResResDto updateReview(PtReviewReqDto updDto);
+    PtReviewResDto updateReview(PtReviewReqDto updDto);
 
     /**
      * 리뷰 조회
      */
-    List<PtReviewResResDto> findAllReviews(Long gymId, Long ptId);
+    List<PtReviewResDto> findAllReviews(Long gymId, Long ptId);
 
     /**
      * 리뷰 조회 정렬(좋아요 많은 순, 좋아요 적은 순, 싫어요 많은 순, 싫어요 적은 순, 최신 순, 오래된 순, 평점 높은 순 등...)
      */
-    List<PtReviewResResDto> findAllSortedReviews(Long gymId, Long ptId, String sortType);
+    List<PtReviewResDto> findAllSortedReviews(Long gymId, Long ptId, String sortType);
 
     /**
      * 리뷰 삭제

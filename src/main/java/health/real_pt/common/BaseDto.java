@@ -1,6 +1,6 @@
 package health.real_pt.common;
 
-public interface BaseResDto<Entity,DTO>{
+public interface BaseDto<Entity,DTO>{
     /**
      * Notice
      *

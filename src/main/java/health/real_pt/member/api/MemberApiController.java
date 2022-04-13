@@ -4,9 +4,9 @@ package health.real_pt.member.api;
 import health.real_pt.common.response.CommonResponse;
 import health.real_pt.common.response.CommonResMessage;
 import health.real_pt.common.response.StatusCode;
-import health.real_pt.member.dto.MemberReqResDto;
+import health.real_pt.member.dto.MemberResDto;
+import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.dto.MemberListDto;
-import health.real_pt.member.dto.MemberResResDto;
 import health.real_pt.member.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class MemberApiController {
      */
     @ApiOperation(value = "회원 등록", notes = "신규 회원을 생성합니다.")
     @PostMapping("")
-    public ResponseEntity<CommonResponse> saveMember(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid MemberReqResDto requestDto){
+    public ResponseEntity<CommonResponse> saveMember(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid MemberReqDto requestDto){
         memberService.join(requestDto,gymId);
 
         return new ResponseEntity(
@@ -43,8 +43,8 @@ public class MemberApiController {
      */
     @ApiOperation(value = "회원 수정", notes = "id를 받아 회원 정보를 수정합니다.")
     @PatchMapping("/{id}")
-    public ResponseEntity<CommonResponse> updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberReqResDto requestDto){
-        MemberResResDto memberResDto = memberService.updateMember(id, requestDto);
+    public ResponseEntity<CommonResponse> updateMember(@PathVariable("id") Long id, @RequestBody @Valid MemberReqDto requestDto){
+        MemberResDto memberResDto = memberService.updateMember(id, requestDto);
 
         return new ResponseEntity(
                 CommonResponse.createResponse(StatusCode.OK, CommonResMessage.UPDATE_USER_SUCCESS,memberResDto),
@@ -59,7 +59,7 @@ public class MemberApiController {
     @ApiOperation(value = "전체 회원 조회", notes = "전체 회원을 조회합니다.")
     @GetMapping("")
     public ResponseEntity<CommonResponse> findAllMembers(){
-        List<MemberResResDto> resDtoList = memberService.findAllMembers();
+        List<MemberResDto> resDtoList = memberService.findAllMembers();
         MemberListDto memberListDto = new MemberListDto(resDtoList.size(), resDtoList);
 
         return new ResponseEntity(
@@ -74,7 +74,7 @@ public class MemberApiController {
     @ApiOperation(value = "단일 회원 조회", notes = "id를 받아 회원을 조회합니다." )
     @GetMapping("/{id}")
     public ResponseEntity<CommonResponse> findMember(@PathVariable("id") Long id){
-        MemberResResDto resDto = memberService.findMember(id);
+        MemberResDto resDto = memberService.findMember(id);
 
         return new ResponseEntity(
                 CommonResponse.createResponse(StatusCode.OK, CommonResMessage.READ_USER_SUCCESS,resDto),

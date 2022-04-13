@@ -1,11 +1,12 @@
 package health.real_pt.gym.service;
 
+import health.real_pt.common.BaseInterface;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.GymReqResDto;
+import health.real_pt.gym.dto.GymReqDto;
 
 import java.util.List;
 
-public interface GymService {
+public interface GymService extends BaseInterface<Gym> {
 
     /**
      *              Notice
@@ -16,12 +17,12 @@ public interface GymService {
     /**
      * 헬스장 정보 등록
      */
-    Long saveGym(GymReqResDto gymReqDto);
+    Long saveGym(GymReqDto gymReqDto);
 
     /**
      * 헬스장 정보 수정
      */
-    void updateGym(Long id, GymReqResDto GymReqDto);
+    void updateGym(Long id, GymReqDto GymReqDto);
 
 
     /**

@@ -2,8 +2,8 @@ package health.real_pt.price.service.gymPrice;
 
 import health.real_pt.common.BaseInterface;
 import health.real_pt.price.domain.GymPrice;
-import health.real_pt.price.dto.gymPrice.GymPriceResResDto;
-import health.real_pt.price.dto.gymPrice.GymPriceReqResDto;
+import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
+import health.real_pt.price.dto.gymPrice.GymPriceResDto;
 
 import java.util.List;
 
@@ -19,12 +19,12 @@ public interface GymPriceService extends BaseInterface<GymPrice> {
     /**
      *  가격 저장
      */
-    Long savePrice(GymPriceReqResDto reqDto, Long gymId);
+    Long savePrice(GymPriceReqDto reqDto, Long gymId);
 
     /**
      *  가격 수정
      */
-    GymPriceResResDto updatePrice(GymPriceReqResDto reqDto);
+    GymPriceResDto updatePrice(GymPriceReqDto reqDto);
 
 
     /**
@@ -36,13 +36,13 @@ public interface GymPriceService extends BaseInterface<GymPrice> {
     /**
      *  가격 단일 조회
      */
-    GymPriceResResDto findOnePrice(Long id);
+    GymPriceResDto findOnePrice(Long id);
 
     /**
      *  가격 전체 조회
      * @return
      */
-    List<GymPriceResResDto> findAllPrice(Long gymId);
+    List<GymPriceResDto> findAllPrice(Long gymId);
 
 
 

@@ -2,7 +2,7 @@ package health.real_pt.gym.domain;
 
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
-import health.real_pt.gym.dto.GymReqResDto;
+import health.real_pt.gym.dto.GymReqDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Entity @Table(name = "GYM") @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Gym extends BaseTimeEntity implements BaseEntity<GymReqResDto> {
+public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GYM_ID")
@@ -103,7 +103,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqResDto> {
     }
 
     //Dto -> Entity로 변환(객체 생성)
-    public static Gym toEntity(GymReqResDto gymReqDto){
+    public static Gym toEntity(GymReqDto gymReqDto){
         return Gym.builder()
                 .name(gymReqDto.getName())
                 .info(gymReqDto.getInfo())
@@ -118,7 +118,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqResDto> {
 
     //Entity 수정을 위한 공통 메서드
     @Override
-    public void updateEntity(GymReqResDto gymReqDto) {
+    public void updateEntity(GymReqDto gymReqDto) {
         changeName(gymReqDto.getName());
         changeInfo(gymReqDto.getInfo());
         changeOpenTime(gymReqDto.getOpenTime());

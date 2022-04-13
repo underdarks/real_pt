@@ -3,7 +3,7 @@ package health.real_pt.price.service.ptPrice;
 import health.real_pt.common.BaseInterface;
 import health.real_pt.price.domain.PtPrice;
 import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
-import health.real_pt.price.dto.ptPrice.PtPriceResResDto;
+import health.real_pt.price.dto.ptPrice.PtPriceResDto;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface PtPriceService extends BaseInterface<PtPrice> {
     /**
      *  가격 수정
      */
-    PtPriceResResDto updatePrice(PtPriceReqDto updDto);
+    PtPriceResDto updatePrice(PtPriceReqDto updDto);
 
 
     /**
@@ -36,11 +36,11 @@ public interface PtPriceService extends BaseInterface<PtPrice> {
      *  가격 단일 조회
      * @return
      */
-    PtPriceResResDto findOnePrice(Long id);
+    PtPriceResDto findOnePrice(Long id);
 
     /**
      *  가격 전체 조회
      */
-    List<PtPriceResResDto> findAllPrice(Long gymId, Long ptId);
+    List<PtPriceResDto> findAllPrice(Long gymId, Long ptId);
 
 }

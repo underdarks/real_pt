@@ -1,7 +1,7 @@
 package health.real_pt.gym.service;
 
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.GymReqResDto;
+import health.real_pt.gym.dto.GymReqDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ class GymServiceImplTest {
     @Autowired
     GymService gymService;
 
-    public GymReqResDto makeGymDto(){
-        GymReqResDto gymReqDto =new GymReqResDto();
+    public GymReqDto makeGymDto(){
+        GymReqDto gymReqDto =new GymReqDto();
 
         gymReqDto.setId(9L);
         gymReqDto.setName("석스장 본점");
@@ -34,7 +34,7 @@ class GymServiceImplTest {
     @Test
     public void Gym_저장(){
         //given
-        GymReqResDto gymReqDto =new GymReqResDto();
+        GymReqDto gymReqDto =new GymReqDto();
         gymReqDto.setName("스포애니 신림사거리 1호점");
         gymReqDto.setExtraService("와이파이 무료 ...");
         gymReqDto.setInfo("헬창 많음");
@@ -92,7 +92,7 @@ class GymServiceImplTest {
     @Test
     public void Gym_업데이트(){
         //given
-        GymReqResDto gymReqDto = makeGymDto();
+        GymReqDto gymReqDto = makeGymDto();
 
         //when
         gymService.updateGym(gymReqDto.getId(), gymReqDto);

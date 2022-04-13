@@ -3,7 +3,7 @@ package health.real_pt.gym.service;
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.dto.GymReqResDto;
+import health.real_pt.gym.dto.GymReqDto;
 import health.real_pt.gym.repository.GymRepository;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class GymServiceImpl implements GymService{
 
     @Override
     @Transactional
-    public Long saveGym(GymReqResDto gymReqDto) {
+    public Long saveGym(GymReqDto gymReqDto) {
         Gym gym = Gym.toEntity(gymReqDto);
         checkDuplicateGymName(gymReqDto.getName());
         return gymRepository.save(gym);
@@ -38,7 +38,7 @@ public class GymServiceImpl implements GymService{
 
     @Override
     @Transactional
-    public void updateGym(Long id, GymReqResDto gymReqDto) {
+    public void updateGym(Long id, GymReqDto gymReqDto) {
         Gym gym = findEntity(id);
         gym.updateEntity(gymReqDto);
     }
@@ -60,10 +60,13 @@ public class GymServiceImpl implements GymService{
         gymRepository.delete(gym);
     }
 
-    @Transactional
-    private Gym findEntity(Long id) {
-        return gymRepository.findById(id).orElseThrow(() ->
-                new CommonApiExceptions(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION, "id = " + id + "인 Gym 객체를 찾을 수 없습니다.")
+    @Override
+    public Gym findEntity(Long id) {
+            return gymRepository.findById(id).orElseThrow(() ->
+            new CommonApiExceptions(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION, "id = " + id + "인 Gym 객체를 찾을 수 없습니다.")
         );
     }
+
+
+
 }

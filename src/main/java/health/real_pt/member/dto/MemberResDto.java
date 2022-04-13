@@ -1,13 +1,13 @@
 package health.real_pt.member.dto;
 
-import health.real_pt.common.BaseResDto;
+import health.real_pt.common.BaseDto;
 import health.real_pt.member.domain.Member;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class MemberResResDto implements BaseResDto<Member, MemberResResDto> {
+public class MemberResDto implements BaseDto<Member, MemberResDto> {
 
     private Long id;
     private String userId;
@@ -21,10 +21,9 @@ public class MemberResResDto implements BaseResDto<Member, MemberResResDto> {
     private String recommandedCode;     //추천인 코드(상대방이 내추천인코드 적을 때)
     private String gymName;             //소속된 헬스장 이름
 
-
     @Override
-    public MemberResResDto entityToDto(Member member) {
-        MemberResResDto resDto = new MemberResResDto();
+    public MemberResDto entityToDto(Member member) {
+        MemberResDto resDto = new MemberResDto();
 
         resDto.setId(member.getId());
         resDto.setUserId(member.getUserId());
@@ -36,8 +35,10 @@ public class MemberResResDto implements BaseResDto<Member, MemberResResDto> {
         resDto.setNickname(member.getNickname());
         resDto.setRecommandCode(member.getRecommandCode());
         resDto.setRecommandedCode(member.getRecommandedCode());
+
         resDto.setGymName(member.getGym().getName());
 
         return resDto;
     }
+
 }

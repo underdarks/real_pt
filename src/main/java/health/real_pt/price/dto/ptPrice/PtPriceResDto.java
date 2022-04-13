@@ -1,11 +1,11 @@
 package health.real_pt.price.dto.ptPrice;
 
-import health.real_pt.common.BaseResDto;
+import health.real_pt.common.BaseDto;
 import health.real_pt.price.domain.PtPrice;
 import lombok.Data;
 
 @Data
-public class PtPriceResResDto implements BaseResDto<PtPrice, PtPriceResResDto> {
+public class PtPriceResDto implements BaseDto<PtPrice, PtPriceResDto> {
 
     private Long id;
     private String gymName;     //헬스장 이름
@@ -15,8 +15,8 @@ public class PtPriceResResDto implements BaseResDto<PtPrice, PtPriceResResDto> {
     private Integer times;  //횟수 (ex. 10회, 20회, 30회 등..)
 
     @Override
-    public PtPriceResResDto entityToDto(PtPrice ptPrice) {
-        PtPriceResResDto resDto = new PtPriceResResDto();
+    public PtPriceResDto entityToDto(PtPrice ptPrice) {
+        PtPriceResDto resDto = new PtPriceResDto();
 
         resDto.setId(ptPrice.getId());
         resDto.setGymName(ptPrice.getPt().getGym().getName());

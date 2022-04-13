@@ -78,7 +78,7 @@ public class BeanConfig {
 
     @Bean
     public PtPriceService ptPriceService(){
-        return new PtPriceServiceImpl(memberRepository(),ptPriceRepository());
+        return new PtPriceServiceImpl(ptPriceRepository(),memberService());
     }
 
     @Bean
@@ -88,7 +88,7 @@ public class BeanConfig {
 
     @Bean
     public PtReviewService ptReviewService(){
-        return new PtReviewServiceImpl(ptReviewRepository(), memberRepository());
+        return new PtReviewServiceImpl(ptReviewRepository(), memberService());
     }
 
 
