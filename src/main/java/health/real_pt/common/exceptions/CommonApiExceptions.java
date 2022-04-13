@@ -7,10 +7,13 @@ import lombok.Getter;
 
 
 @Getter
-public class EntityNotFoundException extends BaseException {
+public class CommonApiExceptions extends RuntimeException {
+
+    private ExceptionType error;
+    private String detail;
 
     @Builder
-    public EntityNotFoundException(ExceptionType error, String detail) {
+    public CommonApiExceptions(ExceptionType error, String detail) {
         this.error=error;
         this.detail=detail;
     }

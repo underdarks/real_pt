@@ -4,10 +4,8 @@ import health.real_pt.member.domain.Member;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
-import health.real_pt.review.dto.ptReview.PtReviewResDto;
+import health.real_pt.review.dto.ptReview.PtReviewResResDto;
 import health.real_pt.review.repository.ptReview.PtReviewRepository;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,27 +43,27 @@ public class PtReviewServiceImpl implements PtReviewService{
 
     @Transactional
     @Override
-    public PtReviewResDto updateReview(PtReviewReqDto updDto) {
+    public PtReviewResResDto updateReview(PtReviewReqDto updDto) {
         PtReview ptReview = ptReviewRepository.findById(updDto.getId()).orElseThrow(() -> new NoSuchElementException("PtReview 객체를 찾을 수 없습니다!"));
 
         //엔티티 수정
         ptReview.updateEntity(updDto);
 
-        return new PtReviewResDto().entityToDto(ptReview);
+        return new PtReviewResResDto().entityToDto(ptReview);
     }
 
     @Override
-    public List<PtReviewResDto> findAllReviews(Long gymId, Long ptId) {
+    public List<PtReviewResResDto> findAllReviews(Long gymId, Long ptId) {
         //최근 작성일 기준 정렬(디폴트 값)
         List<PtReview> ptReviewList = ptReviewRepository.findAll(gymId, ptId, "reg_date desc");
 
         return ptReviewList.stream()
-                .map(pr -> new PtReviewResDto().entityToDto(pr))
+                .map(pr -> new PtReviewResResDto().entityToDto(pr))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<PtReviewResDto> findAllSortedReviews(Long gymId, Long ptId, String sortType) {
+    public List<PtReviewResResDto> findAllSortedReviews(Long gymId, Long ptId, String sortType) {
         return null;
     }
 

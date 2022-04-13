@@ -67,7 +67,7 @@ public class BeanConfig {
 
     @Bean
     public GymPriceService gymPriceService(){
-        return new GymPriceServiceImpl(gymPriceRepository(), gymRepository());
+        return new GymPriceServiceImpl(gymPriceRepository(), gymService());
     }
 
     @Bean

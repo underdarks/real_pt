@@ -2,8 +2,8 @@ package health.real_pt.price.service;
 
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
-import health.real_pt.price.dto.gymPrice.GymPriceResDto;
-import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
+import health.real_pt.price.dto.gymPrice.GymPriceReqResDto;
+import health.real_pt.price.dto.gymPrice.GymPriceResResDto;
 import health.real_pt.price.service.gymPrice.GymPriceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ class GymPriceServiceImplTest {
         Gym gym = gymService.findOne(10L);
 
         //2. Dto 생성
-        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        GymPriceReqResDto gymPriceReqDto =new GymPriceReqResDto();
         gymPriceReqDto.setGym(gym);
         gymPriceReqDto.setId(1L);
         gymPriceReqDto.setRegularPrice(100000L);
@@ -49,7 +49,7 @@ class GymPriceServiceImplTest {
     public void 가격등록_실패(){
         //given
         //1. DTO 생성
-        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        GymPriceReqResDto gymPriceReqDto =new GymPriceReqResDto();
         gymPriceReqDto.setRegularPrice(100000L);
         gymPriceReqDto.setDiscountPrice(90000L);
         gymPriceReqDto.setMonths(1);
@@ -68,7 +68,7 @@ class GymPriceServiceImplTest {
         Long gymId=10L;
         Gym gym = gymService.findOne(gymId);
 
-        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        GymPriceReqResDto gymPriceReqDto =new GymPriceReqResDto();
         gymPriceReqDto.setId(15L);
         gymPriceReqDto.setGym(gym);
         gymPriceReqDto.setRegularPrice(250000L);
@@ -77,7 +77,7 @@ class GymPriceServiceImplTest {
 
 
         //when
-        GymPriceResDto gymPriceResDto = gymPriceService.updatePrice(gymPriceReqDto);
+        GymPriceResResDto gymPriceResDto = gymPriceService.updatePrice(gymPriceReqDto);
 
         //then
         assertThat(gymPriceResDto.getId()).isEqualTo(gymPriceReqDto.getId());    //isEqualTo는 값 자체의 비교
@@ -86,7 +86,7 @@ class GymPriceServiceImplTest {
     @Test
     public void 가격삭제_성공(){
         //given
-        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+        GymPriceReqResDto gymPriceReqDto =new GymPriceReqResDto();
         gymPriceReqDto.setId(15L);
         gymPriceReqDto.setRegularPrice(250000L);
         gymPriceReqDto.setDiscountPrice(240000L);

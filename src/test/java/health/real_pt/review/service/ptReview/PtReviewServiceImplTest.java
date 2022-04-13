@@ -1,17 +1,11 @@
 package health.real_pt.review.service.ptReview;
 
-import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.repository.MemberRepository;
-import health.real_pt.member.service.MemberService;
-import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PtReviewServiceImplTest {

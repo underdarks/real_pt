@@ -1,36 +1,34 @@
 package health.real_pt.price.service.gymPrice;
 
+import health.real_pt.common.exception_handler.ExceptionType;
+import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.repository.GymRepository;
-import health.real_pt.price.dto.gymPrice.GymPriceResDto;
+import health.real_pt.gym.service.GymService;
+import health.real_pt.price.dto.gymPrice.GymPriceReqResDto;
+import health.real_pt.price.dto.gymPrice.GymPriceResResDto;
 import health.real_pt.price.domain.GymPrice;
-import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
 import health.real_pt.price.repository.gymPrice.GymPriceRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class GymPriceServiceImpl implements GymPriceService {
 
     private final GymPriceRepository gymPriceRepository;
-    private final GymRepository gymRepository;
-
-    public GymPriceServiceImpl(GymPriceRepository gymPriceRepository, GymRepository gymRepository) {
-        this.gymPriceRepository = gymPriceRepository;
-        this.gymRepository = gymRepository;
-    }
+    private final GymService gymService;
 
 
     @Transactional
     @Override
-    public Long savePrice(GymPriceReqDto gymPriceReqDto, Long gymId) {
+    public Long savePrice(GymPriceReqResDto gymPriceReqDto, Long gymId) {
         //헬스장 엔티티 찾기
-        Gym gym  = gymRepository.findById(gymId).orElseThrow(() -> new NoSuchElementException("gymId= " + gymId + "인 Gym 객체를 찾을 수 없습니다"));;
+        Gym gym = gymService.findOne(gymId);
 
         gymPriceReqDto.setGym(gym);
         GymPrice gymPrice = GymPrice.toEntity(gymPriceReqDto);//Dto -> Entiiy
@@ -40,39 +38,42 @@ public class GymPriceServiceImpl implements GymPriceService {
 
     @Transactional
     @Override
-    public GymPriceResDto updatePrice(GymPriceReqDto gymPriceReqDto) {
-        GymPrice gymPrice = gymPriceRepository.findById(gymPriceReqDto.getId()).orElseThrow(() ->
-                new NoSuchElementException("gymId= " + gymPriceReqDto.getGym().getId() + "인 GymPrice 객체를 찾을 수 없습니다"));;
+    public GymPriceResResDto updatePrice(GymPriceReqResDto reqDto) {
+        GymPrice gymPrice = findEntity(reqDto.getId());
 
-        gymPrice.updateEntity(gymPriceReqDto);
-        return new GymPriceResDto().entityToDto(gymPrice);
+        gymPrice.updateEntity(reqDto);
+        return new GymPriceResResDto().entityToDto(gymPrice);
     }
 
     @Transactional
     @Override
     public void deletePrice(Long id) {
-        GymPrice gymPrice = gymPriceRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("gymId= " + id + "인 GymPrice 객체를 찾을 수 없습니다"));;
-
+        GymPrice gymPrice = findEntity(id);
         gymPriceRepository.delete(gymPrice);
     }
 
     @Override
-    public GymPriceResDto findOnePrice(Long gymPriceId) {
-        GymPrice gymPrice = gymPriceRepository.findById(gymPriceId).orElseThrow(() -> new NoSuchElementException("GymPrice 객체를 찾을 수 없습니다!"));
+    public GymPriceResResDto findOnePrice(Long id) {
+        GymPrice gymPrice = findEntity(id);
 
         //Entity --> DTO
-        return new GymPriceResDto().entityToDto(gymPrice);
+        return new GymPriceResResDto().entityToDto(gymPrice);
     }
 
     @Override
-    public List<GymPriceResDto> findAllPrice(Long gymId) {
+    public List<GymPriceResResDto> findAllPrice(Long gymId) {
         List<GymPrice> gymPriceList = gymPriceRepository.findByGymId(gymId);
 
         //Entity List -> Dto List
-        return   gymPriceList.stream()
-                .map(gymPrice -> new GymPriceResDto().entityToDto(gymPrice))
+        return gymPriceList.stream()
+                .map(gymPrice -> new GymPriceResResDto().entityToDto(gymPrice))
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public GymPrice findEntity(Long id) {
+        return gymPriceRepository.findById(id).orElseThrow(() ->
+                new CommonApiExceptions(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION, "id = " + id + "인 GymPrice 객체를 찾을 수 없습니다.")
+        );
+    }
 }

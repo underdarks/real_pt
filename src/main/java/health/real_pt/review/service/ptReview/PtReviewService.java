@@ -1,7 +1,7 @@
 package health.real_pt.review.service.ptReview;
 
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
-import health.real_pt.review.dto.ptReview.PtReviewResDto;
+import health.real_pt.review.dto.ptReview.PtReviewResResDto;
 
 import java.util.List;
 
@@ -21,17 +21,17 @@ public interface PtReviewService {
     /**
      * 리뷰 수정
      */
-    PtReviewResDto updateReview(PtReviewReqDto updDto);
+    PtReviewResResDto updateReview(PtReviewReqDto updDto);
 
     /**
      * 리뷰 조회
      */
-    List<PtReviewResDto> findAllReviews(Long gymId, Long ptId);
+    List<PtReviewResResDto> findAllReviews(Long gymId, Long ptId);
 
     /**
      * 리뷰 조회 정렬(좋아요 많은 순, 좋아요 적은 순, 싫어요 많은 순, 싫어요 적은 순, 최신 순, 오래된 순, 평점 높은 순 등...)
      */
-    List<PtReviewResDto> findAllSortedReviews(Long gymId, Long ptId, String sortType);
+    List<PtReviewResResDto> findAllSortedReviews(Long gymId, Long ptId, String sortType);
 
     /**
      * 리뷰 삭제

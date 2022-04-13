@@ -1,12 +1,12 @@
 package health.real_pt.member.service;
 
 import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.EntityNotFoundException;
+import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
-import health.real_pt.member.dto.MemberResDto;
+import health.real_pt.member.dto.MemberReqResDto;
+import health.real_pt.member.dto.MemberResResDto;
 import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.repository.MemberRepository;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public Long join(MemberReqDto reqDto, Long gymId) {
+    public Long join(MemberReqResDto reqDto, Long gymId) {
         Gym gym = gymService.findOne(gymId);
         reqDto.setGym(gym);
 
@@ -52,28 +52,28 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberResDto> findAllMembers() {
+    public List<MemberResResDto> findAllMembers() {
         List<Member> memberList = memberRepository.findAll();
 
         return memberList.stream()
-                .map(m -> new MemberResDto().entityToDto(m))
+                .map(m -> new MemberResResDto().entityToDto(m))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public MemberResDto findMember(Long id) {
+    public MemberResResDto findMember(Long id) {
         Member member = findEntity(id);
-        return new MemberResDto().entityToDto(member);
+        return new MemberResResDto().entityToDto(member);
     }
 
     @Transactional
     @Override
-    public MemberResDto updateMember(Long id, MemberReqDto memberReqDto) {
+    public MemberResResDto updateMember(Long id, MemberReqResDto memberReqDto) {
         Member member = findEntity(id);
         //더티 체킹(엔티티 수정)
         member.updateEntity(memberReqDto);
 
-        return new MemberResDto().entityToDto(member);
+        return new MemberResResDto().entityToDto(member);
     }
 
 
@@ -83,10 +83,14 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.delete(findEntity(id));
     }
 
+    /**
+     * ResDto로 Entity를 찾아
+     */
     @Transactional
-    @Override
-    public Member findEntity(Long id) {
-        return memberRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION,"id = " + id + "인 Member 객체를 찾을 수 없습니다."));
+    private Member findEntity(Long id) {
+        return memberRepository.findById(id).orElseThrow(() ->
+                new CommonApiExceptions(ExceptionType.ENTITY_NOT_FOUND_EXCEPTION,"id = " + id + "인 Member 객체를 찾을 수 없습니다.")
+        );
     }
 
     @Override

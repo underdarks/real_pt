@@ -3,7 +3,7 @@ package health.real_pt.member.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.member.dto.MemberReqDto;
+import health.real_pt.member.dto.MemberReqResDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 @ToString(exclude = "")
-public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
+public class Member extends BaseTimeEntity implements BaseEntity<MemberReqResDto> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
@@ -114,7 +114,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     }
 
     //DTO -> Entity로 변환
-    public static Member toEntity(MemberReqDto memberReqDto) {
+    public static Member toEntity(MemberReqResDto memberReqDto) {
         return Member.builder()
                 .userId(memberReqDto.getUserId())
                 .password(memberReqDto.getPassword())
@@ -131,7 +131,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     }
 
     @Override
-    public void updateEntity(MemberReqDto memberReqDto) {
+    public void updateEntity(MemberReqResDto memberReqDto) {
         if (memberReqDto.getGym() != null)
             changeGym(memberReqDto.getGym());
 

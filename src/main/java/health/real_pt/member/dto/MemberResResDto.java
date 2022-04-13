@@ -1,13 +1,13 @@
 package health.real_pt.member.dto;
 
-import health.real_pt.common.BaseDto;
+import health.real_pt.common.BaseResDto;
 import health.real_pt.member.domain.Member;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class MemberResDto implements BaseDto<Member, MemberResDto> {
+public class MemberResResDto implements BaseResDto<Member, MemberResResDto> {
 
     private Long id;
     private String userId;
@@ -23,8 +23,8 @@ public class MemberResDto implements BaseDto<Member, MemberResDto> {
 
 
     @Override
-    public MemberResDto entityToDto(Member member) {
-        MemberResDto resDto = new MemberResDto();
+    public MemberResResDto entityToDto(Member member) {
+        MemberResResDto resDto = new MemberResResDto();
 
         resDto.setId(member.getId());
         resDto.setUserId(member.getUserId());

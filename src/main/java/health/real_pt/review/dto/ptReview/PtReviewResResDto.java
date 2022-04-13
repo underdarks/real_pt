@@ -1,12 +1,11 @@
 package health.real_pt.review.dto.ptReview;
 
-import health.real_pt.common.BaseDto;
-import health.real_pt.member.domain.Member;
+import health.real_pt.common.BaseResDto;
 import health.real_pt.review.domain.PtReview;
 import lombok.Data;
 
 @Data
-public class PtReviewResDto implements BaseDto<PtReview,PtReviewResDto> {
+public class PtReviewResResDto implements BaseResDto<PtReview, PtReviewResResDto> {
 
     private Long id;
     private String ptName;      //PT 이름
@@ -17,8 +16,8 @@ public class PtReviewResDto implements BaseDto<PtReview,PtReviewResDto> {
 
     //entity -> dto
     @Override
-    public PtReviewResDto entityToDto(PtReview ptReview) {
-        PtReviewResDto resDto = new PtReviewResDto();
+    public PtReviewResResDto entityToDto(PtReview ptReview) {
+        PtReviewResResDto resDto = new PtReviewResResDto();
 
         resDto.setPtName(ptReview.getPt().getName());
         resDto.setTotal(ptReview.getTotal());

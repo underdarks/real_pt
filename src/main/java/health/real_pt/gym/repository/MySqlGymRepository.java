@@ -30,9 +30,10 @@ public class MySqlGymRepository implements GymRepository{
     }
 
     @Override
-    public Optional<Gym> findByName(String name) {
-        Gym gym = em.find(Gym.class, name);
-        return Optional.ofNullable(gym);
+    public List<Gym> findByName(String name) {
+         return em.createQuery("select g from Gym g where g.name =:name",Gym.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 
     @Override

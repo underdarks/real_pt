@@ -1,12 +1,12 @@
 package health.real_pt.price.dto.gymPrice;
 
-import health.real_pt.common.BaseDto;
+import health.real_pt.common.BaseResDto;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.price.domain.GymPrice;
 import lombok.Data;
 
 @Data
-public class GymPriceReqDto implements BaseDto<GymPrice, GymPriceReqDto> {
+public class GymPriceReqResDto implements BaseResDto<GymPrice, GymPriceReqResDto> {
 
     private Long id;
     private Gym gym;    //GYM PK
@@ -16,8 +16,8 @@ public class GymPriceReqDto implements BaseDto<GymPrice, GymPriceReqDto> {
 
 
     @Override
-    public GymPriceReqDto entityToDto(GymPrice gymPrice) {
-        GymPriceReqDto gymPriceReqDto =new GymPriceReqDto();
+    public GymPriceReqResDto entityToDto(GymPrice gymPrice) {
+        GymPriceReqResDto gymPriceReqDto =new GymPriceReqResDto();
 
         gymPriceReqDto.setId(gymPrice.getId());
         gymPriceReqDto.setGym(gymPrice.getGym());
