@@ -30,10 +30,10 @@ public class PtReviewServiceImpl implements PtReviewService{
 
     @Transactional
     @Override
-    public Long saveReview(PtReviewReqDto reqDto, Long memberId) {
-        Member member = memberService.findEntity(memberId);
+    public Long saveReview(PtReviewReqDto reqDto, Long ptId) {
+        Member pt = memberService.findEntity(ptId);
 
-        reqDto.setPt(member);
+        reqDto.setPt(pt);
         PtReview ptReview = PtReview.toEntity(reqDto);
 
         return ptReviewRepository.save(ptReview);
@@ -51,7 +51,7 @@ public class PtReviewServiceImpl implements PtReviewService{
     }
 
     @Override
-    public List<PtReviewResDto> findAllReviews(Long gymId, Long ptId) {
+    public List<PtReviewResDto> findReview(Long gymId, Long ptId) {
         //최근 작성일 기준 정렬(디폴트 값)
         List<PtReview> ptReviewList = ptReviewRepository.findAll(gymId, ptId, "reg_date desc");
 

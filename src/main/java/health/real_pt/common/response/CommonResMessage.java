@@ -85,6 +85,26 @@ public class CommonResMessage {
     public static final String DELETE_PT_PRICE_SUCCESS = "PT 가격 정보 삭제 성공";
     public static final String DELETE_PT_PRICE_FAIL = "PT 가격 정보 삭제 실패";
 
+    //===============================================================
+
+    /**
+     *  PT 리뷰 관련 응답 메시지
+     */
+    public static final String CREATED_PT_REVIEW_SUCCESS = "PT 리뷰 정보 등록 성공";
+    public static final String CREATED_PT_REVIEW_FAIL = "PT 리뷰 정보 등록 실패";
+
+    public static final String READ_PT_REVIEW_SUCCESS = "PT 리뷰 정보 조회 성공";
+    public static final String READ_PT_REVIEW_FAIL = "PT 리뷰 정보 조회 실패";
+
+    public static final String READ_ALL_PT_REVIEW_SUCCESS = "전체 PT 리뷰 조회 성공";
+    public static final String READ_ALL_PT_REVIEW_FAIL = "전체 PT 리뷰 조회 실패";
+
+    public static final String UPDATE_PT_REVIEW_SUCCESS = "PT 리뷰 정보 수정 성공";
+    public static final String UPDATE_PT_REVIEW_FAIL = "PT 리뷰 정보 수정 실패";
+
+    public static final String DELETE_PT_REVIEW_SUCCESS = "PT 리뷰 정보 삭제 성공";
+    public static final String DELETE_PT_REVIEW_FAIL = "PT 리뷰 정보 삭제 실패";
+
 
 
 

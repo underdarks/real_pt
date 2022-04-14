@@ -18,7 +18,7 @@ public interface PtReviewService extends BaseInterface<PtReview> {
     /**
      * 리뷰 등록
      */
-    Long saveReview(PtReviewReqDto reqDto,Long memberId);
+    Long saveReview(PtReviewReqDto reqDto,Long ptId);
 
     /**
      * 리뷰 수정
@@ -28,7 +28,7 @@ public interface PtReviewService extends BaseInterface<PtReview> {
     /**
      * 리뷰 조회
      */
-    List<PtReviewResDto> findAllReviews(Long gymId, Long ptId);
+    List<PtReviewResDto> findReview(Long gymId, Long ptId);
 
     /**
      * 리뷰 조회 정렬(좋아요 많은 순, 좋아요 적은 순, 싫어요 많은 순, 싫어요 적은 순, 최신 순, 오래된 순, 평점 높은 순 등...)

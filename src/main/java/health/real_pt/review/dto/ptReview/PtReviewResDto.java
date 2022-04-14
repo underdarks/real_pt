@@ -9,6 +9,7 @@ public class PtReviewResDto implements BaseDto<PtReview, PtReviewResDto> {
 
     private Long id;
     private String ptName;      //PT 이름
+    private String gymName;     //소속 헬스장 이름
     private Long total;         //총 점수
     private String comment;     //리뷰 내용
     private Long good;          //도움이돼요 개수
@@ -20,6 +21,7 @@ public class PtReviewResDto implements BaseDto<PtReview, PtReviewResDto> {
         PtReviewResDto resDto = new PtReviewResDto();
 
         resDto.setPtName(ptReview.getPt().getName());
+        resDto.setGymName(ptReview.getPt().getGym().getName());
         resDto.setTotal(ptReview.getTotal());
         resDto.setComment(ptReview.getComment());
         resDto.setGood(ptReview.getGood());

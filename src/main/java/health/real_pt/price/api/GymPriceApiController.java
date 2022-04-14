@@ -1,7 +1,7 @@
 package health.real_pt.price.api;
 
 import health.real_pt.common.response.CommonResMessage;
-import health.real_pt.common.response.CommonResponse;
+import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.StatusCode;
 import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
 import health.real_pt.price.dto.gymPrice.GymPriceListDto;
@@ -34,10 +34,10 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 등록", notes = "가격을 등록합니다." )
     @PostMapping("")
-    public ResponseEntity<CommonResponse> saveGymPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid GymPriceReqDto gymPriceReqDto) {
+    public ResponseEntity<CommonResEntity> saveGymPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid GymPriceReqDto gymPriceReqDto) {
         gymPriceService.savePrice(gymPriceReqDto, gymId);
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_GYM_PRICE_SUCCESS),
+                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_GYM_PRICE_SUCCESS),
                 HttpStatus.CREATED
         );
     }
@@ -49,11 +49,11 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 조회", notes = "id를 받아 가격을 조회합니다." )
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResponse> findGymPrice(@RequestHeader(value = "gym-id") Long gymId, @PathVariable("id") Long id){
+    public ResponseEntity<CommonResEntity> findGymPrice(@RequestHeader(value = "gym-id") Long gymId, @PathVariable("id") Long id){
         GymPriceResDto resDto = gymPriceService.findOnePrice(id);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.READ_GYM_PRICE_SUCCESS,resDto),
+                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.READ_GYM_PRICE_SUCCESS,resDto),
                 HttpStatus.CREATED
         );
     }
@@ -64,12 +64,12 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 전체 조회",notes = "특정 헬스장 가격을 전체 조회합니다.")
     @GetMapping("")
-    public ResponseEntity<CommonResponse> findAllGymPrice(@RequestHeader(value = "gym-id") Long gymId){
+    public ResponseEntity<CommonResEntity> findAllGymPrice(@RequestHeader(value = "gym-id") Long gymId){
         List<GymPriceResDto> resDtoList = gymPriceService.findAllPrice(gymId);
         GymPriceListDto priceListDto = new GymPriceListDto(resDtoList.size(), resDtoList);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.READ_ALL_GYM_PRICE_SUCCESS,priceListDto),
+                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.READ_ALL_GYM_PRICE_SUCCESS,priceListDto),
                 HttpStatus.CREATED
         );
     }
@@ -80,12 +80,12 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 수정", notes = "id를 받아 헬스장 가격을 수정합니다.")
     @PatchMapping("/{id}")
-    public ResponseEntity<CommonResponse> updateGymPrice(@PathVariable("id") Long id, @RequestBody @Valid GymPriceReqDto gymPriceReqDto){
+    public ResponseEntity<CommonResEntity> updateGymPrice(@PathVariable("id") Long id, @RequestBody @Valid GymPriceReqDto gymPriceReqDto){
         gymPriceReqDto.setId(id);
         GymPriceResDto resDto = gymPriceService.updatePrice(gymPriceReqDto);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.UPDATE_GYM_PRICE_SUCCESS,resDto),
+                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.UPDATE_GYM_PRICE_SUCCESS,resDto),
                 HttpStatus.CREATED
         );
     }
@@ -95,11 +95,11 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 삭제",notes = "id를 받아 헬스장 가격을 삭제합니다.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<CommonResponse> deleteGymPrice(@PathVariable("id") Long id){
+    public ResponseEntity<CommonResEntity> deleteGymPrice(@PathVariable("id") Long id){
         gymPriceService.deletePrice(id);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.DELETE_GYM_PRICE_SUCCESS),
+                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.DELETE_GYM_PRICE_SUCCESS),
                 HttpStatus.OK
         );
     }

@@ -4,6 +4,7 @@ import health.real_pt.review.domain.PtReview;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PrePersist;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,6 @@ public class MysqlPtReviewRepository implements PtReviewRepository{
     public MysqlPtReviewRepository(EntityManager em) {
         this.em = em;
     }
-
 
     @Override
     public Long save(PtReview ptReview) {

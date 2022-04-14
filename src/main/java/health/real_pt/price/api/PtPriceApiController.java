@@ -1,7 +1,7 @@
 package health.real_pt.price.api;
 
 import health.real_pt.common.response.CommonResMessage;
-import health.real_pt.common.response.CommonResponse;
+import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.StatusCode;
 import health.real_pt.price.dto.ptPrice.PtPriceListDto;
 import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
@@ -35,11 +35,11 @@ public class PtPriceApiController {
      */
     @ApiOperation(value = "PT 가격 등록", notes = "PT 가격 정보를 등록합니다.")
     @PostMapping("")
-    public ResponseEntity<CommonResponse> savePtPrice(@RequestHeader(value = "pt-id") Long ptId, @RequestBody @Valid PtPriceReqDto reqDto) {
+    public ResponseEntity<CommonResEntity> savePtPrice(@RequestHeader(value = "pt-id") Long ptId, @RequestBody @Valid PtPriceReqDto reqDto) {
         ptPriceService.savePrice(reqDto, ptId);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_PT_PRICE_SUCCESS),
+                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_PT_PRICE_SUCCESS),
                 HttpStatus.CREATED
         );
     }
@@ -53,12 +53,12 @@ public class PtPriceApiController {
      */
     @ApiOperation(value = "PT 가격 수정", notes = "id를 받아 가격 정보를 수정합니다.")
     @PatchMapping("{id}")
-    public ResponseEntity<CommonResponse>  updatePtPrice(@PathVariable(value = "id") Long id, @RequestBody @Valid PtPriceReqDto reqDto){
+    public ResponseEntity<CommonResEntity>  updatePtPrice(@PathVariable(value = "id") Long id, @RequestBody @Valid PtPriceReqDto reqDto){
         reqDto.setId(id);
         PtPriceResDto resDto = ptPriceService.updatePrice(reqDto);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.OK, CommonResMessage.UPDATE_PT_PRICE_SUCCESS,resDto),
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.UPDATE_PT_PRICE_SUCCESS,resDto),
                 HttpStatus.OK
         );
     }
@@ -69,11 +69,11 @@ public class PtPriceApiController {
      */
     @ApiOperation(value = "PT 가격 조회", notes = "id를 받아 가격 정보를 조회합니다.")
     @GetMapping("{id}")
-    public ResponseEntity<CommonResponse>  findPtPrice(@PathVariable(value = "id") Long id){
+    public ResponseEntity<CommonResEntity>  findPtPrice(@PathVariable(value = "id") Long id){
         PtPriceResDto resDto = ptPriceService.findOnePrice(id);
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.OK, CommonResMessage.READ_PT_PRICE_SUCCESS,resDto),
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_PT_PRICE_SUCCESS,resDto),
                 HttpStatus.OK
         );
     }
@@ -84,12 +84,12 @@ public class PtPriceApiController {
      */
     @ApiOperation(value = "PT 가격 전체 조회", notes = "모든 가격 정보를 조회합니다.")
     @GetMapping()
-    public ResponseEntity<CommonResponse>  findAllPtPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestHeader(value = "pt-id") Long ptId){
+    public ResponseEntity<CommonResEntity>  findAllPtPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestHeader(value = "pt-id") Long ptId){
         List<PtPriceResDto> resDtoList = ptPriceService.findAllPrice(gymId, ptId);
         PtPriceListDto listDto = new PtPriceListDto(resDtoList, resDtoList.size());
 
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.OK, CommonResMessage.READ_ALL_GYM_PRICE_SUCCESS,listDto),
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_ALL_GYM_PRICE_SUCCESS,listDto),
                 HttpStatus.OK
         );
     }
@@ -100,10 +100,10 @@ public class PtPriceApiController {
      */
     @ApiOperation(value = "PT 가격 삭제", notes = "id를 받아 가격 정보를 삭제합니다.")
     @DeleteMapping("{id}")
-    public ResponseEntity<CommonResponse>  deletePtPrice(@PathVariable(value = "id") Long id){
+    public ResponseEntity<CommonResEntity>  deletePtPrice(@PathVariable(value = "id") Long id){
         ptPriceService.deletePrice(id);
         return new ResponseEntity(
-                CommonResponse.createResponse(StatusCode.OK, CommonResMessage.DELETE_PT_PRICE_SUCCESS),
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.DELETE_PT_PRICE_SUCCESS),
                 HttpStatus.OK
         );
     }
