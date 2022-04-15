@@ -14,6 +14,8 @@ public enum ExceptionType {
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST,"E0001","dsd"),
     ENTITY_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND,"E404","엔티티를 찾을 수 없습니다."),
     DUPLICATE_KEY_EXCEPTION(HttpStatus.BAD_REQUEST,"E401","중복된 값이 존재합니다."),
+    FILE_UPLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR,"E500","파일 업로드에 실패하였습니다"),
+
 
     ;
 

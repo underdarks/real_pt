@@ -2,6 +2,9 @@ package health.real_pt.review.service.ptReview;
 
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.image.domain.PtReviewFile;
+import health.real_pt.image.service.FileManagerService;
+import health.real_pt.image.service.PtReviewFileServiceImpl;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.member.service.MemberService;
@@ -9,9 +12,12 @@ import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
 import health.real_pt.review.repository.ptReview.PtReviewRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -23,6 +29,9 @@ public class PtReviewServiceImpl implements PtReviewService{
     private final PtReviewRepository ptReviewRepository;
     private final MemberService memberService;
 
+    @Autowired
+    private PtReviewFileServiceImpl ptReviewFileService;
+
     public PtReviewServiceImpl(PtReviewRepository ptReviewRepository, MemberService memberService) {
         this.ptReviewRepository = ptReviewRepository;
         this.memberService = memberService;
@@ -30,13 +39,19 @@ public class PtReviewServiceImpl implements PtReviewService{
 
     @Transactional
     @Override
-    public Long saveReview(PtReviewReqDto reqDto, Long ptId) {
+    public Long saveReview(PtReviewReqDto reqDto, Long ptId, List<MultipartFile> files) {
         Member pt = memberService.findEntity(ptId);
-
         reqDto.setPt(pt);
+
         PtReview ptReview = PtReview.toEntity(reqDto);
 
-        return ptReviewRepository.save(ptReview);
+        //리뷰 내용 저장
+        Long saveId = ptReviewRepository.save(ptReview);
+
+        //리뷰 사진(파일) 저장
+        ptReviewFileService.uploadFiles(files,ptReview);
+
+        return saveId;
     }
 
     @Transactional

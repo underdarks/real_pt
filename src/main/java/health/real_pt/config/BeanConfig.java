@@ -4,6 +4,8 @@ import health.real_pt.gym.repository.GymRepository;
 import health.real_pt.gym.repository.MySqlGymRepository;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.gym.service.GymServiceImpl;
+import health.real_pt.image.repository.PtReviewFileRepository;
+import health.real_pt.image.service.PtReviewFileServiceImpl;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.member.repository.MySqlMemberRepository;
 import health.real_pt.member.service.MemberServiceImpl;
@@ -86,8 +88,19 @@ public class BeanConfig {
         return new MysqlPtReviewRepository(em);
     }
 
+//    @Bean
+//    public PtReviewFileRepository ptReviewFileRepository(){
+//        return new PtReviewFileRepository(em);
+//    }
+
+//    @Bean
+//    public PtReviewFileServiceImpl ptReviewFileService(){
+//        return new PtReviewFileServiceImpl(ptReviewFileRepository());
+//    }
+
     @Bean
     public PtReviewService ptReviewService(){
+//        return new PtReviewServiceImpl(ptReviewRepository(), memberService(),ptReviewFileService());
         return new PtReviewServiceImpl(ptReviewRepository(), memberService());
     }
 

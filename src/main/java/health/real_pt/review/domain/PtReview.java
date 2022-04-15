@@ -1,7 +1,6 @@
 package health.real_pt.review.domain;
 
 import health.real_pt.common.BaseEntity;
-import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.image.domain.PtReviewFile;
 import health.real_pt.member.domain.Member;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
@@ -10,7 +9,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.*;
 
@@ -32,11 +30,11 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     private Long id;
 
     @ManyToOne(fetch = LAZY)  //PT_REVIEW가 FK를 가지게 됨(연관관계 주인)
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "PT_MEMBER_ID")
     private Member pt;          //PT(Personal Trainer)
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "WRITER_MEMBER_ID")
     private Member writer;      //작성 회원
 
     @Column(name = "TOTAL")     //총점(별 5개중 별 몇개인지...)
@@ -52,9 +50,8 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     @Column(name = "BAD")
     private Long bad;           //도움 안되요 개수
 
-    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.ALL)
-    private List<PtReviewFile> fileList=new ArrayList<>();
-
+    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE)     //리뷰 삭제시 업로드 파일도 같이 삭제
+    private List<PtReviewFile> uploadFiles =new ArrayList<>();
 
 
     @CreatedDate  //Insert 쿼리 발생 시, 현재 시간을 값으로 채워서 쿼리를 생성 후 insert

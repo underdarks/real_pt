@@ -32,7 +32,7 @@ class PtReviewServiceImplTest {
         PtReviewReqDto reqDto = createPtReview();
 
         //when
-        Long saveId = ptReviewService.saveReview(reqDto, 2L);
+        Long saveId = ptReviewService.saveReview(reqDto, 2L,null);
 
         //then
         Assertions.assertThat(saveId).isNotNull();

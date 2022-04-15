@@ -4,6 +4,7 @@ import health.real_pt.common.BaseInterface;
 import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface PtReviewService extends BaseInterface<PtReview> {
     /**
      * 리뷰 등록
      */
-    Long saveReview(PtReviewReqDto reqDto,Long ptId);
+    Long saveReview(PtReviewReqDto reqDto, Long ptId, List<MultipartFile> files);
 
     /**
      * 리뷰 수정

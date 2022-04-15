@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -28,15 +30,23 @@ public class ptReviewApiController {
 
 
     /**
-     * PT 리뷰 등록
-     * @param ptId      : Memmber_ID
-     * @param reqDto
-     *
-     * 해당 PT의 리뷰 등록록     */
+     * 리뷰 등록
+     * @param ptId      : Member ID
+     * @param files     : 리뷰 사진(파일)
+     * @param reqDto    : 리뷰 내용
+     */
     @ApiOperation(value = "PT 리뷰 등록" , notes = "리뷰를 등록합니다.")
     @PostMapping("")
-    public ResponseEntity<CommonResEntity> savePtReview(@RequestHeader(value = "pt-id") Long ptId , @RequestBody @Valid PtReviewReqDto reqDto){
-        Long saveId = ptReviewService.saveReview(reqDto, ptId);
+    public ResponseEntity<CommonResEntity> savePtReview(
+            @RequestParam(value = "pt-id") Long ptId ,
+            @RequestPart(value = "images") List<MultipartFile> files,
+            @RequestPart(value = "reqData") PtReviewReqDto reqDto)
+//            HttpServletRequest request
+    {
+//        String requestURI = request.getRequestURI();
+//        System.out.println("requestURI = " + requestURI);
+
+        Long saveId = ptReviewService.saveReview(reqDto, ptId,files);
 
         return new ResponseEntity(
                 CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_PT_REVIEW_SUCCESS),
