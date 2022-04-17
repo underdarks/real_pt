@@ -1,8 +1,6 @@
 package health.real_pt.image.domain;
 
-import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
-import health.real_pt.image.dto.PtReviewFileReqDto;
 import health.real_pt.review.domain.PtReview;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity @Table(name = "PTREVIEW_IMAGE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
-public class PtReviewFile extends BaseTimeEntity implements BaseEntity<PtReviewFileReqDto> {
+public class PtReviewFile extends BaseTimeEntity  {
 
     //서버 파일 경로
     public static final String serverFilePath="D:/upload_image/pt_review/";
@@ -34,9 +32,11 @@ public class PtReviewFile extends BaseTimeEntity implements BaseEntity<PtReviewF
     @Column(name = "FILE_PATH")
     private String filepath;            //서버에 저장된 파일 경로
 
+    @Column(name = "download_uri")
+    private String downloadUri;         //파일 다운 경로(URI)
+
     @Column(name = "FILE_SIZE")
     private Long size;                  //파일 크기
-
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "PT_REVIEW_ID")
@@ -48,9 +48,12 @@ public class PtReviewFile extends BaseTimeEntity implements BaseEntity<PtReviewF
         this.ptReview = ptReview;
         this.ptReview.getUploadFiles().add(this);
     }
+
+    //객체 생성(빌더 패턴)
     @Builder
-    public PtReviewFile(String originalFileName, String storedFileName, String filepath, Long size, PtReview ptReview) {
+    public PtReviewFile(String originalFileName, String storedFileName, String filepath, Long size, String downloadUri,PtReview ptReview) {
         this.originalFileName = originalFileName;
+        this.downloadUri=downloadUri;
         this.storedFileName = storedFileName;
         this.filepath = filepath;
         this.size = size;
@@ -58,8 +61,5 @@ public class PtReviewFile extends BaseTimeEntity implements BaseEntity<PtReviewF
         changePtReview(ptReview);
     }
 
-    @Override
-    public void updateEntity(PtReviewFileReqDto ptReviewFileReqDto) {
 
-    }
 }

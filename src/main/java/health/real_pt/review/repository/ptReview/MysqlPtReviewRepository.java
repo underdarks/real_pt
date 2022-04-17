@@ -32,10 +32,13 @@ public class MysqlPtReviewRepository implements PtReviewRepository{
         String sql="select pr from PtReview pr " +
                 "join pr.pt m "+
                 "join m.gym g "+
-                "where m.id =: ptId and g.id =: gymId " +
+                "where m.id =:ptId and g.id =:gymId "+
                 "order by pr." + orderType;
 
-        return em.createQuery(sql).getResultList();
+        return em.createQuery(sql)
+                .setParameter("ptId",ptId)
+                .setParameter("gymId",gymId)
+                .getResultList();
     }
 
     @Override

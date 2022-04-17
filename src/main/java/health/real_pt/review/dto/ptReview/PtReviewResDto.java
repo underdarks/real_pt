@@ -1,11 +1,14 @@
 package health.real_pt.review.dto.ptReview;
 
 import health.real_pt.common.BaseDto;
+import health.real_pt.image.dto.PtReviewFileResDto;
 import health.real_pt.review.domain.PtReview;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class PtReviewResDto implements BaseDto<PtReview, PtReviewResDto> {
+public class PtReviewResDto {
 
     private Long id;
     private String ptName;      //PT 이름
@@ -14,10 +17,11 @@ public class PtReviewResDto implements BaseDto<PtReview, PtReviewResDto> {
     private String comment;     //리뷰 내용
     private Long good;          //도움이돼요 개수
     private Long bad;           //도움 안되요 개수
+    private List<PtReviewFileResDto> reviewImages;   //리뷰 이미지
+
 
     //entity -> dto
-    @Override
-    public PtReviewResDto entityToDto(PtReview ptReview) {
+    public PtReviewResDto entityToDto(PtReview ptReview,List<PtReviewFileResDto> reviewImages) {
         PtReviewResDto resDto = new PtReviewResDto();
 
         resDto.setPtName(ptReview.getPt().getName());
@@ -26,6 +30,7 @@ public class PtReviewResDto implements BaseDto<PtReview, PtReviewResDto> {
         resDto.setComment(ptReview.getComment());
         resDto.setGood(ptReview.getGood());
         resDto.setBad(ptReview.getBad());
+        resDto.setReviewImages(reviewImages);
 
         return resDto;
     }

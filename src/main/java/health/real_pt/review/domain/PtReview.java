@@ -25,6 +25,9 @@ import static javax.persistence.FetchType.*;
 @EntityListeners({AuditingEntityListener.class})
 public class PtReview implements BaseEntity<PtReviewReqDto> {
 
+    @PrePersist
+    
+
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PT_REVIEW_ID")
     private Long id;
@@ -50,7 +53,7 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     @Column(name = "BAD")
     private Long bad;           //도움 안되요 개수
 
-    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE)     //리뷰 삭제시 업로드 파일도 같이 삭제
+    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제
     private List<PtReviewFile> uploadFiles =new ArrayList<>();
 
 

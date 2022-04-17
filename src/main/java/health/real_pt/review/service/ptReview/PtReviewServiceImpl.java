@@ -3,39 +3,33 @@ package health.real_pt.review.service.ptReview;
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.image.domain.PtReviewFile;
-import health.real_pt.image.service.FileManagerService;
-import health.real_pt.image.service.PtReviewFileServiceImpl;
+import health.real_pt.image.dto.PtReviewFileResDto;
+import health.real_pt.image.service.PtReviewFileService;
 import health.real_pt.member.domain.Member;
-import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.member.service.MemberService;
 import health.real_pt.review.domain.PtReview;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
 import health.real_pt.review.repository.ptReview.PtReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
 public class PtReviewServiceImpl implements PtReviewService{
 
     private final PtReviewRepository ptReviewRepository;
     private final MemberService memberService;
+    private final PtReviewFileService ptReviewFileService;
 
-    @Autowired
-    private PtReviewFileServiceImpl ptReviewFileService;
 
-    public PtReviewServiceImpl(PtReviewRepository ptReviewRepository, MemberService memberService) {
-        this.ptReviewRepository = ptReviewRepository;
-        this.memberService = memberService;
-    }
 
     @Transactional
     @Override
@@ -62,17 +56,37 @@ public class PtReviewServiceImpl implements PtReviewService{
         //엔티티 수정
         ptReview.updateEntity(updDto);
 
-        return new PtReviewResDto().entityToDto(ptReview);
+        List<PtReviewFileResDto> reviewImages = ptReview.getUploadFiles().stream()
+                .map(file -> new PtReviewFileResDto(file.getOriginalFileName(), file.getDownloadUri()))
+                .collect(Collectors.toList());
+
+
+        return new PtReviewResDto().entityToDto(ptReview,reviewImages);
     }
 
     @Override
     public List<PtReviewResDto> findReview(Long gymId, Long ptId) {
         //최근 작성일 기준 정렬(디폴트 값)
-        List<PtReview> ptReviewList = ptReviewRepository.findAll(gymId, ptId, "reg_date desc");
+        List<PtReview> ptReviewList = ptReviewRepository.findAll(gymId, ptId, "regDate desc");
+        List<PtReviewResDto> result=new ArrayList<>();
 
-        return ptReviewList.stream()
-                .map(pr -> new PtReviewResDto().entityToDto(pr))
-                .collect(Collectors.toList());
+        for (PtReview ptReview : ptReviewList) {    //리뷰
+            List<PtReviewFileResDto> reviewImageList=new ArrayList<>();     //리뷰에 등록된 이미지(N개)
+
+            for (PtReviewFile file : ptReview.getUploadFiles()) {
+                reviewImageList.add(
+                        PtReviewFileResDto.builder()
+                        .fileName(file.getOriginalFileName())
+                        .downloadUri(file.getDownloadUri())
+                        .build()
+                );
+
+            }
+
+            result.add(new PtReviewResDto().entityToDto(ptReview,reviewImageList));
+        }
+
+        return result;
     }
 
     @Override

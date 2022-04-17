@@ -5,6 +5,7 @@ import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.StatusCode;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
+import health.real_pt.review.dto.ptReview.PtReviewResListDto;
 import health.real_pt.review.service.ptReview.PtReviewService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -79,12 +80,14 @@ public class ptReviewApiController {
      * 특정 헬스장의 특정 트레이너의 리뷰(N) 조회
      */
     @ApiOperation(value = "PT 리뷰 조회" , notes = "리뷰를 조회합니다.")
-    @GetMapping("/{gym-id}/{pt-id}")
+    @GetMapping(value = "/{gym-id}/{pt-id}")
     public ResponseEntity<CommonResEntity> findPtReview(@PathVariable(value = "gym-id") Long gymId,@PathVariable(value = "pt-id") Long ptId){
         List<PtReviewResDto> reviewList = ptReviewService.findReview(gymId, ptId);
 
+        PtReviewResListDto listDto = new PtReviewResListDto(reviewList.size(), reviewList);
+
         return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_PT_REVIEW_SUCCESS,reviewList),
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_PT_REVIEW_SUCCESS,listDto),
                 HttpStatus.OK
         );
     }

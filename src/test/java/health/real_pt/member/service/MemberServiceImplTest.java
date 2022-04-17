@@ -70,8 +70,6 @@ class MemberServiceImplTest {
         //when
         MemberResDto resDto = memberService.findMember(id);
 
-        Member member = resDto.toEntity();
-
 
         //then
         System.out.println("resDto = " + resDto);
