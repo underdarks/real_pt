@@ -4,10 +4,12 @@ import health.real_pt.gym.repository.GymRepository;
 import health.real_pt.gym.repository.MySqlGymRepository;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.gym.service.GymServiceImpl;
-import health.real_pt.image.repository.MysqlPtReviewFileRepository;
-import health.real_pt.image.repository.PtReviewFileRepository;
-import health.real_pt.image.service.PtReviewFileService;
-import health.real_pt.image.service.PtReviewFileServiceImpl;
+import health.real_pt.image.repository.MemberImageRepository;
+import health.real_pt.image.repository.PtReviewImageRepository;
+import health.real_pt.image.repository.ImageRepository;
+import health.real_pt.image.service.ImageService;
+import health.real_pt.image.service.MemberImageServiceImpl;
+import health.real_pt.image.service.PtReviewImageServiceImpl;
 import health.real_pt.member.repository.MemberRepository;
 import health.real_pt.member.repository.MySqlMemberRepository;
 import health.real_pt.member.service.MemberServiceImpl;
@@ -51,7 +53,7 @@ public class BeanConfig {
     @Bean
     public MemberService memberService(){
 //        System.out.println("BeanConfig - MemberService 빈 의존성 주입");
-        return new MemberServiceImpl(memberRepository(),gymService());
+        return new MemberServiceImpl(memberRepository(),gymService(),memberImageService());
     }
 
     @Bean
@@ -77,7 +79,6 @@ public class BeanConfig {
     @Bean
     public PtPriceRepository ptPriceRepository(){
         return new MySqlPtPriceRepository(em);
-
     }
 
     @Bean
@@ -92,17 +93,27 @@ public class BeanConfig {
 
     @Bean
     public PtReviewService ptReviewService(){
-        return new PtReviewServiceImpl(ptReviewRepository(), memberService(), ptReviewFileService());
+        return new PtReviewServiceImpl(ptReviewRepository(), memberService(), ptReviewImageService());
     }
 
     @Bean
-    public PtReviewFileRepository ptReviewFileRepository(){
-        return new MysqlPtReviewFileRepository(em);
+    public PtReviewImageRepository ptReviewImageRepository(){
+        return new PtReviewImageRepository(em);
     }
 
     @Bean
-    public PtReviewFileService ptReviewFileService(){
-        return new PtReviewFileServiceImpl(ptReviewFileRepository());
+    public MemberImageRepository memberImageRepository(){
+        return new MemberImageRepository(em);
+    }
+
+    @Bean
+    public PtReviewImageServiceImpl ptReviewImageService(){
+        return new PtReviewImageServiceImpl(ptReviewImageRepository());
+    }
+
+    @Bean
+    public MemberImageServiceImpl memberImageService(){
+        return new MemberImageServiceImpl(memberImageRepository());
     }
 
 

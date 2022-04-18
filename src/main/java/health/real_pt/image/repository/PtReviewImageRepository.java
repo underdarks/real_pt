@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MysqlPtReviewFileRepository implements PtReviewFileRepository {
+public class PtReviewImageRepository implements ImageRepository<PtReviewImage> {
 
     private final EntityManager em;
 
@@ -31,6 +31,5 @@ public class MysqlPtReviewFileRepository implements PtReviewFileRepository {
                 .getResultList();
     }
 
-    //삭제
 
 }

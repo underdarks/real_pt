@@ -3,8 +3,9 @@ package health.real_pt.review.service.ptReview;
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.image.domain.PtReviewImage;
-import health.real_pt.image.dto.PtReviewFileResDto;
-import health.real_pt.image.service.PtReviewFileService;
+import health.real_pt.image.dto.PtReviewImageResDto;
+import health.real_pt.image.service.ImageService;
+import health.real_pt.image.service.PtReviewImageServiceImpl;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.service.MemberService;
 import health.real_pt.review.domain.PtReview;
@@ -27,9 +28,7 @@ public class PtReviewServiceImpl implements PtReviewService{
 
     private final PtReviewRepository ptReviewRepository;
     private final MemberService memberService;
-    private final PtReviewFileService ptReviewFileService;
-
-
+    private final PtReviewImageServiceImpl ptReviewImageService;
 
     @Transactional
     @Override
@@ -43,7 +42,7 @@ public class PtReviewServiceImpl implements PtReviewService{
         Long saveId = ptReviewRepository.save(ptReview);
 
         //리뷰 사진(파일) 저장
-        ptReviewFileService.uploadFiles(files,ptReview);
+        ptReviewImageService.uploadFiles(files,ptReview);
 
         return saveId;
     }
@@ -56,8 +55,8 @@ public class PtReviewServiceImpl implements PtReviewService{
         //엔티티 수정
         ptReview.updateEntity(updDto);
 
-        List<PtReviewFileResDto> reviewImages = ptReview.getReviewImages().stream()
-                .map(file -> new PtReviewFileResDto(file.getOriginalFileName(), file.getDownloadUri()))
+        List<PtReviewImageResDto> reviewImages = ptReview.getReviewImages().stream()
+                .map(file -> new PtReviewImageResDto(file.getOriginalFileName(), file.getDownloadUri()))
                 .collect(Collectors.toList());
 
 
@@ -71,11 +70,11 @@ public class PtReviewServiceImpl implements PtReviewService{
         List<PtReviewResDto> result=new ArrayList<>();
 
         for (PtReview ptReview : ptReviewList) {    //리뷰
-            List<PtReviewFileResDto> reviewImageList=new ArrayList<>();     //리뷰에 등록된 이미지(N개)
+            List<PtReviewImageResDto> reviewImageList=new ArrayList<>();     //리뷰에 등록된 이미지(N개)
 
             for (PtReviewImage file : ptReview.getReviewImages()) {
                 reviewImageList.add(
-                        PtReviewFileResDto.builder()
+                        PtReviewImageResDto.builder()
                         .fileName(file.getOriginalFileName())
                         .downloadUri(file.getDownloadUri())
                         .build()

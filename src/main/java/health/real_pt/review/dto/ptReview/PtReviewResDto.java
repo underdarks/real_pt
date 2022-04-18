@@ -1,7 +1,6 @@
 package health.real_pt.review.dto.ptReview;
 
-import health.real_pt.common.BaseDto;
-import health.real_pt.image.dto.PtReviewFileResDto;
+import health.real_pt.image.dto.PtReviewImageResDto;
 import health.real_pt.review.domain.PtReview;
 import lombok.Data;
 
@@ -16,11 +15,11 @@ public class PtReviewResDto {
     private String comment;     //리뷰 내용
     private Long good;          //도움이돼요 개수
     private Long bad;           //도움 안되요 개수
-    private List<PtReviewFileResDto> reviewImages;   //리뷰 이미지
+    private List<PtReviewImageResDto> reviewImages;   //리뷰 이미지
 
 
     //entity -> dto
-    public PtReviewResDto entityToDto(PtReview ptReview,List<PtReviewFileResDto> reviewImages) {
+    public PtReviewResDto entityToDto(PtReview ptReview,List<PtReviewImageResDto> reviewImages) {
         PtReviewResDto resDto = new PtReviewResDto();
 
         resDto.setPtName(ptReview.getPt().getName());

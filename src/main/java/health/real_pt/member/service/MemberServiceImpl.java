@@ -4,6 +4,9 @@ import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
+import health.real_pt.image.domain.MemberImage;
+import health.real_pt.image.service.ImageService;
+import health.real_pt.image.service.MemberImageServiceImpl;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.domain.Member;
@@ -22,12 +25,13 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final GymService gymService;
+    private final MemberImageServiceImpl memberImageService;
 
-    public MemberServiceImpl(MemberRepository memberRepository, GymService gymService) {
+    public MemberServiceImpl(MemberRepository memberRepository, GymService gymService, MemberImageServiceImpl memberImageService) {
         this.memberRepository = memberRepository;
         this.gymService = gymService;
+        this.memberImageService = memberImageService;
     }
-
 
     @Override
     @Transactional

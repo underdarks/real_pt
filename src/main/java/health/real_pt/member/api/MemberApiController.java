@@ -29,7 +29,8 @@ public class MemberApiController {
      */
     @ApiOperation(value = "회원 등록", notes = "신규 회원을 생성합니다.")
     @PostMapping("")
-    public ResponseEntity<CommonResEntity> saveMember(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid MemberReqDto requestDto){
+    public ResponseEntity<CommonResEntity> saveMember(
+            @RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid MemberReqDto requestDto){
         memberService.join(requestDto,gymId);
 
         return new ResponseEntity(

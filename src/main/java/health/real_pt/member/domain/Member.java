@@ -60,6 +60,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     private String recommandedCode;
 
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
+    @NotBlank(message = "회원 타입은 필수 값입니다!")
     @Enumerated(EnumType.STRING)
     private MemberType memberType;      //회원 타입
 
