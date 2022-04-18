@@ -105,6 +105,12 @@ public class CommonResMessage {
     public static final String DELETE_PT_REVIEW_SUCCESS = "PT 리뷰 정보 삭제 성공";
     public static final String DELETE_PT_REVIEW_FAIL = "PT 리뷰 정보 삭제 실패";
 
+    public static final String ADD_PT_REVIEW_GOOD_SUCCESS = "PT 리뷰 도움이 돼요(+1)";
+    public static final String SUB_PT_REVIEW_GOOD_SUCCESS = "PT 리뷰 도움이 돼요(-1)";
+
+    public static final String ADD_PT_REVIEW_BAD_SUCCESS = "PT 리뷰 도움이 안돼요(+1)";
+    public static final String SUB_PT_REVIEW_BAD_SUCCESS = "PT 리뷰 도움이 안돼(-1)";
+
 
 
 

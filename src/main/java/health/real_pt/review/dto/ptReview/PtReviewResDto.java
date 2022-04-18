@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class PtReviewResDto {
 
-    private Long id;
     private String ptName;      //PT 이름
     private String gymName;     //소속 헬스장 이름
     private Long total;         //총 점수

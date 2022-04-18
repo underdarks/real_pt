@@ -1,7 +1,7 @@
 package health.real_pt.review.domain;
 
 import health.real_pt.common.BaseEntity;
-import health.real_pt.image.domain.PtReviewFile;
+import health.real_pt.image.domain.PtReviewImage;
 import health.real_pt.member.domain.Member;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import lombok.*;
@@ -24,9 +24,6 @@ import static javax.persistence.FetchType.*;
 @ToString(exclude = "")
 @EntityListeners({AuditingEntityListener.class})
 public class PtReview implements BaseEntity<PtReviewReqDto> {
-
-    @PrePersist
-    
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PT_REVIEW_ID")
@@ -53,8 +50,8 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     @Column(name = "BAD")
     private Long bad;           //도움 안되요 개수
 
-    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제
-    private List<PtReviewFile> uploadFiles =new ArrayList<>();
+    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제(orpahnRemoval -> 고아 객체 삭제)
+    private List<PtReviewImage> reviewImages =new ArrayList<>();
 
 
     @CreatedDate  //Insert 쿼리 발생 시, 현재 시간을 값으로 채워서 쿼리를 생성 후 insert
@@ -67,12 +64,13 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime modDate; //수정시간
 
+    //===========================================================================================
 
-//    @PrePersist
-//    public void prePersist(){
-//        this.good = (this.good == null ? 0: this.good);
-//
-//    }
+    @PrePersist
+    public void prePersist(){
+        good = (good == null ? 0: good);
+        bad = (bad == null ? 0: bad);
+    }
 
     /**
      *  setter 대신 도메인 필드 변경하는 메서드들(setter 사용 지양)

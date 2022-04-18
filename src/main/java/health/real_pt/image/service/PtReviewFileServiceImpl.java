@@ -2,7 +2,7 @@ package health.real_pt.image.service;
 
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
-import health.real_pt.image.domain.PtReviewFile;
+import health.real_pt.image.domain.PtReviewImage;
 import health.real_pt.image.repository.PtReviewFileRepository;
 import health.real_pt.review.domain.PtReview;
 import health.real_pt.security.encryption.MD5;
@@ -28,13 +28,12 @@ import java.util.Random;
 public class PtReviewFileServiceImpl implements PtReviewFileService {
 
     private final PtReviewFileRepository ptReviewFileRepository;
-    private final static Path fileLocation = Paths.get(PtReviewFile.serverFilePath).toAbsolutePath().normalize();
+    private final static Path fileLocation = Paths.get(PtReviewImage.serverFilePath).toAbsolutePath().normalize();
 
     @Transactional
     @Override
     public void uploadFiles(List<MultipartFile> files, PtReview review) {
         Random random = new Random();
-
 
         for (MultipartFile file : files) {
             try {
@@ -49,13 +48,13 @@ public class PtReviewFileServiceImpl implements PtReviewFileService {
                 String encryptedFileName = MD5.getMD5HashCode(filename) + random.nextInt(100000000) + "." + ext[1];
                 String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("image/ptreview/" + encryptedFileName).toUriString();
 
-                PtReviewFile uploadFile = PtReviewFile.builder()
+                PtReviewImage uploadFile = PtReviewImage.builder()
                         .ptReview(review)
                         .storedFileName(encryptedFileName)
                         .originalFileName(filename)
                         .downloadUri(downloadUri)
                         .size(file.getSize())
-                        .filepath(PtReviewFile.serverFilePath + encryptedFileName)
+                        .filepath(PtReviewImage.serverFilePath + encryptedFileName)
                         .build();
 
                 //파일 전송

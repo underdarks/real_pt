@@ -1,6 +1,6 @@
 package health.real_pt.image.repository;
 
-import health.real_pt.image.domain.PtReviewFile;
+import health.real_pt.image.domain.PtReviewImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,18 +15,18 @@ public class MysqlPtReviewFileRepository implements PtReviewFileRepository {
 
     //등록
     @Override
-    public Long save(PtReviewFile file){
+    public Long save(PtReviewImage file){
         em.persist(file);
         return file.getId();
     }
 
     //조회
     @Override
-    public List<PtReviewFile> findById(Long prId){
+    public List<PtReviewImage> findById(Long prId){
         return em.createQuery(
                 "select pf from PtReviewFile pf " +
                         "join pf.ptReview pr " +
-                        "where pr.id =:prId",PtReviewFile.class)
+                        "where pr.id =:prId", PtReviewImage.class)
                 .setParameter("prId",prId)
                 .getResultList();
     }

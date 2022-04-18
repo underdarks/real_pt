@@ -2,7 +2,7 @@ package health.real_pt.review.service.ptReview;
 
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
-import health.real_pt.image.domain.PtReviewFile;
+import health.real_pt.image.domain.PtReviewImage;
 import health.real_pt.image.dto.PtReviewFileResDto;
 import health.real_pt.image.service.PtReviewFileService;
 import health.real_pt.member.domain.Member;
@@ -56,7 +56,7 @@ public class PtReviewServiceImpl implements PtReviewService{
         //엔티티 수정
         ptReview.updateEntity(updDto);
 
-        List<PtReviewFileResDto> reviewImages = ptReview.getUploadFiles().stream()
+        List<PtReviewFileResDto> reviewImages = ptReview.getReviewImages().stream()
                 .map(file -> new PtReviewFileResDto(file.getOriginalFileName(), file.getDownloadUri()))
                 .collect(Collectors.toList());
 
@@ -73,7 +73,7 @@ public class PtReviewServiceImpl implements PtReviewService{
         for (PtReview ptReview : ptReviewList) {    //리뷰
             List<PtReviewFileResDto> reviewImageList=new ArrayList<>();     //리뷰에 등록된 이미지(N개)
 
-            for (PtReviewFile file : ptReview.getUploadFiles()) {
+            for (PtReviewImage file : ptReview.getReviewImages()) {
                 reviewImageList.add(
                         PtReviewFileResDto.builder()
                         .fileName(file.getOriginalFileName())

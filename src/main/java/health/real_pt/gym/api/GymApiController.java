@@ -99,6 +99,28 @@ public class GymApiController {
 
     }
 
+    /**
+     * 모든 헬스장 조회
+     * @return :GymResultDTO
+     */
+    @ApiOperation(value = "헬스장 소속 pt 조회", notes = "툭정 헬스장에 속한 pt를 조회합니다.")
+    @GetMapping("{/id}/pt")
+    public ResponseEntity<CommonResEntity> findPtOfGym(){
+        List<Gym> findGyms = gymService.findGyms();
+
+        //Entity List -> Dto List
+        List<GymReqDto> gymReqDtoList = findGyms.stream()
+                .map(gym -> new GymReqDto().entityToDto(gym))
+                .collect(Collectors.toList());
+
+        GymListDto gymListDto = new GymListDto(gymReqDtoList.size(), gymReqDtoList);
+
+        return new ResponseEntity(
+                CommonResEntity.createResponse(StatusCode.OK,CommonResMessage.READ_ALL_GYM_SUCCESS,gymListDto),
+                HttpStatus.OK
+        );
+
+    }
 
     /**
      *

@@ -3,14 +3,21 @@ package health.real_pt.gym.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.dto.GymReqDto;
+import health.real_pt.member.domain.Member;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity @Table(name = "GYM") @Getter
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.FetchType.*;
+
+@Entity @Table(name = "GYM")
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
-@ToString(exclude = "")
+@ToString(exclude = "pt")
 public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,6 +55,10 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
     @Enumerated(EnumType.STRING)
     private GymStatus gymStatus;    //헬스장 영업 상태
+
+    @OneToMany(mappedBy = "gym")     //헬스장에 속한 PT
+    private List<Member> pt=new ArrayList<>();
+
 
     /**
      *  setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)

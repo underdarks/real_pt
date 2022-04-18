@@ -42,12 +42,8 @@ public class ptReviewApiController {
             @RequestParam(value = "pt-id") Long ptId ,
             @RequestPart(value = "images") List<MultipartFile> files,
             @RequestPart(value = "reqData") PtReviewReqDto reqDto)
-//            HttpServletRequest request
     {
-//        String requestURI = request.getRequestURI();
-//        System.out.println("requestURI = " + requestURI);
-
-        Long saveId = ptReviewService.saveReview(reqDto, ptId,files);
+        ptReviewService.saveReview(reqDto, ptId,files);
 
         return new ResponseEntity(
                 CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_PT_REVIEW_SUCCESS),
@@ -60,9 +56,13 @@ public class ptReviewApiController {
     /**
      *  PT 리뷰 수정
      */
-    @ApiOperation(value = "PT 리뷰 수정" , notes = "리뷰를 수정합니다.")
+    @ApiOperation(value = "PT 리뷰 수정" , notes = "리뷰 내용 및 이미지를 수정합니다.")
     @PatchMapping("/{id}")
-    public ResponseEntity<CommonResEntity> updatePtReview(@PathVariable(value = "id") Long id,@RequestBody @Valid PtReviewReqDto udpDto){
+    public ResponseEntity<CommonResEntity> updatePtReview(
+            @PathVariable(value = "id") Long id,
+            @RequestPart(value = "images") List<MultipartFile> files,
+            @RequestPart(value = "udpData") PtReviewReqDto udpDto){
+
         udpDto.setId(id);
         PtReviewResDto resDto = ptReviewService.updateReview(udpDto);
 
@@ -96,17 +96,64 @@ public class ptReviewApiController {
      * pt 리뷰 삭제
      */
     @ApiOperation(value = "PT 리뷰 삭제" , notes = "리뷰를 삭제합니다.")
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<CommonResEntity> deletePtReview(@PathVariable(value = "id") Long id){
         ptReviewService.deleteReview(id);
 
         return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_PT_REVIEW_SUCCESS),
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.DELETE_PT_REVIEW_SUCCESS),
                 HttpStatus.OK
         );
     }
 
+    @ApiOperation(value = "pt 리뷰 도움이 돼요(좋아요) 수정", notes = "리뷰의 도움이 돼요 수를 증가 or 감소합니다.")
+    @PatchMapping("/good/{id}")
+    public ResponseEntity<CommonResEntity> updateGood(@PathVariable(value = "id") Long id, @RequestBody String tag){
+        Long count=0L;
 
+        if(tag.equals("up")) {
+            count = ptReviewService.addGood(id);
+            return new ResponseEntity(
+                    CommonResEntity.createResponse(StatusCode.OK,CommonResMessage.ADD_PT_REVIEW_GOOD_SUCCESS,count),
+                    HttpStatus.OK
+            );
+        }
+
+        else if(tag.equals("down")) {
+            count = ptReviewService.subGood(id);
+            return new ResponseEntity(
+                    CommonResEntity.createResponse(StatusCode.OK,CommonResMessage.SUB_PT_REVIEW_GOOD_SUCCESS,count),
+                    HttpStatus.OK
+            );
+        }
+
+        return null;
+    }
+
+
+    @ApiOperation(value = "pt 리뷰 도움이 안돼요(싫어요) 수정", notes = "리뷰의 도움이 안돼요 수를 증가 or 감소합니다.")
+    @PatchMapping("/bad/{id}")
+    public ResponseEntity<CommonResEntity> updateBad(@PathVariable(value = "id") Long id, @RequestBody String tag){
+        Long count=0L;
+
+        if(tag.equals("up")) {
+            count = ptReviewService.addBad(id);
+            return new ResponseEntity(
+                    CommonResEntity.createResponse(StatusCode.OK,CommonResMessage.ADD_PT_REVIEW_BAD_SUCCESS,count),
+                    HttpStatus.OK
+            );
+        }
+
+        else if(tag.equals("down")) {
+            count = ptReviewService.subBad(id);
+            return new ResponseEntity(
+                    CommonResEntity.createResponse(StatusCode.OK,CommonResMessage.SUB_PT_REVIEW_BAD_SUCCESS,count),
+                    HttpStatus.OK
+            );
+        }
+
+        return null;
+    }
 
 
 }

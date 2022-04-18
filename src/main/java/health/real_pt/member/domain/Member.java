@@ -3,6 +3,8 @@ package health.real_pt.member.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
+import health.real_pt.gym.domain.GymStatus;
+import health.real_pt.image.domain.MemberImage;
 import health.real_pt.member.dto.MemberReqDto;
 import lombok.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
@@ -55,9 +59,17 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
     private String recommandedCode;
 
-    @OneToOne(fetch = LAZY)
+    //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;      //회원 타입
+
+    @NotBlank(message = "헬스장은 필수 값입니다.")
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
+    private List<MemberImage> memberImages=new ArrayList<>();
 
     /**
      * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
@@ -87,8 +99,10 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.recommandedCode = recommandedCode;
     }
 
+    //연관관계 편의 메서드
     public void changeGym(Gym gym) {
         this.gym = gym;
+        this.gym.getPt().add(this);
     }
 
     /* ============================================================================================================== */
@@ -110,7 +124,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.nickname = nickname;
         this.recommandCode = recommandCode;
         this.recommandedCode = recommandedCode;
-        this.gym=gym;
+        changeGym(gym);
     }
 
     //DTO -> Entity로 변환
