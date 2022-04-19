@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -88,5 +89,18 @@ public class PtReviewImageServiceImpl implements ImageService<PtReview> {
             throw new CommonApiExceptions(ExceptionType.FILE_DOWNLOAD_EXCEPTION, "파일을 찾을 수 없습니다.");
         }
     }
+
+    @Override
+    public boolean deleteFiles(String filePath) {
+        Path path = Paths.get(filePath);
+
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 
 }

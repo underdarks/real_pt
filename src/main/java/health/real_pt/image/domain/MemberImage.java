@@ -22,10 +22,12 @@ public class MemberImage extends BaseImageEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    //------ 연관관계 편의 메서드
-    public void connectMemberWithImage(Member member) {
+    //------ 연관관계 편의 메서드 =========
+
+    //멤버의 이미지 추가
+    public void addMemberImage(Member member) {
         this.member = member;
-        this.member.getMemberImages().add(this);
+        this.member.getImages().add(this);
     }
 
     //객체 생성(빌더 패턴)
@@ -37,7 +39,7 @@ public class MemberImage extends BaseImageEntity {
         this.filepath = filepath;
         this.size = size;
 
-        connectMemberWithImage(member);
+        addMemberImage(member);
     }
 
 }

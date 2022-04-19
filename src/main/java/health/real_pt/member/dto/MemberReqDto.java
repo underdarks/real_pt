@@ -3,6 +3,7 @@ package health.real_pt.member.dto;
 import health.real_pt.common.BaseDto;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.member.domain.Member;
+import health.real_pt.member.domain.MemberType;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class MemberReqDto implements BaseDto<Member, MemberReqDto> {
     private String phone;
     private LocalDate birthDay;
     private String nickname;
+    private MemberType memberType;
     private String recommandCode;       //추천인 코드(내가 상대방 추천인코드 적을 때)
     private String recommandedCode;     //추천인 코드(상대방이 내추천인코드 적을 때)
     private Gym gym;    //헬스장 ID

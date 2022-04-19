@@ -3,14 +3,15 @@ package health.real_pt.member.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.domain.GymStatus;
 import health.real_pt.image.domain.MemberImage;
 import health.real_pt.member.dto.MemberReqDto;
+import health.real_pt.security.encryption.SHA256;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ import static javax.persistence.FetchType.*;
 @Entity @Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
-@ToString(exclude = "")
 public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,17 +60,16 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     private String recommandedCode;
 
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
-    @NotBlank(message = "회원 타입은 필수 값입니다!")
+    @NotNull(message = "회원 타입은 필수 값입니다!")
     @Enumerated(EnumType.STRING)
     private MemberType memberType;      //회원 타입
 
-    @NotBlank(message = "헬스장은 필수 값입니다.")
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
-    private List<MemberImage> memberImages=new ArrayList<>();
+    private List<MemberImage> images =new ArrayList<>();
 
     /**
      * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
@@ -100,10 +99,21 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.recommandedCode = recommandedCode;
     }
 
-    //연관관계 편의 메서드
-    public void changeGym(Gym gym) {
+
+    //============= 연관관계 편의 메서드 =========================
+
+    //헬스장 - 멤버 연결
+    public void addGym(Gym gym) {
         this.gym = gym;
         this.gym.getPt().add(this);
+    }
+
+    //멤버 - 이미지 삭제(고아 객체 자동 삭제)
+    public void deleteMamberImages(){
+        int size=images.size();
+
+        for(int i=0;i<size;i++)
+            this.images.remove(0);
     }
 
     /* ============================================================================================================== */
@@ -114,7 +124,8 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
                   String name, String email,
                   String phone, LocalDate birthDay,
                   String nickname, String recommandCode,
-                  String recommandedCode,Gym gym) {
+                  String recommandedCode, MemberType memberType,
+                  Gym gym) {
 
         this.userId = userId;
         this.password = password;
@@ -125,14 +136,15 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.nickname = nickname;
         this.recommandCode = recommandCode;
         this.recommandedCode = recommandedCode;
-        changeGym(gym);
+        this.memberType=memberType;
+        addGym(gym);
     }
 
     //DTO -> Entity로 변환
     public static Member toEntity(MemberReqDto memberReqDto) {
         return Member.builder()
                 .userId(memberReqDto.getUserId())
-                .password(memberReqDto.getPassword())
+                .password(SHA256.getSHA256HashCode(memberReqDto.getPassword()))    //비밀번호 SHA256 암호화
                 .name(memberReqDto.getName())
                 .email(memberReqDto.getEmail())
                 .phone(memberReqDto.getPhone())
@@ -140,6 +152,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
                 .nickname(memberReqDto.getNickname())
                 .recommandCode(memberReqDto.getRecommandCode())
                 .recommandedCode(memberReqDto.getRecommandedCode())
+                .memberType(memberReqDto.getMemberType())
                 .gym(memberReqDto.getGym())
                 .build();
 
@@ -148,7 +161,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @Override
     public void updateEntity(MemberReqDto memberReqDto) {
         if (memberReqDto.getGym() != null)
-            changeGym(memberReqDto.getGym());
+            addGym(memberReqDto.getGym());
 
         if (memberReqDto.getEmail() != null)
             changeEmail(memberReqDto.getEmail());
@@ -157,7 +170,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
             changeNickname(memberReqDto.getNickname());
 
         if (memberReqDto.getPassword() != null)
-            changePW(memberReqDto.getPassword());
+            changePW(SHA256.getSHA256HashCode(memberReqDto.getPassword()));
 
         if (memberReqDto.getPhone() != null)
             changePhone(memberReqDto.getPhone());

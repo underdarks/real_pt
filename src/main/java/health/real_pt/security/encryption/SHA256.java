@@ -3,7 +3,7 @@ package health.real_pt.security.encryption;
 import java.security.MessageDigest;
 
 public class SHA256 {
-    public static String SHA256(String pwd) {
+    public static String getSHA256HashCode(String pwd) {
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(pwd.getBytes("UTF-8"));

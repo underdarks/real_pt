@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -40,31 +41,33 @@ public class MemberImageServiceImpl implements ImageService<Member> {
 
         for (MultipartFile file : files) {
             try {
-                String filename = StringUtils.cleanPath(file.getOriginalFilename());
+                if(!file.getOriginalFilename().isEmpty()) {
+                    String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
-                if(filename.contains(".."))
-                    throw new CommonApiExceptions(ExceptionType.FILE_UPLOAD_EXCEPTION,"파일명에 부적합 문자가 포함되어 있습니다." + filename);
+                    if (filename.contains(".."))
+                        throw new CommonApiExceptions(ExceptionType.FILE_UPLOAD_EXCEPTION, "파일명에 부적합 문자가 포함되어 있습니다." + filename);
 
-                String[] ext = filename.split("[.]");     //확장자 구분
+                    String[] ext = filename.split("[.]");     //확장자 구분
 
-                //파일 이름 중복 방지를 위한(파일 이름 암호화(MD5) + random 함수 적용)
-                String encryptedFileName = MD5.getMD5HashCode(filename) + random.nextInt(100000000) + "." + ext[1];
-                String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("image/member/" + encryptedFileName).toUriString();
+                    //파일 이름 중복 방지를 위한(파일 이름 암호화(MD5) + random 함수 적용)
+                    String encryptedFileName = MD5.getMD5HashCode(filename) + random.nextInt(100000000) + "." + ext[1];
+                    String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("image/member/" + encryptedFileName).toUriString();
 
-                //멤버 이미지 객체 생성
-                MemberImage uploadFile = MemberImage.builder()
-                        .member(member)
-                        .storedFileName(encryptedFileName)
-                        .originalFileName(filename)
-                        .downloadUri(downloadUri)
-                        .size(file.getSize())
-                        .filepath(PtReviewImage.serverFilePath + encryptedFileName)
-                        .build();
+                    //멤버 이미지 객체 생성
+                    MemberImage uploadFile = MemberImage.builder()
+                            .member(member)
+                            .storedFileName(encryptedFileName)
+                            .originalFileName(filename)
+                            .downloadUri(downloadUri)
+                            .size(file.getSize())
+                            .filepath(MemberImage.serverFilePath + encryptedFileName)
+                            .build();
 
-                //파일 전송
-                file.transferTo(fileLocation.resolve(encryptedFileName));
+                    //파일 전송
+                    file.transferTo(fileLocation.resolve(encryptedFileName));
 
-                memberImageRepository.save(uploadFile);
+                    memberImageRepository.save(uploadFile);
+                }
             }
             catch (IOException e) {
                 throw new CommonApiExceptions(ExceptionType.FILE_UPLOAD_EXCEPTION,"다시 시도하십시오");
@@ -88,6 +91,19 @@ public class MemberImageServiceImpl implements ImageService<Member> {
         catch (MalformedURLException e) {
             throw new CommonApiExceptions(ExceptionType.FILE_DOWNLOAD_EXCEPTION, "파일을 찾을 수 없습니다.");
         }
+    }
+
+    @Override
+    public boolean deleteFiles(String filePath) {
+        Path path = Paths.get(filePath);
+
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
 }

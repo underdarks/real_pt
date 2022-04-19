@@ -5,7 +5,7 @@ import health.real_pt.common.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.image.domain.MemberImage;
-import health.real_pt.image.service.ImageService;
+import health.real_pt.image.dto.ImageResDto;
 import health.real_pt.image.service.MemberImageServiceImpl;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.dto.MemberReqDto;
@@ -14,9 +14,10 @@ import health.real_pt.member.repository.MemberRepository;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 //@RequiredArgsConstructor
@@ -35,14 +36,19 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public Long join(MemberReqDto reqDto, Long gymId) {
+    public Long join(MemberReqDto reqDto, Long gymId, List<MultipartFile> files) {
         Gym gym = gymService.findOne(gymId);
         reqDto.setGym(gym);
 
         Member member = Member.toEntity(reqDto);
 
         validateDuplicateMember(member);
-        return memberRepository.save(member);
+        Long saveId = memberRepository.save(member);
+
+        //멤버 프로필 이미지 저장
+        memberImageService.uploadFiles(files,member);
+
+        return saveId;
     }
 
     /**
@@ -58,29 +64,61 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberResDto> findAllMembers() {
-        List<Member> memberList = memberRepository.findAll();
+//        List<Member> memberList = memberRepository.findAll();
+//
+//        return memberList.stream()
+//                .map(m -> new MemberResDto().entityToDto(m))
+//                .collect(Collectors.toList());
+        return null;
+    }
 
-        return memberList.stream()
-                .map(m -> new MemberResDto().entityToDto(m))
-                .collect(Collectors.toList());
+    //멤버 이미지 -> ImageResDto로 변환
+    private List<ImageResDto> getMemberImages(List<MemberImage> images){
+        List<ImageResDto> memberImages =new ArrayList<>();
+
+        for (MemberImage image : images) {
+            memberImages.add(
+                    ImageResDto.builder()
+                            .fileName(image.getOriginalFileName())
+                            .downloadUri(image.getDownloadUri())
+                            .build()
+            );
+        }
+
+        return memberImages;
     }
 
     @Override
     public MemberResDto findMember(Long id) {
         Member member = findEntity(id);
-        return new MemberResDto().entityToDto(member);
+
+        List<ImageResDto> imageList=getMemberImages(member.getImages());    //멤버 이미지
+
+        return new MemberResDto().entityToDto(member,imageList);
     }
 
     @Transactional
     @Override
-    public MemberResDto updateMember(Long id, MemberReqDto memberReqDto) {
+    public MemberResDto updateMember(Long id, Long gymId, MemberReqDto udpDto, List<MultipartFile> files) {
         Member member = findEntity(id);
+
         //더티 체킹(엔티티 수정)
-        member.updateEntity(memberReqDto);
+        member.updateEntity(udpDto);
 
-        return new MemberResDto().entityToDto(member);
+        //멤버 프로필 수정(삭제 후 다시 생성)
+        for (MemberImage image : member.getImages())
+            memberImageService.deleteFiles(image.getFilepath());
+
+        //멤버와 연관된 이미지들 삭제
+        member.deleteMamberImages();
+
+        //이미지 새로 등록
+        memberImageService.uploadFiles(files,member);
+
+        List<ImageResDto> imageList=getMemberImages(member.getImages());    //멤버 이미지
+
+        return new MemberResDto().entityToDto(member,imageList);
     }
-
 
     @Transactional
     @Override

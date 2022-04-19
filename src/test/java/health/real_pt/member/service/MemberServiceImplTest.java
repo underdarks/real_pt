@@ -56,7 +56,7 @@ class MemberServiceImplTest {
         reqDto.setPhone("010-3434-2323");
 
         //when
-        Long saveId = memberService.join(reqDto, 1L);
+        Long saveId = memberService.join(reqDto, 1L,null);
 
 
         //then

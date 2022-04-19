@@ -15,4 +15,7 @@ public interface ImageRepository<T> {
 
     //조회
     List<T> findById(Long id);
+
+    //삭제
+    void delete(T entity);
 }

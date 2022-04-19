@@ -14,6 +14,8 @@ public interface ImageService<T> {
     //파일 다운로드
     Resource getUploadedFiles(String fileName);
 
+    boolean deleteFiles(String filePath);
+
 
 
 

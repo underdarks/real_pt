@@ -23,4 +23,9 @@ public class MemberImageRepository implements ImageRepository<MemberImage> {
     public List<MemberImage> findById(Long memberId) {
         return null;
     }
+
+    @Override
+    public void delete(MemberImage memberImage) {
+        em.remove(memberImage);
+    }
 }

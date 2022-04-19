@@ -31,5 +31,10 @@ public class PtReviewImageRepository implements ImageRepository<PtReviewImage> {
                 .getResultList();
     }
 
+    @Override
+    public void delete(PtReviewImage ptReviewImage) {
+        em.remove(ptReviewImage);
+    }
+
 
 }
