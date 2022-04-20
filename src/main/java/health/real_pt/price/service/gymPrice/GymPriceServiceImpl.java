@@ -28,7 +28,7 @@ public class GymPriceServiceImpl implements GymPriceService {
     @Override
     public Long savePrice(GymPriceReqDto gymPriceReqDto, Long gymId) {
         //헬스장 엔티티 찾기
-        Gym gym = gymService.findOne(gymId);
+        Gym gym = gymService.findEntity(gymId);
 
         gymPriceReqDto.setGym(gym);
         GymPrice gymPrice = GymPrice.toEntity(gymPriceReqDto);//Dto -> Entiiy

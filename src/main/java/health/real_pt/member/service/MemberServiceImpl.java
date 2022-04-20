@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 //@RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public Long join(MemberReqDto reqDto, Long gymId, List<MultipartFile> files) {
-        Gym gym = gymService.findOne(gymId);
+        Gym gym = gymService.findEntity(gymId);
         reqDto.setGym(gym);
 
         Member member = Member.toEntity(reqDto);
@@ -64,28 +65,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberResDto> findAllMembers() {
-//        List<Member> memberList = memberRepository.findAll();
-//
-//        return memberList.stream()
-//                .map(m -> new MemberResDto().entityToDto(m))
-//                .collect(Collectors.toList());
-        return null;
+        List<Member> memberList = memberRepository.findAll();
+
+         return memberList.stream()
+                .map(m -> new MemberResDto().entityToDto(m,getMemberImages(m.getImages())))
+                .collect(Collectors.toList());
     }
 
     //멤버 이미지 -> ImageResDto로 변환
     private List<ImageResDto> getMemberImages(List<MemberImage> images){
-        List<ImageResDto> memberImages =new ArrayList<>();
-
-        for (MemberImage image : images) {
-            memberImages.add(
-                    ImageResDto.builder()
-                            .fileName(image.getOriginalFileName())
-                            .downloadUri(image.getDownloadUri())
-                            .build()
-            );
-        }
-
-        return memberImages;
+        return images.stream()
+                .map(image -> new ImageResDto(image.getOriginalFileName(),image.getDownloadUri()))
+                .collect(Collectors.toList());
     }
 
     @Override

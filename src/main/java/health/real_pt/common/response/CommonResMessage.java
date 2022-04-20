@@ -44,6 +44,8 @@ public class CommonResMessage {
     public static final String DELETE_GYM_SUCCESS = "헬스장 정보 삭제 성공";
     public static final String DELETE_GYM_FAIL = "헬스장 정보 삭제 실패";
 
+    public static final String READ_GYM_PT_SUCCESS = "핼스장 소속 PT 조회 성공";
+
 
     //===============================================================
 

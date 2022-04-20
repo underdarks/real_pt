@@ -72,20 +72,20 @@ public class MemberApiController {
 
     }
 
-//    /**
-//     * 모든 회원 조회
-//     */
-//    @ApiOperation(value = "전체 회원 조회", notes = "전체 회원을 조회합니다.")
-//    @GetMapping("")
-//    public ResponseEntity<CommonResEntity> findAllMembers(){
-//        List<MemberResDto> resDtoList = memberService.findAllMembers();
-//        MemberListDto memberListDto = new MemberListDto(resDtoList.size(), resDtoList);
-//
-//        return new ResponseEntity(
-//                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_ALL_USER_SUCCESS,memberListDto),
-//                HttpStatus.OK
-//        );
-//    }
+    /**
+     * 모든 회원 조회
+     */
+    @ApiOperation(value = "전체 회원 조회", notes = "전체 회원을 조회합니다.")
+    @GetMapping("")
+    public ResponseEntity<CommonResEntity> findAllMembers(){
+        List<MemberResDto> resDtoList = memberService.findAllMembers();
+        MemberListDto memberListDto = new MemberListDto(resDtoList.size(), resDtoList);
+
+        return new ResponseEntity(
+                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_ALL_USER_SUCCESS,memberListDto),
+                HttpStatus.OK
+        );
+    }
 
     /**
      * 단일 회원 조회

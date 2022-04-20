@@ -42,63 +42,13 @@ class GymServiceImplTest {
         gymReqDto.setOpenTime("00:00 ~ 24:00 24/7");
 
         //when
-        Long saveId = gymService.saveGym(gymReqDto);
+        Long saveId = gymService.saveGym(gymReqDto,null);
 
 
         //then
         System.out.println("saveId = " + saveId);
     }
 
-    @Test
-    public void Gym_단일조회_성공(){
-        //given
-        Gym gym = gymService.findOne(9L);
-
-        //when
-
-        System.out.println("gym = " + gym);
-
-        //then
-
-        assertThat(gym).isNotNull();
-    }
-
-    @Test
-    public void Gym_단일조회_실패(){
-        //given
-        Gym gym = gymService.findOne(12341L);
-
-        //when
-
-        //then
-        assertThat(gym).isNull();
-    }
-
-    @Test
-    public void Gym_전체조회(){
-        //given
-        List<Gym> gyms = gymService.findGyms();
-
-
-        //when
-        for (int i = 0; i < gyms.size(); i++) {
-            System.out.println((i+1) + "번째 -> " + " gym = " + gyms.get(i));
-        }
-
-
-        //then
-    }
-
-    @Test
-    public void Gym_업데이트(){
-        //given
-        GymReqDto gymReqDto = makeGymDto();
-
-        //when
-        gymService.updateGym(gymReqDto.getId(), gymReqDto);
-
-        //then
-    }
 
 
 }

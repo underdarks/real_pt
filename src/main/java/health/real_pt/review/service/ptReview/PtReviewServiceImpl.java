@@ -2,6 +2,7 @@ package health.real_pt.review.service.ptReview;
 
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.image.domain.MemberImage;
 import health.real_pt.image.domain.PtReviewImage;
 import health.real_pt.image.dto.ImageResDto;
 import health.real_pt.image.service.PtReviewImageServiceImpl;
@@ -62,6 +63,13 @@ public class PtReviewServiceImpl implements PtReviewService{
         return new PtReviewResDto().entityToDto(ptReview,reviewImages);
     }
 
+    //PT 리뷰 이미지 -> ImageResDto로 변환
+    private List<ImageResDto> getReviewImages(List<PtReviewImage> images){
+        return images.stream()
+                .map(image -> new ImageResDto(image.getOriginalFileName(),image.getDownloadUri()))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<PtReviewResDto> findReview(Long gymId, Long ptId) {
         //최근 작성일 기준 정렬(디폴트 값)
@@ -69,19 +77,8 @@ public class PtReviewServiceImpl implements PtReviewService{
         List<PtReviewResDto> result=new ArrayList<>();
 
         for (PtReview ptReview : ptReviewList) {    //리뷰
-            List<ImageResDto> reviewImageList=new ArrayList<>();     //리뷰에 등록된 이미지(N개)
-
-            for (PtReviewImage file : ptReview.getImages()) {
-                reviewImageList.add(
-                        ImageResDto.builder()
-                        .fileName(file.getOriginalFileName())
-                        .downloadUri(file.getDownloadUri())
-                        .build()
-                );
-
-            }
-
-            result.add(new PtReviewResDto().entityToDto(ptReview,reviewImageList));
+            List<ImageResDto> reviewImages = getReviewImages(ptReview.getImages());//리뷰에 등록된 이미지(N개)
+            result.add(new PtReviewResDto().entityToDto(ptReview,reviewImages));
         }
 
         return result;

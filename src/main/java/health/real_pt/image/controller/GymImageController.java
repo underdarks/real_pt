@@ -1,6 +1,6 @@
 package health.real_pt.image.controller;
 
-import health.real_pt.image.service.MemberImageServiceImpl;
+import health.real_pt.image.service.GymImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("image/member")
+@RequestMapping("image/gym")
 @RequiredArgsConstructor
-public class MemberImageController {
+public class GymImageController {
 
-    private final MemberImageServiceImpl memberImageService;
+    private final GymImageServiceImpl gymImageService;
 
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable(value = "fileName") String fileName, HttpServletRequest request){
-        Resource resource = memberImageService.getFiles(MemberImageServiceImpl.fileLocation,fileName);
+        Resource resource = gymImageService.getFiles(GymImageServiceImpl.fileLocation,fileName);
 
         String contentType=null;
         try {

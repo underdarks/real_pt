@@ -4,9 +4,11 @@ import health.real_pt.gym.repository.GymRepository;
 import health.real_pt.gym.repository.MySqlGymRepository;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.gym.service.GymServiceImpl;
+import health.real_pt.image.repository.GymImageRepository;
 import health.real_pt.image.repository.MemberImageRepository;
 import health.real_pt.image.repository.PtReviewImageRepository;
 import health.real_pt.image.repository.ImageRepository;
+import health.real_pt.image.service.GymImageServiceImpl;
 import health.real_pt.image.service.ImageService;
 import health.real_pt.image.service.MemberImageServiceImpl;
 import health.real_pt.image.service.PtReviewImageServiceImpl;
@@ -63,7 +65,7 @@ public class BeanConfig {
 
     @Bean
     public GymService gymService(){
-        return new GymServiceImpl(gymRepository());
+        return new GymServiceImpl(gymRepository(),gymImageService());
     }
 
     @Bean
@@ -116,5 +118,15 @@ public class BeanConfig {
         return new MemberImageServiceImpl(memberImageRepository());
     }
 
+
+    @Bean
+    public GymImageRepository gymImageRepository(){
+        return new GymImageRepository(em);
+    }
+
+    @Bean
+    public GymImageServiceImpl gymImageService(){
+        return new GymImageServiceImpl(gymImageRepository());
+    }
 
 }

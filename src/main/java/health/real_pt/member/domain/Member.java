@@ -5,6 +5,8 @@ import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.image.domain.MemberImage;
 import health.real_pt.member.dto.MemberReqDto;
+import health.real_pt.price.domain.PtPrice;
+import health.real_pt.review.domain.PtReview;
 import health.real_pt.security.encryption.SHA256;
 import lombok.*;
 
@@ -18,7 +20,8 @@ import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
-@Entity @Table(name = "MEMBER")
+@Entity
+@Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
 public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
@@ -53,11 +56,6 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @Column(name = "NICKNAME", unique = true)
     private String nickname;
 
-    @Column(name = "RECOMMAND_CODE")    //추천인 코드(내가 상대방 추천인코드 적을 때)
-    private String recommandCode;
-
-    @Column(name = "RECOMMANDED_CODE")  //추천인 코드(상대방이 내추천인코드 적을 때)
-    private String recommandedCode;
 
     //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
     @NotNull(message = "회원 타입은 필수 값입니다!")
@@ -69,7 +67,13 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     private Gym gym;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
-    private List<MemberImage> images =new ArrayList<>();
+    private List<MemberImage> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "pt", orphanRemoval = true)     //PT 삭제시 리뷰 같이 삭제
+    private List<PtReview> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "pt", cascade = CascadeType.ALL, orphanRemoval = true)     //PT 삭제시 가격 같이 삭제
+    private List<PtPrice> prices=new ArrayList<>();
 
     /**
      * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
@@ -91,14 +95,6 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.nickname = nickname;
     }
 
-    public void changeRecommandCode(String recommandCode) {
-        this.recommandCode = recommandCode;
-    }
-
-    public void changeRecommandedCode(String recommandedCode) {
-        this.recommandedCode = recommandedCode;
-    }
-
 
     //============= 연관관계 편의 메서드 =========================
 
@@ -109,10 +105,10 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     }
 
     //멤버 - 이미지 삭제(고아 객체 자동 삭제)
-    public void deleteMamberImages(){
-        int size=images.size();
+    public void deleteMamberImages() {
+        int size = images.size();
 
-        for(int i=0;i<size;i++)
+        for (int i = 0; i < size; i++)
             this.images.remove(0);
     }
 
@@ -134,9 +130,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.phone = phone;
         this.birthDay = birthDay;
         this.nickname = nickname;
-        this.recommandCode = recommandCode;
-        this.recommandedCode = recommandedCode;
-        this.memberType=memberType;
+        this.memberType = memberType;
         addGym(gym);
     }
 
@@ -150,8 +144,6 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
                 .phone(memberReqDto.getPhone())
                 .birthDay(memberReqDto.getBirthDay())
                 .nickname(memberReqDto.getNickname())
-                .recommandCode(memberReqDto.getRecommandCode())
-                .recommandedCode(memberReqDto.getRecommandedCode())
                 .memberType(memberReqDto.getMemberType())
                 .gym(memberReqDto.getGym())
                 .build();

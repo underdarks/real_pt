@@ -50,7 +50,7 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     @Column(name = "BAD")
     private Long bad;           //도움 안되요 개수
 
-    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제(orpahnRemoval -> 고아 객체 삭제)
+    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.ALL, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제(orpahnRemoval -> 고아 객체 삭제)
     private List<PtReviewImage> images =new ArrayList<>();
 
 

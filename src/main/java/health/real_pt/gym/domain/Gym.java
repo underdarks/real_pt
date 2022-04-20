@@ -16,13 +16,15 @@ import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
-@Entity @Table(name = "GYM")
+@Entity
+@Table(name = "GYM")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
-@ToString(exclude = {"pt"})
+@ToString(exclude = {"pt","images","prices"})
 public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GYM_ID")
     private Long id;
 
@@ -60,70 +62,81 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
 
 
     @OneToMany(mappedBy = "gym")     //헬스장 PT 리스트
-    private List<Member> pt=new ArrayList<>();
+    private List<Member> pt = new ArrayList<>();
 
-    @OneToMany(mappedBy = "gym", cascade = CascadeType.REMOVE,orphanRemoval = true)     //헬스장 이미지
-    private List<GymImage> images=new ArrayList<>();
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)     //헬스장 이미지
+    private List<GymImage> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "gym", cascade = CascadeType.REMOVE, orphanRemoval = true)     //헬스장 가격
-    private List<GymPrice> prices=new ArrayList<>();
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)     //헬스장 가격
+    private List<GymPrice> prices = new ArrayList<>();
 
+
+    //============= 연관관계 편의 메서드 =========================
+
+
+    //헬스장 - 이미지 삭제(고아 객체 자동 삭제)
+    public void deleteGymImages() {
+        int size = images.size();
+
+        for (int i = 0; i < size; i++)
+            this.images.remove(0);
+    }
 
     /**
-     *  setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
+     * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */
 
-    public void changeName(String name){
-        if(name != null && !name.isEmpty())
-            this.name=name;
+    public void changeName(String name) {
+        if (name != null && !name.isEmpty())
+            this.name = name;
     }
 
-    public void changeInfo(String info){
-        if(info != null && !info.isEmpty())
-            this.info=info;
+    public void changeInfo(String info) {
+        if (info != null && !info.isEmpty())
+            this.info = info;
     }
 
-    public void changeOpenTime(String openTime){
-        if(openTime != null && !openTime.isEmpty())
-            this.openTime=openTime;
+    public void changeOpenTime(String openTime) {
+        if (openTime != null && !openTime.isEmpty())
+            this.openTime = openTime;
     }
 
-    public void changeProgram(String program){
-        if(program != null && !program.isEmpty())
-            this.program=program;
+    public void changeProgram(String program) {
+        if (program != null && !program.isEmpty())
+            this.program = program;
     }
 
-    public void changeLocation(String location){
-        if(location != null && !location.isEmpty())
-            this.location=location;
+    public void changeLocation(String location) {
+        if (location != null && !location.isEmpty())
+            this.location = location;
     }
 
-    public void changeExtraService(String extraService){
-        if(extraService != null && !extraService.isEmpty())
-            this.extraService=extraService;
+    public void changeExtraService(String extraService) {
+        if (extraService != null && !extraService.isEmpty())
+            this.extraService = extraService;
     }
 
-    public void changeFacilites(String facilites){
-        if(facilites != null && !facilites.isEmpty())
-            this.facilites=facilites;
+    public void changeFacilites(String facilites) {
+        if (facilites != null && !facilites.isEmpty())
+            this.facilites = facilites;
     }
 
     /* ============================================================================================================== */
 
     @Builder
-    public Gym(String name, String info, String openTime, String program, String location, String extraService, String facilites,GymStatus gymStatus){
-        this.name=name;
-        this.info=info;
-        this.openTime=openTime;
-        this.program=program;
-        this.location=location;
-        this.extraService=extraService;
-        this.facilites=facilites;
-        this.gymStatus=gymStatus;
+    public Gym(String name, String info, String openTime, String program, String location, String extraService, String facilites, GymStatus gymStatus) {
+        this.name = name;
+        this.info = info;
+        this.openTime = openTime;
+        this.program = program;
+        this.location = location;
+        this.extraService = extraService;
+        this.facilites = facilites;
+        this.gymStatus = gymStatus;
     }
 
     //Dto -> Entity로 변환(객체 생성)
-    public static Gym toEntity(GymReqDto gymReqDto){
+    public static Gym toEntity(GymReqDto gymReqDto) {
         return Gym.builder()
                 .name(gymReqDto.getName())
                 .info(gymReqDto.getInfo())
@@ -146,6 +159,7 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
         changeLocation(gymReqDto.getLocation());
         changeExtraService(gymReqDto.getExtraService());
         changeFacilites(gymReqDto.getFacilites());
+
     }
 
 }

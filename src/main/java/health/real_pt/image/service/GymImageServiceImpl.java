@@ -33,7 +33,7 @@ import java.util.Random;
 public class GymImageServiceImpl extends FileManager implements ImageService<Gym> {
 
     private final GymImageRepository gymImageRepository;
-    private final static Path fileLocation = Paths.get(GymImage.serverFilePath).toAbsolutePath().normalize();
+    public final static Path fileLocation = Paths.get(GymImage.serverFilePath).toAbsolutePath().normalize();
 
     @Transactional
     @Override
@@ -52,7 +52,7 @@ public class GymImageServiceImpl extends FileManager implements ImageService<Gym
 
                     //파일 이름 중복 방지를 위한(파일 이름 암호화(MD5) + random 함수 적용)
                     String encryptedFileName = MD5.getMD5HashCode(filename) + random.nextInt(100000000) + "." + ext[1];
-                    String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("image/member/" + encryptedFileName).toUriString();
+                    String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("image/gym/" + encryptedFileName).toUriString();
 
                     //멤버 이미지 객체 생성
                     GymImage uploadFile = GymImage.builder()
@@ -67,7 +67,7 @@ public class GymImageServiceImpl extends FileManager implements ImageService<Gym
                     //파일 전송
                     file.transferTo(fileLocation.resolve(encryptedFileName));
 
-                    //gymImageRepository.save(uploadFile);
+                    gymImageRepository.save(uploadFile);
                 }
             }
             catch (IOException e) {

@@ -1,6 +1,5 @@
 package health.real_pt.image.controller;
 
-import health.real_pt.image.service.ImageService;
 import health.real_pt.image.service.PtReviewImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -24,7 +23,7 @@ public class PtReviewImageController {
 
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable(value = "fileName") String fileName, HttpServletRequest request){
-        Resource resource = ptReviewImageService.getUploadedFiles(PtReviewImageServiceImpl.fileLocation,fileName);
+        Resource resource = ptReviewImageService.getFiles(PtReviewImageServiceImpl.fileLocation,fileName);
 
         String contentType=null;
         try {

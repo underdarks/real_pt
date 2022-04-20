@@ -16,8 +16,8 @@ import java.nio.file.Paths;
  */
 public class FileManager {
 
-    //업로드된 파일 찾기
-    public Resource getUploadedFiles(Path path,String fileName) {
+    //업로드된 이미지 찾기
+    public Resource getFiles(Path path, String fileName) {
         try {
             Path filePath = path.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());

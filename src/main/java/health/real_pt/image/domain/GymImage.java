@@ -3,7 +3,6 @@ package health.real_pt.image.domain;
 
 import health.real_pt.common.BaseImageEntity;
 import health.real_pt.gym.domain.Gym;
-import health.real_pt.gym.domain.Member;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -13,10 +12,10 @@ import javax.persistence.Table;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity @Table(name = "MEMBER_IMAGE")
+@Entity @Table(name = "GYM_IMAGE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
-@ToString(exclude = "")
+@ToString(exclude = "gym")
 public class GymImage extends BaseImageEntity {
 
     //서버 파일 경로

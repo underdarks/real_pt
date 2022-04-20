@@ -21,8 +21,6 @@ public class MemberReqDto implements BaseDto<Member, MemberReqDto> {
     private LocalDate birthDay;
     private String nickname;
     private MemberType memberType;
-    private String recommandCode;       //추천인 코드(내가 상대방 추천인코드 적을 때)
-    private String recommandedCode;     //추천인 코드(상대방이 내추천인코드 적을 때)
     private Gym gym;    //헬스장 ID
 
 
@@ -38,8 +36,6 @@ public class MemberReqDto implements BaseDto<Member, MemberReqDto> {
         memberReqDto.setPhone(member.getPhone());
         memberReqDto.setBirthDay(member.getBirthDay());
         memberReqDto.setNickname(member.getNickname());
-        memberReqDto.setRecommandCode(member.getRecommandCode());
-        memberReqDto.setRecommandedCode(member.getRecommandedCode());
         memberReqDto.setGym(member.getGym());
 
         return memberReqDto;

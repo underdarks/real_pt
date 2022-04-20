@@ -56,14 +56,25 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
         this.times = times;
     }
 
+
+    // =========== 연관관계 편의 메서드
+
+    private void addPtPrice(Member pt){
+        this.pt=pt;
+        this.pt.getPrices().add(this);
+    }
+
+
+
     /* ============================================================================================================== */
 
     @Builder    //객체 생성(빌더 패턴)
     public PtPrice(Member pt, Long regularPrice, Long discountPrice, Integer times) {
-        this.pt = pt;
         this.regularPrice = regularPrice;
         this.discountPrice = discountPrice;
         this.times = times;
+
+        addPtPrice(pt);
     }
 
     public static PtPrice toEntity(PtPriceReqDto ptPriceReqDto) {
