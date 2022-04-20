@@ -54,7 +54,7 @@ public class PtReviewServiceImpl implements PtReviewService{
         //엔티티 수정
         ptReview.updateEntity(updDto);
 
-        List<ImageResDto> reviewImages = ptReview.getReviewImages().stream()
+        List<ImageResDto> reviewImages = ptReview.getImages().stream()
                 .map(file -> new ImageResDto(file.getOriginalFileName(), file.getDownloadUri()))
                 .collect(Collectors.toList());
 
@@ -71,7 +71,7 @@ public class PtReviewServiceImpl implements PtReviewService{
         for (PtReview ptReview : ptReviewList) {    //리뷰
             List<ImageResDto> reviewImageList=new ArrayList<>();     //리뷰에 등록된 이미지(N개)
 
-            for (PtReviewImage file : ptReview.getReviewImages()) {
+            for (PtReviewImage file : ptReview.getImages()) {
                 reviewImageList.add(
                         ImageResDto.builder()
                         .fileName(file.getOriginalFileName())

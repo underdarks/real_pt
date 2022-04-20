@@ -24,7 +24,7 @@ public class MemberImageController {
 
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable(value = "fileName") String fileName, HttpServletRequest request){
-        Resource resource = memberImageService.getUploadedFiles(fileName);
+        Resource resource = memberImageService.getUploadedFiles(MemberImageServiceImpl.fileLocation,fileName);
 
         String contentType=null;
         try {

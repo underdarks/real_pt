@@ -51,7 +51,7 @@ public class PtReview implements BaseEntity<PtReviewReqDto> {
     private Long bad;           //도움 안되요 개수
 
     @OneToMany(mappedBy = "ptReview", cascade = CascadeType.REMOVE, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제(orpahnRemoval -> 고아 객체 삭제)
-    private List<PtReviewImage> reviewImages =new ArrayList<>();
+    private List<PtReviewImage> images =new ArrayList<>();
 
 
     @CreatedDate  //Insert 쿼리 발생 시, 현재 시간을 값으로 채워서 쿼리를 생성 후 insert

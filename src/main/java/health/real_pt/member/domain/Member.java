@@ -68,7 +68,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
     private List<MemberImage> images =new ArrayList<>();
 
     /**

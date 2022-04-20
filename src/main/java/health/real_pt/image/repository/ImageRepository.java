@@ -11,7 +11,7 @@ public interface ImageRepository<T> {
      */
 
     //등록
-    Long save(T file);
+    Long save(T image);
 
     //조회
     List<T> findById(Long id);

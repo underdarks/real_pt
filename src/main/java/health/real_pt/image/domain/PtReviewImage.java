@@ -27,7 +27,7 @@ public class PtReviewImage extends BaseImageEntity {
     //------ 연관관계 편의 메서드
     public void connectPtReviewWithImage(PtReview ptReview) {
         this.ptReview = ptReview;
-        this.ptReview.getReviewImages().add(this);
+        this.ptReview.getImages().add(this);
     }
 
     //객체 생성(빌더 패턴)

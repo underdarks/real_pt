@@ -3,7 +3,9 @@ package health.real_pt.gym.domain;
 import health.real_pt.common.BaseEntity;
 import health.real_pt.common.BaseTimeEntity;
 import health.real_pt.gym.dto.GymReqDto;
+import health.real_pt.image.domain.GymImage;
 import health.real_pt.member.domain.Member;
+import health.real_pt.price.domain.GymPrice;
 import lombok.*;
 
 import javax.persistence.*;
@@ -56,8 +58,15 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
     @Enumerated(EnumType.STRING)
     private GymStatus gymStatus;    //헬스장 영업 상태
 
-    @OneToMany(mappedBy = "gym")     //헬스장에 속한 PT
+
+    @OneToMany(mappedBy = "gym")     //헬스장 PT 리스트
     private List<Member> pt=new ArrayList<>();
+
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.REMOVE,orphanRemoval = true)     //헬스장 이미지
+    private List<GymImage> images=new ArrayList<>();
+
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.REMOVE, orphanRemoval = true)     //헬스장 가격
+    private List<GymPrice> prices=new ArrayList<>();
 
 
     /**

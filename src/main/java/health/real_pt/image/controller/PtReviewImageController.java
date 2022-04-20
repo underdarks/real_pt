@@ -24,7 +24,7 @@ public class PtReviewImageController {
 
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable(value = "fileName") String fileName, HttpServletRequest request){
-        Resource resource = ptReviewImageService.getUploadedFiles(fileName);
+        Resource resource = ptReviewImageService.getUploadedFiles(PtReviewImageServiceImpl.fileLocation,fileName);
 
         String contentType=null;
         try {

@@ -1,7 +1,11 @@
 package health.real_pt.common;
 
+import health.real_pt.common.exception_handler.ExceptionType;
+import health.real_pt.common.exceptions.CommonApiExceptions;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -9,6 +13,11 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 

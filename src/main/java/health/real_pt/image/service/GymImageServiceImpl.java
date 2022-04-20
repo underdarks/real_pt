@@ -2,10 +2,10 @@ package health.real_pt.image.service;
 
 import health.real_pt.common.exception_handler.ExceptionType;
 import health.real_pt.common.exceptions.CommonApiExceptions;
-import health.real_pt.image.domain.MemberImage;
-import health.real_pt.image.domain.PtReviewImage;
-import health.real_pt.image.repository.ImageRepository;
-import health.real_pt.image.repository.MemberImageRepository;
+import health.real_pt.gym.domain.Gym;
+import health.real_pt.image.domain.GymImage;
+import health.real_pt.image.repository.GymImageRepository;
+import health.real_pt.image.repository.GymImageRepository;
 import health.real_pt.member.domain.Member;
 import health.real_pt.security.encryption.MD5;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -29,14 +30,14 @@ import java.util.Random;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberImageServiceImpl extends FileManager implements ImageService<Member> {
+public class GymImageServiceImpl extends FileManager implements ImageService<Gym> {
 
-    private final MemberImageRepository memberImageRepository;
-    public final static Path fileLocation = Paths.get(MemberImage.serverFilePath).toAbsolutePath().normalize();
+    private final GymImageRepository gymImageRepository;
+    private final static Path fileLocation = Paths.get(GymImage.serverFilePath).toAbsolutePath().normalize();
 
     @Transactional
     @Override
-    public void uploadFiles(List<MultipartFile> files, Member member) {
+    public void uploadFiles(List<MultipartFile> files, Gym gym) {
         Random random = new Random();
 
         for (MultipartFile file : files) {
@@ -54,20 +55,19 @@ public class MemberImageServiceImpl extends FileManager implements ImageService<
                     String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("image/member/" + encryptedFileName).toUriString();
 
                     //멤버 이미지 객체 생성
-                    MemberImage uploadFile = MemberImage.builder()
-                            .member(member)
+                    GymImage uploadFile = GymImage.builder()
+                            .gym(gym)
                             .storedFileName(encryptedFileName)
                             .originalFileName(filename)
                             .downloadUri(downloadUri)
                             .size(file.getSize())
-                            .filepath(MemberImage.serverFilePath + encryptedFileName)
+                            .filepath(GymImage.serverFilePath + encryptedFileName)
                             .build();
-
 
                     //파일 전송
                     file.transferTo(fileLocation.resolve(encryptedFileName));
 
-                    memberImageRepository.save(uploadFile);
+                    //gymImageRepository.save(uploadFile);
                 }
             }
             catch (IOException e) {

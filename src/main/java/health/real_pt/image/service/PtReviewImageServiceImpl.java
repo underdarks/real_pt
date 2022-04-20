@@ -27,10 +27,10 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class PtReviewImageServiceImpl implements ImageService<PtReview> {
+public class PtReviewImageServiceImpl extends FileManager implements ImageService<PtReview> {
 
     private final PtReviewImageRepository imageRepository;
-    private final static Path fileLocation = Paths.get(PtReviewImage.serverFilePath).toAbsolutePath().normalize();
+    public final static Path fileLocation = Paths.get(PtReviewImage.serverFilePath).toAbsolutePath().normalize();
 
     @Transactional
     @Override
@@ -72,35 +72,4 @@ public class PtReviewImageServiceImpl implements ImageService<PtReview> {
 
         }
     }
-
-    @Override
-    public Resource getUploadedFiles(String fileName) {
-        try {
-            Path filePath = this.fileLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-
-            if (resource.exists())
-                return resource;
-
-            else
-                throw new CommonApiExceptions(ExceptionType.FILE_DOWNLOAD_EXCEPTION, "파일을 찾을 수 없습니다.");
-        }
-        catch (MalformedURLException e) {
-            throw new CommonApiExceptions(ExceptionType.FILE_DOWNLOAD_EXCEPTION, "파일을 찾을 수 없습니다.");
-        }
-    }
-
-    @Override
-    public boolean deleteFiles(String filePath) {
-        Path path = Paths.get(filePath);
-
-        try {
-            Files.deleteIfExists(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-
 }
