@@ -25,7 +25,10 @@
 - [리뷰 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/review/doc.md)
 
 
+<br>
 <h2>ERD 설계도</h2>
+
+![erd](https://user-images.githubusercontent.com/41244406/164428233-5fac5204-9603-4f8e-a0b8-957e796663e6.PNG)
 
 
 <br>
