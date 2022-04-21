@@ -28,6 +28,7 @@
 <br>
 <h2>ERD 설계도</h2>
 
+엔티티간의 상세한 관계는 기능별 문서에서 자세히 설명할 예정<br><br>
 ![erd](https://user-images.githubusercontent.com/41244406/164428233-5fac5204-9603-4f8e-a0b8-957e796663e6.PNG)
 
 
