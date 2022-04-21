@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class PtReviewResDto {
 
+    private Long id;
     private String ptName;      //PT 이름
     private String gymName;     //소속 헬스장 이름
     private Long total;         //총 점수
@@ -22,6 +23,7 @@ public class PtReviewResDto {
     public PtReviewResDto entityToDto(PtReview ptReview,List<ImageResDto> reviewImages) {
         PtReviewResDto resDto = new PtReviewResDto();
 
+        resDto.setId(ptReview.getId());
         resDto.setPtName(ptReview.getPt().getName());
         resDto.setGymName(ptReview.getPt().getGym() == null ? "소속된 헬스장이 없습니다":ptReview.getPt().getGym() .getName());
         resDto.setTotal(ptReview.getTotal());
