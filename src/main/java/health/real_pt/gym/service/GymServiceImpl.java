@@ -115,7 +115,9 @@ public class GymServiceImpl implements GymService {
     @Override
     public void deleteGym(Long id) {
         Gym gym = findEntity(id);
-        gymRepository.delete(gym);
+        gym.deleteGym();
+
+        gymRepository.delete(gym);  //GYM - PT - PRICE - IMAGE
     }
 
     @Override

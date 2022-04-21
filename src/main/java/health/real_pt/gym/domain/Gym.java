@@ -82,6 +82,19 @@ public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
             this.images.remove(0);
     }
 
+    //헬스장 - PT 삭제
+    public void deleteGym(){
+        int size=getPt().size();
+
+        for (int i = 0; i < size; i++) {
+             getPt().get(0).deleteGym();
+             getPt().remove(0);
+        }
+    }
+
+
+
+
     /**
      * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */

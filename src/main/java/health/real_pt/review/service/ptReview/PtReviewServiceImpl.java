@@ -71,9 +71,9 @@ public class PtReviewServiceImpl implements PtReviewService{
     }
 
     @Override
-    public List<PtReviewResDto> findReview(Long gymId, Long ptId) {
+    public List<PtReviewResDto> findReview(Long ptId) {
         //최근 작성일 기준 정렬(디폴트 값)
-        List<PtReview> ptReviewList = ptReviewRepository.findAll(gymId, ptId, "regDate desc");
+        List<PtReview> ptReviewList = ptReviewRepository.findAll(ptId, "regDate desc");
         List<PtReviewResDto> result=new ArrayList<>();
 
         for (PtReview ptReview : ptReviewList) {    //리뷰

@@ -1,6 +1,7 @@
 package health.real_pt.review.domain;
 
 import health.real_pt.common.BaseEntity;
+import health.real_pt.gym.domain.Gym;
 import health.real_pt.image.domain.PtReviewImage;
 import health.real_pt.member.domain.Member;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;

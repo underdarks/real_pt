@@ -21,7 +21,7 @@ import java.util.List;
  * Member - PtPrice(1:N 관계)
  */
 @RestController
-@RequestMapping("api/v1/ptprice")
+@RequestMapping("api/v1/pt/{pt-id}/price")
 @RequiredArgsConstructor
 public class PtPriceApiController {
 
@@ -35,7 +35,7 @@ public class PtPriceApiController {
      */
     @ApiOperation(value = "PT 가격 등록", notes = "PT 가격 정보를 등록합니다.")
     @PostMapping("")
-    public ResponseEntity<CommonResEntity> savePtPrice(@RequestHeader(value = "pt-id") Long ptId, @RequestBody @Valid PtPriceReqDto reqDto) {
+    public ResponseEntity<CommonResEntity> savePtPrice(@PathVariable(value = "pt-id") Long ptId, @RequestBody @Valid PtPriceReqDto reqDto) {
         ptPriceService.savePrice(reqDto, ptId);
 
         return new ResponseEntity(
@@ -82,10 +82,10 @@ public class PtPriceApiController {
      * 모든 가격 조회
      * @return
      */
-    @ApiOperation(value = "PT 가격 전체 조회", notes = "모든 가격 정보를 조회합니다.")
+    @ApiOperation(value = "PT 가격 전체 조회", notes = "해당 pt의 모든 가격 정보를 조회합니다.")
     @GetMapping()
-    public ResponseEntity<CommonResEntity>  findAllPtPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestHeader(value = "pt-id") Long ptId){
-        List<PtPriceResDto> resDtoList = ptPriceService.findAllPrice(gymId, ptId);
+    public ResponseEntity<CommonResEntity>  findAllPtPrice(@PathVariable(value = "pt-id") Long ptId){
+        List<PtPriceResDto> resDtoList = ptPriceService.findAllPrice(ptId);
         PtPriceListDto listDto = new PtPriceListDto(resDtoList, resDtoList.size());
 
         return new ResponseEntity(

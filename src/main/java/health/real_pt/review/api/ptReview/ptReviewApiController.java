@@ -23,7 +23,7 @@ import java.util.List;
  * Nember - PtReview(1:N 관계)
  */
 @RestController
-@RequestMapping("api/v1/ptreview")
+@RequestMapping("api/v1/pt/{pt-id}/review")
 @RequiredArgsConstructor
 public class ptReviewApiController {
 
@@ -39,7 +39,7 @@ public class ptReviewApiController {
     @ApiOperation(value = "PT 리뷰 등록" , notes = "리뷰를 등록합니다.")
     @PostMapping("")
     public ResponseEntity<CommonResEntity> savePtReview(
-            @RequestParam(value = "pt-id") Long ptId ,
+            @PathVariable(value = "pt-id") Long ptId ,
             @RequestPart(value = "images") List<MultipartFile> files,
             @RequestPart(value = "reqData") PtReviewReqDto reqDto)
     {
@@ -61,8 +61,8 @@ public class ptReviewApiController {
     public ResponseEntity<CommonResEntity> updatePtReview(
             @PathVariable(value = "id") Long id,
             @RequestPart(value = "images") List<MultipartFile> files,
-            @RequestPart(value = "udpData") PtReviewReqDto udpDto){
-
+            @RequestPart(value = "udpData") PtReviewReqDto udpDto)
+    {
         udpDto.setId(id);
         PtReviewResDto resDto = ptReviewService.updateReview(udpDto);
 
@@ -74,15 +74,18 @@ public class ptReviewApiController {
 
     /**
      * pt 리뷰 조회
-     * @param gymId  : Gym_ID
      * @param ptId   : Member_ID
      *
-     * 특정 헬스장의 특정 트레이너의 리뷰(N) 조회
+     * 처음에는 특정 헬스장에 속한 리뷰만 보여줄려고 했는데 그냥 해당 PT의 모든 리뷰를 다 보여줘야겟다.
+     * 그리고 리뷰 내용에 헬스장 이름(리뷰 당시에 소속되어 있던), 리뷰 내용, 별점 등 나오게
+     *
      */
     @ApiOperation(value = "PT 리뷰 조회" , notes = "리뷰를 조회합니다.")
-    @GetMapping(value = "/{gym-id}/{pt-id}")
-    public ResponseEntity<CommonResEntity> findPtReview(@PathVariable(value = "gym-id") Long gymId,@PathVariable(value = "pt-id") Long ptId){
-        List<PtReviewResDto> reviewList = ptReviewService.findReview(gymId, ptId);
+    @GetMapping()
+    public ResponseEntity<CommonResEntity> findPtReview(
+            @PathVariable(value = "pt-id") Long ptId)
+    {
+        List<PtReviewResDto> reviewList = ptReviewService.findReview(ptId);
 
         PtReviewResListDto listDto = new PtReviewResListDto(reviewList.size(), reviewList);
 

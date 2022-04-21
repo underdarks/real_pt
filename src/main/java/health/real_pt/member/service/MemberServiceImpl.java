@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -101,7 +100,7 @@ public class MemberServiceImpl implements MemberService {
             memberImageService.deleteFiles(image.getFilepath());
 
         //멤버와 연관된 이미지들 삭제
-        member.deleteMamberImages();
+        member.deleteMemberImages();
 
         //이미지 새로 등록
         memberImageService.uploadFiles(files,member);

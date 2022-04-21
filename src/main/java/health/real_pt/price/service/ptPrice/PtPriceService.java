@@ -41,6 +41,6 @@ public interface PtPriceService extends BaseInterface<PtPrice> {
     /**
      *  가격 전체 조회
      */
-    List<PtPriceResDto> findAllPrice(Long gymId, Long ptId);
+    List<PtPriceResDto> findAllPrice(Long ptId);
 
 }

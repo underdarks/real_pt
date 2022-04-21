@@ -23,7 +23,7 @@ public class PtReviewResDto {
         PtReviewResDto resDto = new PtReviewResDto();
 
         resDto.setPtName(ptReview.getPt().getName());
-        resDto.setGymName(ptReview.getPt().getGym().getName());
+        resDto.setGymName(ptReview.getPt().getGym() == null ? "소속된 헬스장이 없습니다":ptReview.getPt().getGym() .getName());
         resDto.setTotal(ptReview.getTotal());
         resDto.setComment(ptReview.getComment());
         resDto.setGood(ptReview.getGood());

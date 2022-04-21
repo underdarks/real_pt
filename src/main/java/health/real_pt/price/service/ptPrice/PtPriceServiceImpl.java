@@ -62,8 +62,8 @@ public class PtPriceServiceImpl implements PtPriceService {
     }
 
     @Override
-    public List<PtPriceResDto> findAllPrice(Long gymId, Long ptId) {
-        List<PtPrice> ptPriceList = ptPriceRepository.findAll(gymId, ptId);
+    public List<PtPriceResDto> findAllPrice(Long ptId) {
+        List<PtPrice> ptPriceList = ptPriceRepository.findAll(ptId);
 
         return ptPriceList.stream()
                 .map(ptPrice -> new PtPriceResDto().entityToDto(ptPrice))

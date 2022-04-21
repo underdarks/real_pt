@@ -19,9 +19,9 @@ public interface PtReviewRepository {
 
 
     /**
-     * 리뷰 조회(헬스장 - 트레이너 - 리뷰)
+     * 리뷰 조회(트레이너 - 리뷰)
      */
-    List<PtReview> findAll(Long gymId,Long ptId,String orderType);
+    List<PtReview> findAll(Long ptId,String orderType);
 
     /**
      * 리뷰 조회

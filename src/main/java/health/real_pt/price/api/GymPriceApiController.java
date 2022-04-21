@@ -21,7 +21,7 @@ import java.util.List;
  * 헬스장 가격(GYmPrice) API Controller
  * Gym - GymPrice(1:N 관계)
  */
-@RestController @RequestMapping("api/v1/gymprice")
+@RestController @RequestMapping("api/v1/gym/{gym-id}/price")
 @RequiredArgsConstructor
 public class GymPriceApiController {
 
@@ -34,7 +34,7 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 등록", notes = "가격을 등록합니다." )
     @PostMapping("")
-    public ResponseEntity<CommonResEntity> saveGymPrice(@RequestHeader(value = "gym-id") Long gymId, @RequestBody @Valid GymPriceReqDto gymPriceReqDto) {
+    public ResponseEntity<CommonResEntity> saveGymPrice(@PathVariable(value = "gym-id") Long gymId, @RequestBody @Valid GymPriceReqDto gymPriceReqDto) {
         gymPriceService.savePrice(gymPriceReqDto, gymId);
         return new ResponseEntity(
                 CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_GYM_PRICE_SUCCESS),
@@ -49,7 +49,7 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 조회", notes = "id를 받아 가격을 조회합니다." )
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResEntity> findGymPrice(@RequestHeader(value = "gym-id") Long gymId, @PathVariable("id") Long id){
+    public ResponseEntity<CommonResEntity> findGymPrice(@PathVariable(value = "gym-id") Long gymId, @PathVariable("id") Long id){
         GymPriceResDto resDto = gymPriceService.findOnePrice(id);
 
         return new ResponseEntity(
@@ -64,7 +64,7 @@ public class GymPriceApiController {
      */
     @ApiOperation(value = "헬스장 가격 전체 조회",notes = "특정 헬스장 가격을 전체 조회합니다.")
     @GetMapping("")
-    public ResponseEntity<CommonResEntity> findAllGymPrice(@RequestHeader(value = "gym-id") Long gymId){
+    public ResponseEntity<CommonResEntity> findAllGymPrice(@PathVariable(value = "gym-id") Long gymId){
         List<GymPriceResDto> resDtoList = gymPriceService.findAllPrice(gymId);
         GymPriceListDto priceListDto = new GymPriceListDto(resDtoList.size(), resDtoList);
 

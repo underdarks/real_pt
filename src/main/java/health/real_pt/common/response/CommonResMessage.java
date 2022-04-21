@@ -35,7 +35,7 @@ public class CommonResMessage {
     public static final String READ_GYM_SUCCESS = "헬스장 정보 조회 성공";
     public static final String READ_GYM_FAIL = "헬스장 정보 조회 실패";
 
-    public static final String READ_ALL_GYM_SUCCESS = "전체 핼스장 조회 성공";
+    public static final String READ_ALL_GYM_SUCCESS = "전체 헬스장 조회 성공";
     public static final String READ_ALL_GYM_FAIL = "전체 헬스장 조회 실패";
 
     public static final String UPDATE_GYM_SUCCESS = "헬스장 정보 수정 성공";
@@ -44,7 +44,7 @@ public class CommonResMessage {
     public static final String DELETE_GYM_SUCCESS = "헬스장 정보 삭제 성공";
     public static final String DELETE_GYM_FAIL = "헬스장 정보 삭제 실패";
 
-    public static final String READ_GYM_PT_SUCCESS = "핼스장 소속 PT 조회 성공";
+    public static final String READ_GYM_PT_SUCCESS = "헬스장 소속 PT 조회 성공";
 
 
     //===============================================================
@@ -58,7 +58,7 @@ public class CommonResMessage {
     public static final String READ_GYM_PRICE_SUCCESS = "헬스장 가격 정보 조회 성공";
     public static final String READ_GYM_PRICE_FAIL = "헬스장 가격 정보 조회 실패";
 
-    public static final String READ_ALL_GYM_PRICE_SUCCESS = "전체 핼스장 가격 조회 성공";
+    public static final String READ_ALL_GYM_PRICE_SUCCESS = "전체 헬스장 가격 조회 성공";
     public static final String READ_ALL_GYM_PRICE_FAIL = "전체 헬스장 가격 조회 실패";
 
     public static final String UPDATE_GYM_PRICE_SUCCESS = "헬스장 기격 정보 수정 성공";

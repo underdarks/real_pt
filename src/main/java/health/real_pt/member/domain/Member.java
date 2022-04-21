@@ -66,13 +66,13 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @JoinColumn(name = "GYM_ID")
     private Gym gym;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, orphanRemoval = true) //멤버 삭제시 사진 같이 삭제
     private List<MemberImage> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "pt", orphanRemoval = true)     //PT 삭제시 리뷰 같이 삭제
     private List<PtReview> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "pt", cascade = CascadeType.ALL, orphanRemoval = true)     //PT 삭제시 가격 같이 삭제
+    @OneToMany(mappedBy = "pt",cascade = CascadeType.PERSIST, orphanRemoval = true)     //PT 삭제시 가격 같이 삭제
     private List<PtPrice> prices=new ArrayList<>();
 
     /**
@@ -104,8 +104,13 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         this.gym.getPt().add(this);
     }
 
+    //Pt가 속한 헬스장 연관관계 해제
+   public void deleteGym(){
+        this.gym=null;
+    }
+
     //멤버 - 이미지 삭제(고아 객체 자동 삭제)
-    public void deleteMamberImages() {
+    public void deleteMemberImages() {
         int size = images.size();
 
         for (int i = 0; i < size; i++)

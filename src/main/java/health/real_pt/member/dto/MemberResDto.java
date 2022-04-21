@@ -36,7 +36,7 @@ public class MemberResDto {
         resDto.setBirthDay(member.getBirthDay());
         resDto.setNickname(member.getNickname());
         resDto.setMemberType(member.getMemberType());
-        resDto.setGymName(member.getGym().getName());
+        resDto.setGymName(member.getGym() == null ? "소속된 헬스장 없음" : member.getGym().getName());
 
         resDto.setImageList(images);
 
