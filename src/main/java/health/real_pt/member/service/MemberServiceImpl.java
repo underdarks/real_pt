@@ -1,12 +1,13 @@
 package health.real_pt.member.service;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.image.domain.MemberImage;
 import health.real_pt.image.dto.ImageResDto;
 import health.real_pt.image.service.MemberImageServiceImpl;
+import health.real_pt.member.dto.LoginDto;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.domain.Member;
@@ -32,6 +33,12 @@ public class MemberServiceImpl implements MemberService {
         this.memberRepository = memberRepository;
         this.gymService = gymService;
         this.memberImageService = memberImageService;
+    }
+
+    @Override
+    public Member login(LoginDto loginDto) {
+        Member member= memberRepository.findByUserId(loginDto.getUserId()).orElseThrow(() -> new CommonApiExceptions(ExceptionType.LOGIN_FAILED,"사용자를 찾지 못하였습니다."));
+        return member;
     }
 
     @Override

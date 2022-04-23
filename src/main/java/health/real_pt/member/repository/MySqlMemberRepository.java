@@ -30,6 +30,17 @@ public class MySqlMemberRepository implements MemberRepository {
     }
 
     @Override
+    public Optional<Member> findByUserId(String userId) {
+        String query = "select m from Member m where m.userId =: userId";
+
+        Member member = em.createQuery(query, Member.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+
+        return Optional.of(member);
+    }
+
+    @Override
     public List<Member> findByNameAndEmail(Member member) {
         List resultList = em.createQuery("select m from Member m where m.name =: name and m.email =:email").
                 setParameter("name", member.getName()).
@@ -48,7 +59,6 @@ public class MySqlMemberRepository implements MemberRepository {
     public void delete(Member member) {
         em.remove(member);
     }
-
 
 
 }

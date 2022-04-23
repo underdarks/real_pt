@@ -1,7 +1,7 @@
 package health.real_pt.image.service;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 

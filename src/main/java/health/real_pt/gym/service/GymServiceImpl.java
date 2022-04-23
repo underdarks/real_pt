@@ -1,14 +1,13 @@
 package health.real_pt.gym.service;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.dto.GymReqDto;
 import health.real_pt.gym.dto.GymResDto;
 import health.real_pt.gym.dto.PtResDto;
 import health.real_pt.gym.repository.GymRepository;
 import health.real_pt.image.domain.GymImage;
-import health.real_pt.image.domain.MemberImage;
 import health.real_pt.image.dto.ImageResDto;
 import health.real_pt.image.service.GymImageServiceImpl;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

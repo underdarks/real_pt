@@ -1,18 +1,22 @@
 package health.real_pt.member.api;
 
 
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.CommonResMessage;
 import health.real_pt.common.response.StatusCode;
 import health.real_pt.member.domain.Member;
+import health.real_pt.member.dto.LoginDto;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.dto.MemberListDto;
 import health.real_pt.member.service.MemberService;
+import health.real_pt.security.config.JwtTokenProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,12 +29,30 @@ import java.util.List;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
     /**
      *  회원 등록 필수 값 확인 처리
      */
     public void checkReqDtoValidation(MemberReqDto reqDto){
+
+    }
+
+    /**
+     * 로그인
+     */
+    @ApiOperation(value = "로그인", notes = "사용자 정보 확인 후 로그인 합니다.")
+    @PostMapping("/login")
+    public String login(@RequestBody @Valid LoginDto loginDto){
+        Member member = memberService.login(loginDto);
+
+
+        if(passwordEncoder.matches(loginDto.getPassword(), member.getPassword()))
+            throw new IllegalArgumentException("잘못된 비밀번호 입니다");
+
+        return jwtTokenProvider.createJwtToken()
 
     }
 

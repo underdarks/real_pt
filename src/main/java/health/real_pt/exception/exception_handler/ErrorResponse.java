@@ -1,4 +1,4 @@
-package health.real_pt.common.exception_handler;
+package health.real_pt.exception.exception_handler;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,8 +6,8 @@ import lombok.ToString;
 
 
 /**
- * 공통 예외 엔티티(일관성 유지)
- * 에러 응답
+ * 공통 에러 응답을 위한 엔티티(통일성 유지)
+ *
  */
 @Getter
 @ToString

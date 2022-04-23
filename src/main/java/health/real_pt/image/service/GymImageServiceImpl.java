@@ -1,26 +1,19 @@
 package health.real_pt.image.service;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.image.domain.GymImage;
 import health.real_pt.image.repository.GymImageRepository;
-import health.real_pt.image.repository.GymImageRepository;
-import health.real_pt.member.domain.Member;
 import health.real_pt.security.encryption.MD5;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;

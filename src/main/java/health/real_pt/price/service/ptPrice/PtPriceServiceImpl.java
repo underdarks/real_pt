@@ -1,7 +1,7 @@
 package health.real_pt.price.service.ptPrice;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.member.domain.Member;
 import health.real_pt.member.service.MemberService;
 import health.real_pt.price.domain.PtPrice;

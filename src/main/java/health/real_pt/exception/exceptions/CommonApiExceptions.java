@@ -1,7 +1,7 @@
-package health.real_pt.common.exceptions;
+package health.real_pt.exception.exceptions;
 
 
-import health.real_pt.common.exception_handler.ExceptionType;
+import health.real_pt.exception.exception_handler.ExceptionType;
 import lombok.Builder;
 import lombok.Getter;
 

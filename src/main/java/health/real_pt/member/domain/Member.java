@@ -9,6 +9,9 @@ import health.real_pt.price.domain.PtPrice;
 import health.real_pt.review.domain.PtReview;
 import health.real_pt.security.encryption.SHA256;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,7 +19,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.FetchType.*;
 
@@ -24,7 +29,7 @@ import static javax.persistence.FetchType.*;
 @Table(name = "MEMBER")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
-public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
+public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, UserDetails {   //SpringSecurity는 UserDetails 객체를 통해 권한 정보 관리하기 때문에 UserDetails 상속 후 재정의 해야한다
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
@@ -75,6 +80,43 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     @OneToMany(mappedBy = "pt",cascade = CascadeType.PERSIST, orphanRemoval = true)     //PT 삭제시 가격 같이 삭제
     private List<PtPrice> prices=new ArrayList<>();
 
+    @ElementCollection(fetch = EAGER)
+    @Builder.Default
+    private List<String> roles=new ArrayList<>();
+
+    //=============== UserDetails 상속 ====================
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return userId;  //Spring Security에서 사용하는 userName을 userId로 설정
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     /**
      * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */
@@ -94,6 +136,8 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
     public void changeNickname(String nickname) {
         this.nickname = nickname;
     }
+
+
 
 
     //============= 연관관계 편의 메서드 =========================
@@ -172,5 +216,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto> {
         if (memberReqDto.getPhone() != null)
             changePhone(memberReqDto.getPhone());
     }
+
+
 }
 

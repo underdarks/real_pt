@@ -1,6 +1,6 @@
-package health.real_pt.common.exception_handler;
+package health.real_pt.exception.exception_handler;
 
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     /**
-     * 조회 시 엔티티를 찾지 못햇 을 때 발생하는 예외 처리
+     * 공통 예외 핸들러
      */
     @ExceptionHandler(value = {CommonApiExceptions.class})
     public ResponseEntity<ErrorResponse> commonApiExceptions(final CommonApiExceptions e){
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 //        System.out.println("e.getLocalizedMessage() = " + e.getLocalizedMessage());
 
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
                                 .error(e.getError().getCode())
@@ -49,5 +49,23 @@ public class GlobalExceptionHandler {
                 );
 
     }
+
+    /**
+     *
+     */
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<ErrorResponse> IllegalArgumentException(final IllegalArgumentException e){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .error(ExceptionType.PARAMETER_VALUE_ILLEGAL.getCode())
+                                .message(ExceptionType.PARAMETER_VALUE_ILLEGAL.getMessage())
+                                .detail(e.getMessage())
+                                .build()
+                );
+
+    }
+
 
 }

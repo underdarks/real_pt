@@ -2,6 +2,7 @@ package health.real_pt.member.service;
 
 import health.real_pt.common.BaseInterface;
 import health.real_pt.member.domain.Member;
+import health.real_pt.member.dto.LoginDto;
 import health.real_pt.member.dto.MemberResDto;
 import health.real_pt.member.dto.MemberReqDto;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface MemberService extends BaseInterface<Member> {
+
+    /**
+     * 로그인
+     */
+    Member login(LoginDto loginDto);
+
+
 
     /**
      * 회원가입

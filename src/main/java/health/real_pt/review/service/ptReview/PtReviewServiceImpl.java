@@ -1,8 +1,7 @@
 package health.real_pt.review.service.ptReview;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
-import health.real_pt.image.domain.MemberImage;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.image.domain.PtReviewImage;
 import health.real_pt.image.dto.ImageResDto;
 import health.real_pt.image.service.PtReviewImageServiceImpl;

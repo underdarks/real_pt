@@ -1,7 +1,7 @@
 package health.real_pt.price.service.gymPrice;
 
-import health.real_pt.common.exception_handler.ExceptionType;
-import health.real_pt.common.exceptions.CommonApiExceptions;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
