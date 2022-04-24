@@ -2,6 +2,7 @@
 
 먼저, 각 API 기능들은 추후 앱과 통신을 위하여 설계 및 구현 되었습니다.<br>
 여기서 API들의 Request, Response, 예외처리, 에러  대한 공통적인 부분에 대해서 설명할 것입니다.<br>
+그리고 해당 문서는 지속적으로 최신화 진행 중 입니다.<br>
 
 ## API Request
 API 요청에서는 Request Data, 연관관계가 있는 데이터를 전송하기 위해 **applicatioin/json** 방식을 사용하고 있으며, 파일 업로드가 필요한 경우 **multipart/form-data** 형식으로 파일과 데이터를 함께 전송하여 기본적인 기능을 제공합니다.<br><br>
@@ -150,4 +151,3 @@ public class ErrorResponse {
 ~~~
 </details>
   
-*해당 문서는 지속적으로 업데이트 진행 중입니다.
