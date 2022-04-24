@@ -112,12 +112,10 @@ public class CommonResEntity<T> {
     LOGIN_FAILED(HttpStatus.BAD_REQUEST,"E404001","로그인에 실패하였습니다.")
 ~~~
   
-
 예시)
 
 ![t3](https://user-images.githubusercontent.com/41244406/164992274-944b0c7e-8a16-4a17-a2a7-33b0570039a0.PNG)
 
-<br>
 <details>
   <summary>공통 Error 코드</summary>
   
