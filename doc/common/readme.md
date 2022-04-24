@@ -118,7 +118,10 @@ public class CommonResEntity<T> {
 ![t3](https://user-images.githubusercontent.com/41244406/164992274-944b0c7e-8a16-4a17-a2a7-33b0570039a0.PNG)
 
 <details>
-  <summary>공통 Error 코드</summary>
+  <summary>Error 처리 코드</summary>
+  
+
+공통 에러 응답 엔티티
   
 ~~~java
 package health.real_pt.exception.exception_handler;
@@ -149,5 +152,152 @@ public class ErrorResponse {
 }
 
 ~~~
+<br>
+  
+
+~~~ java
+    public class CommonApiExceptions extends RuntimeException {
+
+    private ExceptionType error;
+    private String detail;
+
+    @Builder
+    public CommonApiExceptions(ExceptionType error, String detail) {
+        this.error=error;
+        this.detail=detail;
+    }
+}
+  
+~~~
+<br>  
+
+공통 오류 코드 타입
+~~~ java
+  package health.real_pt.exception.exception_handler;
+
+import lombok.Getter;
+import lombok.ToString;
+import org.springframework.http.HttpStatus;
+
+/**
+ * 공통 오류 코드 타입
+ */
+@Getter
+@ToString
+public enum ExceptionType {
+
+    /**
+     *                      Rule
+     *
+     * ErrorCode  = E + HTTP 응답코드 + 시퀀스(001 ~ 999)
+     */
+
+    RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST,"E0001","dsd"),
+    ENTITY_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND,"E404002","엔티티를 찾을 수 없습니다."),
+    DUPLICATE_KEY_EXCEPTION(HttpStatus.BAD_REQUEST,"E400001","중복된 값이 존재합니다."),
+    FILE_UPLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR,"E500001","파일 업로드에 실패하였습니다"),
+    FILE_DOWNLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR,"E500002","파일 다운로드에 실패하였습니다"),
+    PARAMETER_VALUE_ILLEGAL(HttpStatus.BAD_REQUEST,"E400002","인자값이 부적절합니다."),
+    LOGIN_FAILED(HttpStatus.BAD_REQUEST,"E404001","로그인에 실패하였습니다.")
+
+
+    ;
+
+    private final HttpStatus status;
+    private final String code;
+    private String message;
+
+    ExceptionType(HttpStatus status, String code) {
+        this.status = status;
+        this.code = code;
+    }
+
+    ExceptionType(HttpStatus status, String code, String message) {
+        this.status = status;
+        this.code = code;
+        this.message = message;
+    }
+}
+
+~~~
+<br>  
+  
+예외처리 
+~~~ java
+  package health.real_pt.exception.exception_handler;
+
+import health.real_pt.exception.exceptions.CommonApiExceptions;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ * 공통 예외처리 핸들러
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    /**
+     * 공통 예외 핸들러
+     */
+    @ExceptionHandler(value = {CommonApiExceptions.class})
+    public ResponseEntity<ErrorResponse> commonApiExceptions(final CommonApiExceptions e){
+
+//        System.out.println("e.getMessage() = " + e.getMessage());
+//        System.out.println("e.getLocalizedMessage() = " + e.getLocalizedMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .errorCode(e.getError().getCode())
+                                .errorMessage(e.getError().getMessage())
+                                .detail(e.getDetail())
+                                .build()
+                );
+    }
+
+    /**
+     *  중복 예외 처리
+     */
+    @ExceptionHandler(value = {DuplicateKeyException.class})
+    public ResponseEntity<ErrorResponse> duplicateKeyException(final DuplicateKeyException e){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .errorCode(ExceptionType.DUPLICATE_KEY_EXCEPTION.getCode())
+                                .errorMessage(ExceptionType.DUPLICATE_KEY_EXCEPTION.getMessage())
+                                .detail(e.getMessage())
+                                .build()
+                );
+
+    }
+
+    /**
+     *
+     */
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<ErrorResponse> IllegalArgumentException(final IllegalArgumentException e){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .errorCode(ExceptionType.PARAMETER_VALUE_ILLEGAL.getCode())
+                                .errorMessage(ExceptionType.PARAMETER_VALUE_ILLEGAL.getMessage())
+                                .detail(e.getMessage())
+                                .build()
+                );
+
+    }
+
+
+}
+
+  
+~~~
+  
 </details>
   
