@@ -15,7 +15,7 @@
 
 <h2>서비스 기능 설명</h2>
 
-- <Strong>Rest API 통신 기능 제공</Strong>
+- [Rest API 통신 기능 제공](https://github.com/underdarks/real_pt/blob/main/doc/common/readme.md)
 - [회원 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/member/doc.md)
 - [헬스장 관리 API](https://github.com/underdarks/real_pt/blob/main/doc/gym/doc.md)
 
