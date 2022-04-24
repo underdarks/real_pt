@@ -20,12 +20,12 @@ API 응답에 대해서는 공통 Response를 이용하여 응답 하고 있으�
 
 <br>
 
-예시 1) POST,DELETE 요청
+예시 1) POST, DELETE 요청
 
 ![t](https://user-images.githubusercontent.com/41244406/164991685-3eff8243-1fb9-44e9-b091-26f9cd4bdc39.PNG)
 
 
-예시 2) GET,PATCH 요청
+예시 2) GET, PATCH 요청
 
 ![t2](https://user-images.githubusercontent.com/41244406/164991804-1366b52d-c624-4830-9a4f-5964c9d334b3.PNG)
 
@@ -136,7 +136,7 @@ import lombok.ToString;
 public class ErrorResponse {
 
     private String errorCode;     //에러 코드
-    private String errorMessage;       //에러 메시지
+    private String errorMessage;  //에러 메시지
     private String detail;        //상세 오류
 
     @Builder
@@ -150,4 +150,4 @@ public class ErrorResponse {
 ~~~
 </details>
   
-
+*해당 문서는 지속적으로 업데이트 진행 중입니다.
