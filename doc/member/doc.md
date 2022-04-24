@@ -14,12 +14,16 @@
 
 ## API 상세 설명 
  
-### 회원 가입 
-[돌아 가기](#회원-관리-API-기능)
+### 회원 가입
 
-HttpHeader값에 member엔티티에 있는 Gym필드 값을 담아서 전송한다.<br>
+
 
 ![회원등록 헤더](https://user-images.githubusercontent.com/41244406/161992486-fddd2cff-2f62-4eec-91d9-7866bf40c8f4.PNG)
+
+
+
+
+### 로그인
 
 <br>
 회원 정보 입력 후 Post(http://localhost:8080/api/v1/member)로 요청하여 회원 가입을 한다.<br>

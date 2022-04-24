@@ -48,10 +48,12 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
     @Column(name = "NAME")
     private String name;
 
+    @NotBlank(message = "이메일은 필수 값입니다!")
     @Email
     @Column(name = "EMAIL", unique = true)
     private String email;
 
+    @NotBlank(message = "전화번호는 필수 값입니다!")
     @Column(name = "PHONE")
     private String phone;
 
