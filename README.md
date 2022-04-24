@@ -29,13 +29,14 @@
 <h2>ERD 설계도</h2>
 
 엔티티간의 상세한 관계는 기능별 문서에서 자세히 설명할 예정<br><br>
-![erd](https://user-images.githubusercontent.com/41244406/164428233-5fac5204-9603-4f8e-a0b8-957e796663e6.PNG)
+
+![erd](https://user-images.githubusercontent.com/41244406/164969291-369a8548-0731-48e7-a8eb-1ca217d47d82.PNG)
 
 
 <br>
 <h2>추후 개발 사항</h2>
 
-- <Strong>헬스 커뮤니티 기능 구현/Strong>
+- <Strong>헬스 커뮤니티 기능 구현</Strong>
 - <Strong>1:1 대화 기능</Strong>
 - <Strong>SNS 로그인 연동(KaKaoTalk, FaceBook 등..)</Strong>
 - <Strong>코틀린을 활용하여 안드로이드 어플 개발(어플 <-> API 서버 통신)</Strong>
@@ -53,8 +54,11 @@
 - Gradle 
 - Lombok
 - Mysql 8.0.27
+- Spring Security
+- Swaager 2.9.2
 
-![1](https://user-images.githubusercontent.com/41244406/159150270-39c95cdd-b8a3-4f66-9337-2bd713663447.PNG)
+![build_gradle](https://user-images.githubusercontent.com/41244406/164969440-41a77820-ed42-4d18-855d-f324bdf709bc.PNG)
+
 
 <br>
 
