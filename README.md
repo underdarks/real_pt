@@ -65,7 +65,7 @@
 
 <h2>API 테스트 및 문서 관리</h2>
 
-- <Strong>API 테스트 : 단위 테스트 & SpringBoot 통합 테스트, Postman</Strong>
+- <Strong>테스트 : 단위 테스트 & SpringBoot 통합 테스트, Postman</Strong>
 - <Strong>문서 관리 : Swaager</Strong>
 
  
