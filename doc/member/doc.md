@@ -1,6 +1,8 @@
 ## 회원 관리
 헬스장과 관련된 회원들의 정보를 관리합니다.
 <br>
+<br>
+
 
 ## 회원 관리 API 기능
 
@@ -15,10 +17,11 @@
 ## API 상세 설명 
  
 ### 회원 가입
+- 회원 정보를 등록하고 회원 가입을 합니다.  프로필 이미지 등록,
 
 
+![회원등록](https://user-images.githubusercontent.com/41244406/164971776-a39b3118-7ddb-455c-80d1-7031deaf0c2f.PNG)
 
-![회원등록 헤더](https://user-images.githubusercontent.com/41244406/161992486-fddd2cff-2f62-4eec-91d9-7866bf40c8f4.PNG)
 
 
 
