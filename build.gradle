@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'	//spring security
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'	//jwt
 
 
@@ -38,11 +38,6 @@ dependencies {
 	// swagger
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-
-//	implementation "io.springfox:springfox-boot-starter:3.0.0"
-//	compileOnly 'io.springfox:springfox-swagger2:3.0.0'
-//	compileOnly 'io.springfox:springfox-swagger-ui:3.0.0'
-
 }
 
 tasks.named('test') {
