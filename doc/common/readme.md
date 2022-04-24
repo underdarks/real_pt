@@ -5,7 +5,7 @@
 그리고 해당 문서는 지속적으로 최신화 진행 중 입니다.<br>
 
 ## API Request
-API 요청에서는 Request Data, 연관관계가 있는 데이터를 전송하기 위해 **applicatioin/json** 방식을 사용하고 있으며, 파일 업로드가 필요한 경우 **multipart/form-data** 형식으로 파일과 데이터를 함께 전송하여 기본적인 기능을 제공합니다.<br><br>
+API 요청에서는 Request Data, 연관관계가 있는 데이터를 전송하기 위해 **applicatioin/json** 방식을 사용하고 있으며, 파일 업로드가 필요한 경우 **multipart/form-data** 형식으로 파일과 데이터를 함께 전송하여 API 기능을 제공합니다.<br><br>
 기본적으로 REST API 가이드에 따라 URI 및 Http Method를 제공하고 있습니다. GET/POST/PATCH/DELETE Method를 제공하고 있으며,
 계층 관계를 나타날 때에는 URI에 '/'를 사용하고 있으며 모든 URI 경로는 소문자를 준수하고 있습니다.
 
