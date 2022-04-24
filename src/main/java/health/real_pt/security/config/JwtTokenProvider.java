@@ -85,14 +85,13 @@ public class JwtTokenProvider {
     public String createJwtToken(String userId, List<String> roles){
         Claims claims= Jwts.claims().setSubject(userId);
         claims.put("roles",roles);  //정보는 key : value 쌍으로 지정
-
-
         Date now = new Date();
+
         return Jwts.builder()
                 .setClaims(claims)  //정보 저장
                 .setIssuedAt(now)   //토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + tokenValidTime))    //토큰 만기 시간
-                .signWith(SignatureAlgorithm.HS256,secretKey)   //사용 알고리즘과 서명에 들어갈 secrekey
+                .signWith(SignatureAlgorithm.HS256,secretKey)   //사용 알고리즘과 서명에 들어갈 secretkey 세팅
                 .compact();
     }
 
@@ -101,15 +100,19 @@ public class JwtTokenProvider {
      * JWT 토큰에서 인증 정보 조회
      */
     public Authentication getAuthentication(String token){
+        //userId로 Member 찾는다
         UserDetails userDetails= userDetailsService.loadUserByUsername(getUserPk(token));
-        return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+
+        return authenticationToken;
     }
 
     /**
      *  토큰에서 회원 정보 추출
      */
     public String getUserPk(String token){
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        String subject = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        return subject; //userID반환
     }
 
     /**
@@ -126,7 +129,7 @@ public class JwtTokenProvider {
     public boolean validateToken(String token){
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return claims.getBody().getExpiration().before(new Date());
+            return !claims.getBody().getExpiration().before(new Date());
         }
         catch (Exception e) {
             return false;

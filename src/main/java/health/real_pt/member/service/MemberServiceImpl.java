@@ -35,12 +35,14 @@ public class MemberServiceImpl implements MemberService {
         this.memberImageService = memberImageService;
     }
 
+    //로그인
     @Override
     public Member login(LoginDto loginDto) {
         Member member= memberRepository.findByUserId(loginDto.getUserId()).orElseThrow(() -> new CommonApiExceptions(ExceptionType.LOGIN_FAILED,"사용자를 찾지 못하였습니다."));
         return member;
     }
 
+    //회원 가입
     @Override
     @Transactional
     public Long join(MemberReqDto reqDto, Long gymId, List<MultipartFile> files) {

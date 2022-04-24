@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,7 +82,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
     private List<PtPrice> prices=new ArrayList<>();
 
     @ElementCollection(fetch = EAGER)
-    @Builder.Default
+//    @Builder.Default
     private List<String> roles=new ArrayList<>();
 
     //=============== UserDetails 상속 ====================
@@ -137,9 +138,6 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
         this.nickname = nickname;
     }
 
-
-
-
     //============= 연관관계 편의 메서드 =========================
 
     //헬스장 - 멤버 연결
@@ -168,9 +166,8 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
     public Member(String userId, String password,
                   String name, String email,
                   String phone, LocalDate birthDay,
-                  String nickname, String recommandCode,
-                  String recommandedCode, MemberType memberType,
-                  Gym gym) {
+                  String nickname, MemberType memberType,
+                  Gym gym,List<String> roles) {
 
         this.userId = userId;
         this.password = password;
@@ -180,6 +177,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
         this.birthDay = birthDay;
         this.nickname = nickname;
         this.memberType = memberType;
+        this.roles=roles;
         addGym(gym);
     }
 
@@ -194,6 +192,7 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
                 .birthDay(memberReqDto.getBirthDay())
                 .nickname(memberReqDto.getNickname())
                 .memberType(memberReqDto.getMemberType())
+                .roles(Collections.singletonList("ROLE_USER"))   //최초 가입시 USER 권한(꼭, DB 저장시 ROLE_이 붙어야함
                 .gym(memberReqDto.getGym())
                 .build();
 

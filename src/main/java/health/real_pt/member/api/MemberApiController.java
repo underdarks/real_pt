@@ -12,6 +12,7 @@ import health.real_pt.member.dto.MemberReqDto;
 import health.real_pt.member.dto.MemberListDto;
 import health.real_pt.member.service.MemberService;
 import health.real_pt.security.config.JwtTokenProvider;
+import health.real_pt.security.encryption.SHA256;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,12 +49,10 @@ public class MemberApiController {
     public String login(@RequestBody @Valid LoginDto loginDto){
         Member member = memberService.login(loginDto);
 
+//        if(passwordEncoder.matches(SHA256.getSHA256HashCode(loginDto.getPassword()), member.getPassword()))
+//            throw new IllegalArgumentException("잘못된 비밀번호 입니다");
 
-        if(passwordEncoder.matches(loginDto.getPassword(), member.getPassword()))
-            throw new IllegalArgumentException("잘못된 비밀번호 입니다");
-
-        return jwtTokenProvider.createJwtToken()
-
+        return jwtTokenProvider.createJwtToken(member.getUserId(),member.getRoles());
     }
 
 
