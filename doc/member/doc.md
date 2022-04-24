@@ -13,18 +13,31 @@
 - [회원 탈퇴](#회원-탈퇴)
 
 
-
+###### [> code](https://github.com/underdarks/real_pt/blob/main/doc/member/code.md)
 ## API 상세 설명 
  
 ### 회원 가입
-- 회원 정보를 등록하고 회원 가입을 합니다.  프로필 이미지 등록,
+ 회원 정보를 등록하고 회원 가입을 합니다. 
+ 
+> #### Request
+ |메서드|요청 URL|요청 Data|
+|----|------|--------------|
+|GET|http://localhost:8080/api/v1/member|![회원등록_데이터](https://user-images.githubusercontent.com/41244406/164993929-3625d6f5-d78e-4bdc-8b91-f563f73cece7.PNG)|
+
+<br>
+ 
+> #### Response
+##### 요청 성공
+
+![회원등록](https://user-images.githubusercontent.com/41244406/164993184-4a0bdb74-aabf-4f0f-8917-d30d75f0f06c.PNG)
+  
+
+##### 요청 실패
+
+![회원등록_실패](https://user-images.githubusercontent.com/41244406/164993483-68d80f2b-dde4-4ccc-a903-3c1e6ed6280d.PNG)
 
 
-![회원등록](https://user-images.githubusercontent.com/41244406/164971776-a39b3118-7ddb-455c-80d1-7031deaf0c2f.PNG)
-
-
-
-
+<br>
 
 ### 로그인
 
