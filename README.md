@@ -38,9 +38,8 @@
 
 - <Strong>헬스 커뮤니티 기능 구현</Strong>
 - <Strong>1:1 대화 기능</Strong>
-- <Strong>SNS 로그인 연동(KaKaoTalk, FaceBook 등..)</Strong>
-- <Strong>코틀린을 활용하여 안드로이드 어플 개발(어플 <-> API 서버 통신)</Strong>
-- <Strong>aws를 활용한 서버 배포 작업</Strong>
+- <Strong>코틀린을 활용하여 안드로이드 어플 개발 및 배포(어플 <-> API 서버 통신)</Strong>
+
 
   
 <br>
