@@ -165,8 +165,7 @@
 - - -
 
 ### 가격 등록
- PT 가격을 등록합니다.<br>
- 
+ PT 가격을 등록합니다.
  <br><br>
  
   
@@ -186,7 +185,6 @@
 ##### 응답 실패
 
 ![가격 등록 실패](https://user-images.githubusercontent.com/41244406/165129444-7d3b96f4-575f-4b31-b1bc-ab2d3ac07080.PNG)
-
 
 - - -
 
@@ -224,7 +222,7 @@
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|GET|http://localhost:8080/api/v1/pt/pt-id/price||
+|GET|http://localhost:8080/api/v1/pt/pt-id/price-id||
 
 <br>
  
