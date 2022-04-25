@@ -102,7 +102,7 @@
 
 ### 헬스장 정보 삭제
  헬스장 정보를 삭제합니다.<br>
- 헬스장 삭제 시 Member, GymImage, GymPrice와 연관관계를 가지고 있어 GymImage와 GymPrice는 cascade = CascadeType.DELETE, orphanRemoval = true 옵션을 통하여 같이 삭제되게 하였으며, 헬스장에 속한 PT(Member)와 연관관계를 끊어 삭제를 하였습니다.
+ 헬스장 삭제 시 Member, GymImage, GymPrice와 연관관계를 가지고 있어 GymImage와 GymPrice는 cascade = CascadeType.DELETE, orphanRemoval = true 옵션을 통하여 같이 삭제되게 하였으며, 헬스장에 속한 PT(Member)같은 경우 실제 데이터를 삭제를 하지 않고 Gym <-> Member간의 연관관계를 끊었습니다(null로 값 대입) 
  
  
  <br><br>
@@ -220,7 +220,6 @@
 
 ##### 등록된 가격 없는 경우
 
-
 ![가격 조회 없음](https://user-images.githubusercontent.com/41244406/165053589-befb95d9-a988-470d-9ff6-69ab8516e3aa.PNG)
 
 
@@ -229,7 +228,6 @@
 
 ### 가격 삭제
  헬스장 가격을 삭제합니다.
- 
  <br><br>
  
 > #### Request
@@ -243,7 +241,6 @@
 ##### 요청 성공
 
 ![가격 삭제 성공](https://user-images.githubusercontent.com/41244406/165054199-12175458-2272-45ca-ad4f-b5172322a1b9.PNG)
-
 
 
 ##### 요청 실패
