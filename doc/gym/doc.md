@@ -16,7 +16,7 @@
 - [가격 삭제](#가격-삭제)
 
 
-###### [> code](https://github.com/underdarks/real_pt/blob/main/doc/member/code.md)
+###### [> code](https://github.com/underdarks/real_pt/blob/main/doc/gym/code.md)
 
 ## API 상세 설명 
  
