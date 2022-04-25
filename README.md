@@ -62,6 +62,11 @@
 
 - <Strong>테스트 : 단위 테스트 & SpringBoot 통합 테스트, Postman</Strong>
 - <Strong>문서 관리 : Swaager</Strong>
+ 
+![swagger 1](https://user-images.githubusercontent.com/41244406/165130702-520bdf3e-48df-44ae-9eec-647038d8d5c3.PNG)
+![swagger 2](https://user-images.githubusercontent.com/41244406/165130710-322eb8a9-51ba-4edb-aa92-245142a20459.PNG)
+![swagger 3](https://user-images.githubusercontent.com/41244406/165130713-e5ac0d17-5edd-4bb6-a022-0d4977661761.PNG)
+
 
  
  <br>
