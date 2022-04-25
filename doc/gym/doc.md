@@ -9,7 +9,7 @@
 - [헬스장 정보 수정](#헬스장-정보-수정)
 - [헬스장 정보 조회](#헬스장-정보-조회)
 - [헬스장 정보 삭제](#헬스장-정보-삭제)
-- [헬스장 소속 PT 조회](#헬스장-소속-PT-조회)
+- [PT 조회](#PT-조회)
 - [가격 등록](#가격-등록)
 - [가격 수정](#가격-수정)
 - [가격 조회](#가격-조회)
@@ -102,7 +102,7 @@
 
 ### 헬스장 정보 삭제
  헬스장 정보를 삭제합니다.<br>
- 헬스장 삭제 시 Member, GymImage, GymPrice와 연관관계를 가지고 있어 GymImage와 GymPrice는 cascade = CascadeType.DELETE, orphanRemoval = true 옵션을 통하여 같이 삭제되게 하였으며, 헬스장에 속한 PT으
+ 헬스장 삭제 시 Member, GymImage, GymPrice와 연관관계를 가지고 있어 GymImage와 GymPrice는 cascade = CascadeType.DELETE, orphanRemoval = true 옵션을 통하여 같이 삭제되게 하였으며, 헬스장에 속한 PT(Member)와 연관관계를 끊어 삭제를 하였습니다.
  
  
  <br><br>
@@ -110,21 +110,20 @@
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|POST|http://localhost:8080/api/v1/gym|![정보 등록 Data](https://user-images.githubusercontent.com/41244406/165020103-1118eaa5-30b3-47e8-b134-294ba01fa1ba.PNG)|
+|DELETE|http://localhost:8080/api/v1/gym/id||
 
 <br>
  
 > #### Response
 ##### 요청 성공
 
-
-##### 요청 실패
+![헬스장 삭제](https://user-images.githubusercontent.com/41244406/165055333-0a517def-9afb-4ba0-9dac-a5da592e9327.PNG)
 
 
 - - -
 
 
-### 헬스장 소속 PT 조회
+### PT 조회
  헬스장에 근무하는 PT(Persional Trainer)들을 조회합니다.
  <br><br>
  
@@ -182,23 +181,74 @@
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|POST|http://localhost:8080/api/v1/gym/gym-id/price/id|수정할 데이터|
+|PATCH|http://localhost:8080/api/v1/gym/gym-id/price/id|수정할 데이터|
 
 <br>
  
 > #### Response
 ##### 요청 성공
 
+![가격 수정 성공](https://user-images.githubusercontent.com/41244406/165052187-f0462ec7-049d-4a0f-8cba-d3486899d50e.PNG)
+
 
 
 ##### 요청 실패
 
+![가격 수정 실패](https://user-images.githubusercontent.com/41244406/165052201-44dc7dde-a3c2-4697-8f28-32b755af8576.PNG)
+
+
+- - -
+
+### 가격 조회
+ 헬스장 가격(이용료)들을 조회합니다.
+ <br><br>
+ 
+ 
+> #### Request
+ |메서드|요청 URL|요청 Data|
+|----|------|--------------|
+|GET|http://localhost:8080/api/v1/gym/gym-id/price||
+
+<br>
+ 
+> #### Response
+##### 요청 성공
+
+![가격 조회](https://user-images.githubusercontent.com/41244406/165053582-51da1a53-5f51-471d-b9e0-1322dd50edd0.PNG)
+
+
+
+##### 등록된 가격 없는 경우
+
+
+![가격 조회 없음](https://user-images.githubusercontent.com/41244406/165053589-befb95d9-a988-470d-9ff6-69ab8516e3aa.PNG)
 
 
 - - -
 
 
+### 가격 삭제
+ 헬스장 가격을 삭제합니다.
+ 
+ <br><br>
+ 
+> #### Request
+ |메서드|요청 URL|요청 Data|
+|----|------|--------------|
+|DELETE|http://localhost:8080/api/v1/gym/gym-id/price/id||
 
+<br>
+ 
+> #### Response
+##### 요청 성공
+
+![가격 삭제 성공](https://user-images.githubusercontent.com/41244406/165054199-12175458-2272-45ca-ad4f-b5172322a1b9.PNG)
+
+
+
+##### 요청 실패
+
+![가격 삭제 실패](https://user-images.githubusercontent.com/41244406/165054208-4fe2c908-2cdb-4d84-9955-103f39c77029.PNG)
 
 
 
