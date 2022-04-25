@@ -19,7 +19,7 @@
  
 ### 회원 가입
  회원 정보(id, pw, email, 사진 등)를 등록하고 회원 가입을 합니다.(이미지 다중 업로드 기능 제공)<br>
-회원 가입시 회원의 권한은 "ROLE_USER"로 Default 값을 가집니다.<br><br>
+ 회원타입은 헬스장 이용자, PT(Personal Trainer), 대표로 구분합니다. 그리고 회원 가입시 회원의 권한은 "ROLE_USER"로 Default 값을 가집니다.<br><br>
  
  
 > #### Request
