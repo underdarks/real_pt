@@ -26,8 +26,8 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .error(e.getError().getCode())
-                                .message(e.getError().getMessage())
+                                .errorCode(e.getError().getCode())
+                                .errorMessage(e.getError().getMessage())
                                 .detail(e.getDetail())
                                 .build()
                 );
@@ -42,8 +42,8 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .error(ExceptionType.DUPLICATE_KEY_EXCEPTION.getCode())
-                                .message(ExceptionType.DUPLICATE_KEY_EXCEPTION.getMessage())
+                                .errorCode(ExceptionType.DUPLICATE_KEY_EXCEPTION.getCode())
+                                .errorMessage(ExceptionType.DUPLICATE_KEY_EXCEPTION.getMessage())
                                 .detail(e.getMessage())
                                 .build()
                 );
@@ -59,8 +59,8 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .error(ExceptionType.PARAMETER_VALUE_ILLEGAL.getCode())
-                                .message(ExceptionType.PARAMETER_VALUE_ILLEGAL.getMessage())
+                                .errorCode(ExceptionType.PARAMETER_VALUE_ILLEGAL.getCode())
+                                .errorMessage(ExceptionType.PARAMETER_VALUE_ILLEGAL.getMessage())
                                 .detail(e.getMessage())
                                 .build()
                 );

@@ -39,22 +39,22 @@ public class MemberApiController {
      *  회원 등록 필수 값 확인 처리
      */
     public void checkReqDtoValidation(MemberReqDto reqDto){
-        if(reqDto.getUserId().isBlank())
+        if(reqDto.getUserId() == null || reqDto.getUserId().isBlank())
             throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"userId는 필수 값입니다.");
 
-        else if(reqDto.getPassword().isBlank())
+        else if(reqDto.getPassword() == null || reqDto.getPassword().isBlank())
             throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"password는 필수 값입니다.");
 
-        else if(reqDto.getName().isBlank())
+        else if(reqDto.getName() == null ||reqDto.getName().isBlank())
             throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"name은 필수 값입니다.");
 
-        else if(reqDto.getEmail().isBlank())
+        else if(reqDto.getEmail() == null ||reqDto.getEmail().isBlank())
             throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"email은 필수 값입니다.");
 
-        else if(reqDto.getPhone().isBlank())
+        else if(reqDto.getPhone() == null ||reqDto.getPhone().isBlank())
             throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"phone은 필수 값입니다.");
 
-        else if(reqDto.getNickname().isBlank())
+        else if(reqDto.getNickname() == null ||reqDto.getNickname().isBlank())
             throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"nickname은 필수 값입니다.");
 
     }

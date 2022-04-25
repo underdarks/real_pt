@@ -22,7 +22,6 @@ public enum ExceptionType {
     DUPLICATE_KEY_EXCEPTION(HttpStatus.BAD_REQUEST,"E400001","중복된 값이 존재합니다."),
     FILE_UPLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR,"E500001","파일 업로드에 실패하였습니다"),
     FILE_DOWNLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR,"E500002","파일 다운로드에 실패하였습니다"),
-
     PARAMETER_VALUE_ILLEGAL(HttpStatus.BAD_REQUEST,"E400002","인자값이 부적절합니다."),
     LOGIN_FAILED(HttpStatus.BAD_REQUEST,"E404001","로그인에 실패하였습니다.")
 

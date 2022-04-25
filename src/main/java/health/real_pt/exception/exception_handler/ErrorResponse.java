@@ -13,14 +13,14 @@ import lombok.ToString;
 @ToString
 public class ErrorResponse {
 
-    private String error;      //에러 코드
-    private String message;    //에러 메시지
-    private String detail;     //상세 오류
+    private String errorCode;     //에러 코드
+    private String errorMessage;       //에러 메시지
+    private String detail;        //상세 오류
 
     @Builder
-    public ErrorResponse(String error, String message, String detail) {
-        this.error = error;
-        this.message = message;
+    public ErrorResponse(String errorCode, String errorMessage, String detail) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
         this.detail = detail;
     }
 }
