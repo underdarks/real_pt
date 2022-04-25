@@ -112,6 +112,56 @@
 
 ![리뷰 삭제 성공](https://user-images.githubusercontent.com/41244406/165123938-6b979058-04fb-4073-b6a6-3763aeac0fec.PNG)
 
+- - -
+
+### 좋아요
+ 리뷰에 대한 도움이 돼요(좋아요)를 합니다.<br>
+ 응답 Data값은 해당 리뷰의 좋아요 개수입니다.
+ <br><br>
+ 
+  
+> #### Request
+ |메서드|요청 URL|요청 Data|
+|----|------|--------------|
+|PATCH|http://localhost:8080/api/v1/pt/pt-id/review/good/review-id||
+
+<br>
+ 
+> #### Response
+##### 좋아요(+1)
+
+![리뷰 좋아요](https://user-images.githubusercontent.com/41244406/165125008-8fd334fe-17e1-4b5b-8a83-857ca0e6ed30.PNG)
+
+
+##### 좋아요(-1)
+
+![리뷰 좋아요 -1](https://user-images.githubusercontent.com/41244406/165125020-c3b0b6ba-f310-400c-a297-57af24c461a6.PNG)
+
+- - -
+
+### 싫어요
+ 리뷰에 대한 도움이 안돼요(싫어요)를 합니다.<br>
+ 응답 Data값은 해당 리뷰의 싫어요 개수입니다.
+ <br><br>
+ 
+  
+> #### Request
+ |메서드|요청 URL|요청 Data|
+|----|------|--------------|
+|PATCH|http://localhost:8080/api/v1/pt/pt-id/review/bad/review-id||
+
+<br>
+ 
+> #### Response
+##### 싫어요(+1)
+
+![리뷰 싫어요 +1](https://user-images.githubusercontent.com/41244406/165125491-9a34ebdf-cad0-44ad-8624-ae3712e4d9f0.PNG)
+
+
+##### 싫어요(-1)
+
+![리뷰 싫어요 -1](https://user-images.githubusercontent.com/41244406/165125517-e485ec52-cb9f-4eea-8daf-b039597d06e6.PNG)
+
 
 
  
