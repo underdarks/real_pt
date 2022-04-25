@@ -3,6 +3,9 @@ package health.real_pt.price.api;
 import health.real_pt.common.response.CommonResMessage;
 import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.StatusCode;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
+import health.real_pt.price.dto.gymPrice.GymPriceReqDto;
 import health.real_pt.price.dto.ptPrice.PtPriceListDto;
 import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
 import health.real_pt.price.dto.ptPrice.PtPriceResDto;
@@ -28,6 +31,21 @@ public class PtPriceApiController {
     private final PtPriceService ptPriceService;
 
     /**
+     * 헬스장 가격 필수 값 확인 처리
+     */
+    public void checkReqDtoValidation(PtPriceReqDto reqDto) {
+        if (reqDto.getRegularPrice() == null || reqDto.getRegularPrice() < 0)
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL, "regularPrice는 필수 값입니다.");
+
+        else if (reqDto.getDiscountPrice() == null || reqDto.getDiscountPrice() < 0)
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL, "discountPrice는 필수 값입니다.");
+
+        else if (reqDto.getTimes() == null || reqDto.getTimes().isBlank())
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL, "times는 필수 값입니다.");
+
+    }
+
+    /**
      * 가격 등록
      * @param ptId : memberID
      * @param reqDto
@@ -36,6 +54,7 @@ public class PtPriceApiController {
     @ApiOperation(value = "PT 가격 등록", notes = "PT 가격 정보를 등록합니다.")
     @PostMapping("")
     public ResponseEntity<CommonResEntity> savePtPrice(@PathVariable(value = "pt-id") Long ptId, @RequestBody @Valid PtPriceReqDto reqDto) {
+        checkReqDtoValidation(reqDto);
         ptPriceService.savePrice(reqDto, ptId);
 
         return new ResponseEntity(

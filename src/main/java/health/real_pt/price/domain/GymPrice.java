@@ -35,7 +35,7 @@ public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceReqDt
     private Long discountPrice; //할인가
 
     @Column(name = "MONTHS")
-    private Integer months;  //월수 (ex. 1개월, 3개월, 6개월 등)
+    private String months;  //월수 (ex. 1개월, 3개월, 6개월 혹은 일일권)
 
 
     /**
@@ -54,7 +54,7 @@ public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceReqDt
         this.discountPrice = discountPrice;
     }
 
-    public void changeMonth(Integer months) {
+    public void changeMonth(String months) {
         this.months = months;
     }
 
@@ -70,7 +70,7 @@ public class GymPrice extends BaseTimeEntity implements BaseEntity<GymPriceReqDt
 
     //객체 생성(빌더 패턴)
     @Builder
-    public GymPrice(Gym gym, Long regularPrice, Long discountPrice, Integer months) {
+    public GymPrice(Gym gym, Long regularPrice, Long discountPrice, String months) {
         this.regularPrice = regularPrice;
         this.discountPrice = discountPrice;
         this.months = months;

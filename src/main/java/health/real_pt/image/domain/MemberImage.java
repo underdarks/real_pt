@@ -30,6 +30,7 @@ public class MemberImage extends BaseImageEntity {
         this.member.getImages().add(this);
     }
 
+
     //객체 생성(빌더 패턴)
     @Builder
     public MemberImage(String originalFileName, String storedFileName, String filepath, Long size, String downloadUri, Member member) {

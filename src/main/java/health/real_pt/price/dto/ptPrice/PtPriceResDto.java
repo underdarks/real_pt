@@ -12,7 +12,7 @@ public class PtPriceResDto implements BaseDto<PtPrice, PtPriceResDto> {
     private String ptName; //트레이너 이름
     private Long regularPrice;  //정상가
     private Long discountPrice; //할인가
-    private Integer times;  //횟수 (ex. 10회, 20회, 30회 등..)
+    private String times;  //횟수 (ex. 10회, 20회, 30회 등..)
 
     @Override
     public PtPriceResDto entityToDto(PtPrice ptPrice) {

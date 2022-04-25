@@ -33,7 +33,7 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
     private Long discountPrice; //할인가
 
     @Column(name = "TIMES")
-    private Integer times;  //횟수 (ex. 10회, 20회, 30회 등..)
+    private String times;  //횟수 (ex. 10회, 20회, 30회 ... 혹은 OT 무료 x회)
 
 
     /**
@@ -52,7 +52,7 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
         this.discountPrice = discountPrice;
     }
 
-    public void changeTimes(Integer times) {
+    public void changeTimes(String times) {
         this.times = times;
     }
 
@@ -69,7 +69,7 @@ public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto>
     /* ============================================================================================================== */
 
     @Builder    //객체 생성(빌더 패턴)
-    public PtPrice(Member pt, Long regularPrice, Long discountPrice, Integer times) {
+    public PtPrice(Member pt, Long regularPrice, Long discountPrice, String times) {
         this.regularPrice = regularPrice;
         this.discountPrice = discountPrice;
         this.times = times;

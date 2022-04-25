@@ -3,6 +3,8 @@ package health.real_pt.gym.api;
 import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.CommonResMessage;
 import health.real_pt.common.response.StatusCode;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.dto.GymReqDto;
 import health.real_pt.gym.dto.GymListDto;
@@ -10,6 +12,7 @@ import health.real_pt.gym.dto.GymResDto;
 import health.real_pt.gym.dto.PtResDto;
 import health.real_pt.gym.service.GymService;
 import health.real_pt.member.domain.Member;
+import health.real_pt.member.dto.MemberReqDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,19 @@ public class GymApiController {
     private final GymService gymService;
 
     /**
+     *  헬스장 등록 필수 값 확인 처리
+     */
+    public void checkReqDtoValidation(GymReqDto reqDto){
+        if(reqDto.getName() == null || reqDto.getName().isBlank())
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"name은 필수 값입니다.");
+
+        else if(reqDto.getLocation() == null || reqDto.getLocation().isBlank())
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"location은 필수 값입니다.");
+
+    }
+
+
+    /**
      * 헬스장 정보 저장
      *
      * @param reqDto : 저장할 헬스장 정보 DTO
@@ -38,6 +54,8 @@ public class GymApiController {
     public ResponseEntity<CommonResEntity> saveGym(
             @RequestPart(value = "reqData") GymReqDto reqDto,
             @RequestPart(value = "images") List<MultipartFile> files) {
+
+        checkReqDtoValidation(reqDto);
         gymService.saveGym(reqDto, files);
 
         return new ResponseEntity(

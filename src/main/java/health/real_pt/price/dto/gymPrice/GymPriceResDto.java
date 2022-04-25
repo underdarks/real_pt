@@ -8,14 +8,15 @@ import lombok.NoArgsConstructor;
 /**
  * GymPrice 응답(RES) DTO
  */
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class GymPriceResDto implements BaseDto<GymPrice, GymPriceResDto> {
 
     private Long id;
     private String name;        //헬스장 이름
     private Long regularPrice;  //정상가
     private Long discountPrice; //할인가
-    private Integer months;  //월수 (ex. 1개월, 3개월, 6개월 등)
+    private String months;  //월수 (ex. 1개월, 3개월, 6개월 등)
 
 
     @Override

@@ -3,6 +3,9 @@ package health.real_pt.review.api.ptReview;
 import health.real_pt.common.response.CommonResMessage;
 import health.real_pt.common.response.CommonResEntity;
 import health.real_pt.common.response.StatusCode;
+import health.real_pt.exception.exception_handler.ExceptionType;
+import health.real_pt.exception.exceptions.CommonApiExceptions;
+import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewReqDto;
 import health.real_pt.review.dto.ptReview.PtReviewResDto;
 import health.real_pt.review.dto.ptReview.PtReviewResListDto;
@@ -29,6 +32,18 @@ public class ptReviewApiController {
 
     private final PtReviewService ptReviewService;
 
+    /**
+     * PT Review 필수 값 확인 처리
+     */
+    public void checkReqDtoValidation(PtReviewReqDto reqDto) {
+        if (reqDto.getTotal() == null)
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL, "total은 필수 값입니다.");
+
+        else if (reqDto.getComment() == null || reqDto.getComment().isBlank())
+            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL, "comment는 필수 값입니다.");
+
+    }
+
 
     /**
      * 리뷰 등록
@@ -43,6 +58,7 @@ public class ptReviewApiController {
             @RequestPart(value = "images") List<MultipartFile> files,
             @RequestPart(value = "reqData") PtReviewReqDto reqDto)
     {
+        checkReqDtoValidation(reqDto);
         ptReviewService.saveReview(reqDto, ptId,files);
 
         return new ResponseEntity(
