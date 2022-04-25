@@ -1,11 +1,11 @@
-## 회원과 관련된 주요 코드들만 모아놓은 문서입니다.
-상세 코드를 보고 싶으시면 repo Clone 하셔서 보시면됩니다.
+## 회원과 관련된 주요 엔티티들만 모아놓은 문서입니다.
+자세한 코드를 보고 싶으시면 repo Clone 하셔서 보시면됩니다.
 
 
 
-### 회원 엔티티
-아래 코드는 회원 엔티티이다.<br>
-회원은 Gym과, MemberImage, ptReview, ptPrice, memberRoles와 1:N(@OnetoMany) 관계를 가진다.
+### Member 엔티티
+
+회원은 Gym과, MemberImage, ptReview, ptPrice와 1:N(@OnetoMany) 관계를 가진다.
 
 ~~~java
 package health.real_pt.member.domain;
@@ -231,170 +231,524 @@ public class Member extends BaseTimeEntity implements BaseEntity<MemberReqDto>, 
 
 }
 
+~~~
+<br>
+
+- - -
+
+
+### MemberImage 엔티티
+
+~~~java
+package health.real_pt.image.domain;
+
+
+import health.real_pt.common.BaseImageEntity;
+import health.real_pt.member.domain.Member;
+import lombok.*;
+
+import javax.persistence.*;
+
+import static javax.persistence.FetchType.LAZY;
+
+@Entity @Table(name = "MEMBER_IMAGE")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
+@ToString(exclude = "")
+public class MemberImage extends BaseImageEntity {
+
+    //서버 파일 경로
+    public static final String serverFilePath = "D:/upload_image/member/";
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    //------ 연관관계 편의 메서드 =========
+
+    //멤버의 이미지 추가
+    public void addMemberImage(Member member) {
+        this.member = member;
+        this.member.getImages().add(this);
+    }
+
+
+    //객체 생성(빌더 패턴)
+    @Builder
+    public MemberImage(String originalFileName, String storedFileName, String filepath, Long size, String downloadUri, Member member) {
+        this.originalFileName = originalFileName;
+        this.downloadUri = downloadUri;
+        this.storedFileName = storedFileName;
+        this.filepath = filepath;
+        this.size = size;
+
+        addMemberImage(member);
+    }
+
+}
+
+
 
 ~~~
+<br>
 
-### 회원 API Controller
-~~~ java
-package health.real_pt.member.api;
+- - -
 
 
-import health.real_pt.exception.exception_handler.ExceptionType;
-import health.real_pt.exception.exceptions.CommonApiExceptions;
-import health.real_pt.common.response.CommonResEntity;
-import health.real_pt.common.response.CommonResMessage;
-import health.real_pt.common.response.StatusCode;
+### Gym 엔티티
+
+~~~java
+package health.real_pt.gym.domain;
+
+import health.real_pt.common.BaseEntity;
+import health.real_pt.common.BaseTimeEntity;
+import health.real_pt.gym.dto.GymReqDto;
+import health.real_pt.image.domain.GymImage;
 import health.real_pt.member.domain.Member;
-import health.real_pt.member.dto.LoginDto;
-import health.real_pt.member.dto.MemberResDto;
-import health.real_pt.member.dto.MemberReqDto;
-import health.real_pt.member.dto.MemberListDto;
-import health.real_pt.member.service.MemberService;
-import health.real_pt.security.config.JwtTokenProvider;
-import health.real_pt.security.encryption.SHA256;
-import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import health.real_pt.price.domain.GymPrice;
+import lombok.*;
 
-import javax.validation.Valid;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("api/v1/member")
-@RequiredArgsConstructor
-public class MemberApiController {
+import static javax.persistence.FetchType.*;
 
-    private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
+@Entity
+@Table(name = "GYM")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
+@ToString(exclude = {"pt","images","prices"})
+public class Gym extends BaseTimeEntity implements BaseEntity<GymReqDto> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "GYM_ID")
+    private Long id;
+
+    @NotBlank(message = "헬스장 이름은 필수 값 입니다.")
+    @Column(name = "NAME", unique = true)
+    private String name;    //헬스장 이름(중복 불가, 대신 체인점은 끝에 xx점 붙이기 ex. 스포애니 - 신림사거리 1호점)
+
+    @Lob
+    @Column(name = "INFO")
+    private String info;      //헬스장 정보
+
+    @Lob
+    @Column(name = "OPEN_TIME")
+    private String openTime;    //영업 시간
+
+    @Lob
+    @Column(name = "PROGRAM")
+    private String program;      //운영 프로그램
+
+    @NotBlank
+    @Column(name = "LOCATION")
+    private String location;    //위치 주소
+
+    @Lob
+    @Column(name = "EXTRA_SERVICE")
+    private String extraService;  //부가서비스
+
+    @Lob
+    @Column(name = "FACILITIES")
+    private String facilites;     //편의시설
+
+    //Enum타입은 꼭 String으로 써라 Ordinal은 2가지 값만 갖는다. 따라서 확장 안됨
+    @Enumerated(EnumType.STRING)
+    private GymStatus gymStatus;    //헬스장 영업 상태
+
+
+    @OneToMany(mappedBy = "gym")     //헬스장 PT 리스트
+    private List<Member> pt = new ArrayList<>();
+
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)     //헬스장 이미지
+    private List<GymImage> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)     //헬스장 가격
+    private List<GymPrice> prices = new ArrayList<>();
+
+
+    //============= 연관관계 편의 메서드 =========================
+
+
+    //헬스장 - 이미지 삭제(고아 객체 자동 삭제)
+    public void deleteGymImages() {
+        int size = images.size();
+
+        for (int i = 0; i < size; i++)
+            this.images.remove(0);
+    }
+
+    //헬스장 - PT 삭제
+    public void deleteGym(){
+        int size=getPt().size();
+
+        for (int i = 0; i < size; i++) {
+             getPt().get(0).deleteGym();
+             getPt().remove(0);
+        }
+    }
+
+
 
 
     /**
-     *  회원 등록 필수 값 확인 처리
+     * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
      */
-    public void checkReqDtoValidation(MemberReqDto reqDto){
-        if(reqDto.getUserId() == null || reqDto.getUserId().isBlank())
-            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"userId는 필수 값입니다.");
 
-        else if(reqDto.getPassword() == null || reqDto.getPassword().isBlank())
-            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"password는 필수 값입니다.");
+    public void changeName(String name) {
+        if (name != null && !name.isEmpty())
+            this.name = name;
+    }
 
-        else if(reqDto.getName() == null ||reqDto.getName().isBlank())
-            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"name은 필수 값입니다.");
+    public void changeInfo(String info) {
+        if (info != null && !info.isEmpty())
+            this.info = info;
+    }
 
-        else if(reqDto.getEmail() == null ||reqDto.getEmail().isBlank())
-            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"email은 필수 값입니다.");
+    public void changeOpenTime(String openTime) {
+        if (openTime != null && !openTime.isEmpty())
+            this.openTime = openTime;
+    }
 
-        else if(reqDto.getPhone() == null ||reqDto.getPhone().isBlank())
-            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"phone은 필수 값입니다.");
+    public void changeProgram(String program) {
+        if (program != null && !program.isEmpty())
+            this.program = program;
+    }
 
-        else if(reqDto.getNickname() == null ||reqDto.getNickname().isBlank())
-            throw new CommonApiExceptions(ExceptionType.PARAMETER_VALUE_ILLEGAL,"nickname은 필수 값입니다.");
+    public void changeLocation(String location) {
+        if (location != null && !location.isEmpty())
+            this.location = location;
+    }
+
+    public void changeExtraService(String extraService) {
+        if (extraService != null && !extraService.isEmpty())
+            this.extraService = extraService;
+    }
+
+    public void changeFacilites(String facilites) {
+        if (facilites != null && !facilites.isEmpty())
+            this.facilites = facilites;
+    }
+
+    /* ============================================================================================================== */
+
+    @Builder
+    public Gym(String name, String info, String openTime, String program, String location, String extraService, String facilites, GymStatus gymStatus) {
+        this.name = name;
+        this.info = info;
+        this.openTime = openTime;
+        this.program = program;
+        this.location = location;
+        this.extraService = extraService;
+        this.facilites = facilites;
+        this.gymStatus = gymStatus;
+    }
+
+    //Dto -> Entity로 변환(객체 생성)
+    public static Gym toEntity(GymReqDto gymReqDto) {
+        return Gym.builder()
+                .name(gymReqDto.getName())
+                .info(gymReqDto.getInfo())
+                .openTime(gymReqDto.getOpenTime())
+                .program(gymReqDto.getProgram())
+                .location(gymReqDto.getLocation())
+                .extraService(gymReqDto.getExtraService())
+                .facilites(gymReqDto.getFacilites())
+                .build();
 
     }
 
-    /**
-     * 로그인
-     */
-    @ApiOperation(value = "로그인", notes = "사용자 정보 확인 후 로그인 합니다.")
-    @PostMapping("/login")
-    public String login(@RequestBody @Valid LoginDto loginDto){
-        Member member = memberService.login(loginDto);
-
-//        if(passwordEncoder.matches(SHA256.getSHA256HashCode(loginDto.getPassword()), member.getPassword()))
-//            throw new IllegalArgumentException("잘못된 비밀번호 입니다");
-
-        return jwtTokenProvider.createJwtToken(member.getUserId(),member.getRoles());
-    }
-
-
-    /**
-     * 회원 등록
-     */
-    @ApiOperation(value = "회원 등록", notes = "신규 회원을 생성합니다.")
-    @PostMapping("")
-    public ResponseEntity<CommonResEntity> saveMember(
-            @RequestPart(value = "reqData") MemberReqDto reqDto,
-            @RequestPart(value = "images") List<MultipartFile> files,
-            @RequestParam(value = "gym-id" ) Long gymId){
-
-        checkReqDtoValidation(reqDto);
-        memberService.join(reqDto,gymId,files);
-
-        return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.CREATED, CommonResMessage.CREATED_USER_SUCCESS),
-                HttpStatus.CREATED
-        );
-    }
-
-    /**
-     * 회원 수정
-     */
-    @ApiOperation(value = "회원 수정", notes = "id를 받아 회원 정보를 수정합니다.")
-    @PatchMapping("/{id}")
-    public ResponseEntity<CommonResEntity> updateMember(
-            @RequestPart(value = "reqData") MemberReqDto udpDto,
-            @RequestPart(value = "images") List<MultipartFile> files,
-            @RequestParam(value = "gym-id" ) Long gymId,
-            @PathVariable("id") Long id){
-        MemberResDto memberResDto = memberService.updateMember(id, gymId,udpDto,files);
-
-        return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.UPDATE_USER_SUCCESS,memberResDto),
-                HttpStatus.OK
-        );
+    //Entity 수정을 위한 공통 메서드
+    @Override
+    public void updateEntity(GymReqDto gymReqDto) {
+        changeName(gymReqDto.getName());
+        changeInfo(gymReqDto.getInfo());
+        changeOpenTime(gymReqDto.getOpenTime());
+        changeProgram(gymReqDto.getProgram());
+        changeLocation(gymReqDto.getLocation());
+        changeExtraService(gymReqDto.getExtraService());
+        changeFacilites(gymReqDto.getFacilites());
 
     }
-
-    /**
-     * 모든 회원 조회
-     */
-    @ApiOperation(value = "전체 회원 조회", notes = "전체 회원을 조회합니다.")
-    @GetMapping("")
-    public ResponseEntity<CommonResEntity> findAllMembers(){
-        List<MemberResDto> resDtoList = memberService.findAllMembers();
-        MemberListDto memberListDto = new MemberListDto(resDtoList.size(), resDtoList);
-
-        return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_ALL_USER_SUCCESS,memberListDto),
-                HttpStatus.OK
-        );
-    }
-
-    /**
-     * 단일 회원 조회
-     */
-    @ApiOperation(value = "단일 회원 조회", notes = "id를 받아 회원을 조회합니다." )
-    @GetMapping("/{id}")
-    public ResponseEntity<CommonResEntity> findMember(@PathVariable("id") Long id){
-        MemberResDto resDto = memberService.findMember(id);
-
-        return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.READ_USER_SUCCESS,resDto),
-                HttpStatus.OK
-        );
-    }
-
-    /**
-     * 회원 삭제
-     */
-    @ApiOperation(value = "회원 삭제", notes = "id를 받아 회원을 삭제합니다.")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<CommonResEntity> deleteMember(@PathVariable("id") Long id){
-        memberService.quit(id);
-
-        return new ResponseEntity(
-                CommonResEntity.createResponse(StatusCode.OK, CommonResMessage.DELETE_USER_SUCCESS),
-                HttpStatus.OK
-        );
-    }
-
 
 }
 
 ~~~
+<br>
+
+- - -
+
+
+### PtReview 
+
+~~~java
+package health.real_pt.review.domain;
+
+import health.real_pt.common.BaseEntity;
+import health.real_pt.gym.domain.Gym;
+import health.real_pt.image.domain.PtReviewImage;
+import health.real_pt.member.domain.Member;
+import health.real_pt.review.dto.ptReview.PtReviewReqDto;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.FetchType.*;
+
+@Getter
+@Entity @Table(name = "PT_REVIEW")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
+@ToString(exclude = "")
+@EntityListeners({AuditingEntityListener.class})
+public class PtReview implements BaseEntity<PtReviewReqDto> {
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PT_REVIEW_ID")
+    private Long id;
+
+    @ManyToOne(fetch = LAZY)  //PT_REVIEW가 FK를 가지게 됨(연관관계 주인)
+    @JoinColumn(name = "PT_MEMBER_ID")
+    private Member pt;          //PT(Personal Trainer)
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "WRITER_MEMBER_ID")
+    private Member writer;      //작성 회원
+
+    @Column(name = "TOTAL")     //총점(별 5개중 별 몇개인지...)
+    private Long total;
+
+    @Lob
+    @Column(name = "COMMENT")
+    private String comment;     //리뷰 내용
+
+    @Column(name = "GOOD")
+    private Long good;          //도움이돼요 개수
+
+    @Column(name = "BAD")
+    private Long bad;           //도움 안되요 개수
+
+    @OneToMany(mappedBy = "ptReview", cascade = CascadeType.ALL, orphanRemoval = true)     //리뷰 삭제시 업로드 파일도 같이 삭제(orpahnRemoval -> 고아 객체 삭제)
+    private List<PtReviewImage> images =new ArrayList<>();
+
+
+    @CreatedDate  //Insert 쿼리 발생 시, 현재 시간을 값으로 채워서 쿼리를 생성 후 insert
+    @Column(name = "REG_DATE", updatable = false)
+    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+    private LocalDateTime regDate; //등록시간
+
+    @LastModifiedDate    //Update 쿼리 발생 시, 현재 시간을 값으로 채워서 쿼리를 생성 후 업데이트
+    @Column(name = "MOD_DATE")
+    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+    private LocalDateTime modDate; //수정시간
+
+    //===========================================================================================
+
+    @PrePersist
+    public void prePersist(){
+        good = (good == null ? 0: good);
+        bad = (bad == null ? 0: bad);
+    }
+
+    /**
+     *  setter 대신 도메인 필드 변경하는 메서드들(setter 사용 지양)
+     */
+
+    public void changePt(Member pt){
+        this.pt=pt;
+    }
+
+    public void changeWriter(Member writer){
+        this.writer=writer;
+    }
+
+    public void changeTotal(Long total){
+        this.total=total;
+    }
+
+    public void changeComment(String comment){
+        this.comment=comment;
+    }
+
+    public void addGood(){
+        this.good++;
+    }
+
+    public void subGood(){
+        this.good--;
+    }
+
+    public void addBad(){
+        this.bad++;
+    }
+
+    public void subBad(){
+        this.bad--;
+    }
+
+    //객체 생성(빌더 패턴)
+    @Builder
+    public PtReview(Member pt, Long total, String comment) {
+        this.pt = pt;
+        this.total = total;
+        this.comment = comment;
+    }
+
+    //Dto -> Entity로 변환(객체 생성)
+    public static PtReview toEntity(PtReviewReqDto reqDto){
+        return PtReview.builder()
+                .pt(reqDto.getPt())
+                .total(reqDto.getTotal())
+                .comment(reqDto.getComment())
+                .build();
+    }
+
+    //엔티티 수정(더티 체킹)
+    @Override
+    public void updateEntity(PtReviewReqDto ptReviewReqDto) {
+        if(ptReviewReqDto.getPt() != null)
+            changePt(ptReviewReqDto.getPt());
+
+        if(ptReviewReqDto.getComment() != null)
+            changeComment(ptReviewReqDto.getComment());
+
+        if(ptReviewReqDto.getTotal() != null)
+            changeTotal(ptReviewReqDto.getTotal());
+
+    }
+}
+
+
+~~~
+
+<br>
+
+- - -
+
+
+### PtPrice
+
+~~~java
+package health.real_pt.price.domain;
+
+import health.real_pt.common.BaseEntity;
+import health.real_pt.common.BaseTimeEntity;
+import health.real_pt.member.domain.Member;
+import health.real_pt.price.dto.ptPrice.PtPriceReqDto;
+import lombok.*;
+
+import javax.persistence.*;
+
+import static javax.persistence.FetchType.*;
+
+@Entity
+@Table(name = "PT_PRICE")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //파라미터 없는 기본 생성자 생성, 접근 제한을 Protected로 설정하여 외부에서 객체 생성을 허용하지 않음
+@ToString(exclude = "")
+public class PtPrice extends BaseTimeEntity implements BaseEntity<PtPriceReqDto> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PT_PRICE_ID")
+    private Long id;
+
+    @ManyToOne(fetch = LAZY)    //FK를 가지는 쪽이 Many, FetchType.Lazy로 설정하면 프록시 객체로 조회,GymPrice 엔티티만 DB에서 조회,
+    @JoinColumn(name = "MEMBER_ID")     //Member PK
+    private Member pt;          //Personal Trainer(개인 트레이너)
+
+    @Column(name = "REGULAR_PRICE")
+    private Long regularPrice;  //정상가
+
+    @Column(name = "DISCOUNT_PRICE")
+    private Long discountPrice; //할인가
+
+    @Column(name = "TIMES")
+    private String times;  //횟수 (ex. 10회, 20회, 30회 ... 혹은 OT 무료 x회)
+
+
+    /**
+     * setter 대신 도메인 객체 변경하는 메서드들(setter 사용 지양)
+     */
+
+    public void changeTrainer(Member trainer) {
+        this.pt = trainer;
+    }
+
+    public void changeRegularPrice(Long regularPrice) {
+        this.regularPrice = regularPrice;
+    }
+
+    public void changeDiscountPrice(Long discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public void changeTimes(String times) {
+        this.times = times;
+    }
+
+
+    // =========== 연관관계 편의 메서드
+
+    private void addPtPrice(Member pt){
+        this.pt=pt;
+        this.pt.getPrices().add(this);
+    }
+
+
+
+    /* ============================================================================================================== */
+
+    @Builder    //객체 생성(빌더 패턴)
+    public PtPrice(Member pt, Long regularPrice, Long discountPrice, String times) {
+        this.regularPrice = regularPrice;
+        this.discountPrice = discountPrice;
+        this.times = times;
+
+        addPtPrice(pt);
+    }
+
+    public static PtPrice toEntity(PtPriceReqDto ptPriceReqDto) {
+        return PtPrice.builder()
+                .pt(ptPriceReqDto.getPt())
+                .regularPrice(ptPriceReqDto.getRegularPrice())
+                .discountPrice(ptPriceReqDto.getDiscountPrice())
+                .times(ptPriceReqDto.getTimes())
+                .build();
+    }
+
+    @Override
+    public void updateEntity(PtPriceReqDto ptPriceReqDto) {
+        if (ptPriceReqDto.getPt() != null)
+            changeTrainer(ptPriceReqDto.getPt());
+
+        if (ptPriceReqDto.getDiscountPrice() != null)
+            changeDiscountPrice(ptPriceReqDto.getDiscountPrice());
+
+        if (ptPriceReqDto.getRegularPrice() != null)
+            changeRegularPrice(ptPriceReqDto.getRegularPrice());
+
+        if (ptPriceReqDto.getTimes() != null)
+            changeTimes(ptPriceReqDto.getTimes());
+    }
+}
+
+
+~~~
+
+
+
+
+
 
