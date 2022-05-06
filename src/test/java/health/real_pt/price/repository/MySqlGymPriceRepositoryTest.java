@@ -41,7 +41,7 @@ class MySqlGymPriceRepositoryTest {
                 .gym(gym)
                 .discountPrice(690000L)
                 .regularPrice(580000L)
-                .months(12)
+                .months("12")
                 .build();
 
         //when
@@ -65,7 +65,7 @@ class MySqlGymPriceRepositoryTest {
                 .gym(gym)
                 .discountPrice(120000L)
                 .regularPrice(180000L)
-                .months(3)
+                .months("3")
                 .build();
 
         //when

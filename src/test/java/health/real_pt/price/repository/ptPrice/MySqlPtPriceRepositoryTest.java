@@ -29,7 +29,7 @@ class MySqlPtPriceRepositoryTest {
 
 
         //when
-        List<PtPrice> all = ptPriceRepository.findAll(gymId, ptId);
+        List<PtPrice> all = ptPriceRepository.findAll(ptId);
 
         for (PtPrice ptPrice : all) {
             System.out.println("ptPrice = " + ptPrice);

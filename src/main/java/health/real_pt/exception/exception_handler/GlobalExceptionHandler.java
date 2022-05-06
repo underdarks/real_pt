@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     *
+     * 파라미터 유효하지 않을 때 에외
      */
     @ExceptionHandler(value = {IllegalArgumentException.class})
     public ResponseEntity<ErrorResponse> IllegalArgumentException(final IllegalArgumentException e){

@@ -14,7 +14,7 @@ import lombok.ToString;
 public class ErrorResponse {
 
     private String errorCode;     //에러 코드
-    private String errorMessage;       //에러 메시지
+    private String errorMessage;  //에러 메시지
     private String detail;        //상세 오류
 
     @Builder
