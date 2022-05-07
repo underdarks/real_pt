@@ -1,26 +1,20 @@
 package health.real_pt.gym.repository;
 
-import com.mysql.cj.exceptions.ExceptionInterceptor;
-import com.mysql.cj.exceptions.ExceptionInterceptorChain;
-import com.mysql.cj.jdbc.Clob;
+
 import health.real_pt.gym.domain.Gym;
 import health.real_pt.gym.domain.GymStatus;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Column;
-import javax.persistence.EntityManager;
-
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.function.Consumer;
+
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
