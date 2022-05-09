@@ -45,6 +45,7 @@ create table test (
 
 insert into test(conent) values ('테스트');
 
+
 select * from test;]]></console>
     </connection>
   </component>
@@ -55,6 +56,9 @@ select * from test;]]></console>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="aa7d0393-681d-46f5-baaa-49fe178d4846" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="aa7d0393-681d-46f5-baaa-49fe178d4846" dataset="realpt.test" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
