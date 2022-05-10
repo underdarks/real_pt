@@ -42,7 +42,9 @@
 
 <h2>개발 환경</h2>
 
-- 로컬 개발 환경(로컬 환경)
+- 개발 환경
+   - 운영 서버 : AWS EC2, RDS(Mysql)
+   - 개발 및 테스트 서버 : 로컬 환경
 - Spring Boot 2.6.3
 - JPA (Hibernate)
 - Java 11.0.13
