@@ -46,7 +46,9 @@ create table test (
 insert into test(conent) values ('테스트');
 
 
-select * from test;]]></console>
+select * from test;
+
+select * from gym g;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
