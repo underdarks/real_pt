@@ -27,16 +27,6 @@
 엔티티간의 상세한 관계는 기능별 문서에서 자세히 설명할 예정<br><br>
 
 ![erd](https://user-images.githubusercontent.com/41244406/164969291-369a8548-0731-48e7-a8eb-1ca217d47d82.PNG)
-
-
-<br>
-<h2>추후 개발 사항</h2>
-
-- <Strong>헬스 커뮤니티 기능 구현</Strong>
-- <Strong>1:1 대화 기능</Strong>
-- <Strong>코틀린을 활용하여 안드로이드 어플 개발 및 배포(어플 <-> API 서버 통신)</Strong>
-
-
   
 <br>
 
@@ -63,7 +53,7 @@
 <h2>API 테스트 및 문서 관리</h2>
 
 - <Strong>테스트 : 단위 테스트 & SpringBoot 통합 테스트, Postman</Strong>
-- <Strong>문서 관리 : Swaager</Strong>
+- <Strong>문서 관리 : Swaager</Strong>(http://3.39.200.110:8080/swagger-ui.html)
  
 ![swagger 1](https://user-images.githubusercontent.com/41244406/165130702-520bdf3e-48df-44ae-9eec-647038d8d5c3.PNG)
 ![swagger 2](https://user-images.githubusercontent.com/41244406/165130710-322eb8a9-51ba-4edb-aa92-245142a20459.PNG)
