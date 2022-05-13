@@ -25,7 +25,7 @@
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|POST|http://localhost:8080/api/v1/member|![회원등록_데이터](https://user-images.githubusercontent.com/41244406/164993929-3625d6f5-d78e-4bdc-8b91-f563f73cece7.PNG)|
+|POST|http://3.39.200.110:8080/api/v1/member|![회원등록_데이터](https://user-images.githubusercontent.com/41244406/164993929-3625d6f5-d78e-4bdc-8b91-f563f73cece7.PNG)|
 
 <br>
  
@@ -48,7 +48,7 @@ id와 pw를 넘겨 로그인 요청을 합니다. 로그인 성공시 응답으�
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|POST|http://localhost:8080/api/v1/member/login|![로그인_데이터](https://user-images.githubusercontent.com/41244406/164994443-a0bf6970-2018-4f23-b1ba-f19d8e337af9.PNG)|
+|POST|http://3.39.200.110:8080/api/v1/member/login|![로그인_데이터](https://user-images.githubusercontent.com/41244406/164994443-a0bf6970-2018-4f23-b1ba-f19d8e337af9.PNG)|
 
 <br>
  
@@ -67,7 +67,7 @@ id와 pw를 넘겨 로그인 요청을 합니다. 로그인 성공시 응답으�
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|PATCH|http://localhost:8080/api/v1/member/id|수정할 데이터 요청|
+|PATCH|http://3.39.200.110:8080/api/v1/member/id|수정할 데이터 요청|
 
 <br>
  
@@ -91,7 +91,7 @@ id와 pw를 넘겨 로그인 요청을 합니다. 로그인 성공시 응답으�
 > #### Request
  |메서드|요청 URL|요청 Data|
 |----|------|--------------|
-|GET|http://localhost:8080/api/v1/member/id||
+|GET|http://3.39.200.110:8080/api/v1/member/id||
 
 <br>
  
