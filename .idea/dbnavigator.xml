@@ -52,9 +52,7 @@ select * from gym g;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="aa7d0393-681d-46f5-baaa-49fe178d4846" object-ref="consoles/realpt-mysql" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="aa7d0393-681d-46f5-baaa-49fe178d4846" />
